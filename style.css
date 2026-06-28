@@ -148,7 +148,7 @@ a { text-decoration: none; color: inherit; }
 .footer-bottom small { font-size: 13px; color: var(--ink-soft); }
 
 /* Page hero (inner pages) */
-.page-hero { padding: 80px 0 64px; }
+.page-hero { padding-top: 80px; padding-bottom: 64px; }
 .page-hero .eyebrow { margin-bottom: 20px; }
 .page-hero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1; letter-spacing: -.02em; max-width: 18ch; }
 .page-hero h1 em { font-style: italic; color: var(--fjord); }
@@ -196,7 +196,7 @@ a { text-decoration: none; color: inherit; }
   /* Footer */
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-brand { grid-column: 1 / -1; }
-  .footer { padding: 56px 0 72px; }
+  .footer { padding-top: 56px; padding-bottom: 72px; }
 }
 
 @media (max-width: 640px) {
@@ -208,7 +208,7 @@ a { text-decoration: none; color: inherit; }
   .nav-logo img { height: 44px; }
 
   /* Page hero */
-  .page-hero { padding: 48px 0 40px; }
+  .page-hero { padding-top: 48px; padding-bottom: 40px; }
 
   /* Footer */
   .footer-grid { grid-template-columns: 1fr; }
