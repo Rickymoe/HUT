@@ -201,7 +201,7 @@ a { text-decoration: none; color: inherit; }
 
 @media (max-width: 640px) {
   .wrap { padding: 0 20px; }
-  .section { padding: 52px 0; }
+  .section { padding-top: 52px; padding-bottom: 52px; }
 
   /* Nav */
   .nav .wrap { height: 68px; }
