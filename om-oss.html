@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
-  .om-full-section { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; padding: 80px 0; }
+  .om-full-section { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; padding-top: 80px; padding-bottom: 80px; }
   .om-left h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1.05; margin: 16px 0 20px; }
   .om-left h1 em { font-style: italic; color: var(--fjord); }
   .om-left .lead { font-size: 17px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 48px; }
@@ -63,8 +63,8 @@
   .eier-kontakt a { font-size: 13px; color: var(--fjord); font-weight: 500; }
 
   @media (max-width: 860px) {
-    .om-full-section { grid-template-columns: 1fr; gap: 40px; }
-    .om-right { display: none; }
+    .om-full-section { grid-template-columns: 1fr; gap: 32px; }
+    .om-blomst { border-radius: 12px; }
     .om-grid { grid-template-columns: 1fr; gap: 40px; }
     .verdier-grid { grid-template-columns: 1fr 1fr; }
     .eiere-grid { grid-template-columns: 1fr; }
