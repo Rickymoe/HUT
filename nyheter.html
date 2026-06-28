@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aktuelt – Holmestrand Utvikling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .ncard {
+    background: #fff; border: 1px solid var(--line); border-radius: 18px;
+    overflow: hidden; display: flex; flex-direction: column;
+    transition: transform .3s, box-shadow .3s; text-decoration: none; color: inherit;
+  }
+  .ncard:hover { transform: translateY(-4px); box-shadow: 0 20px 44px -14px rgba(4,49,58,.16); }
+
+  .ncard-img {
+    height: 200px; overflow: hidden; position: relative;
+    background: linear-gradient(135deg, var(--fjord), var(--ink));
+    flex-shrink: 0;
+  }
+  .ncard-img img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform .5s ease;
+  }
+  .ncard:hover .ncard-img img { transform: scale(1.04); }
+
+  .ncard-source {
+    position: absolute; bottom: 12px; left: 14px;
+    font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    background: rgba(4,49,58,.5); color: rgba(244,241,233,.9);
+    padding: 4px 10px; border-radius: 100px; backdrop-filter: blur(6px);
+  }
+
+  .ncard-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+  .ncard-meta {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; color: var(--ink-soft); margin-bottom: 12px;
+  }
+  .ncard-meta .cat {
+    font-weight: 600; color: var(--ember); letter-spacing: .06em; text-transform: uppercase;
+  }
+  .ncard-meta .sep { color: var(--line); }
+  .ncard-body h2 {
+    font-family: var(--serif); font-weight: 500;
+    font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.35;
+    margin-bottom: 10px;
+  }
+  .ncard-body p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; flex: 1; }
+  .ncard-footer {
+    margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .ncard-footer .read {
+    font-size: 13px; font-weight: 600; color: var(--ember);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .ncard-footer .ext-icon { width: 13px; height: 13px; flex-shrink: 0; }
+
+  /* Tom tilstand */
+  .news-empty {
+    grid-column: 1 / -1; text-align: center;
+    padding: 80px 20px; color: var(--ink-soft); font-size: 15px;
+  }
+
+  @media (max-width: 900px) { .news-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .news-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html" class="nav-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></a>
+    <ul class="nav-links">
+      <li><a href="til-leie.html">Til leie</a></li>
+      <li><a href="prosjekter.html">Prosjekter</a></li>
+      <li><a href="sentrumsutvikling.html">Sentrumsutvikling</a></li>
+      <li><a href="nyheter.html" class="active">Aktuelt</a></li>
+      <li><a href="om-oss.html">Om oss</a></li>
+    </ul>
+    <a href="kontakt.html" class="nav-cta">Kontakt</a>
+    <button class="nav-hamburger" aria-label="Meny" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero wrap">
+  <div class="eyebrow reveal">Nyheter og presseklipp</div>
+  <h1 class="reveal" style="transition-delay:.08s">Aktuelt fra <em>Holmestrand</em></h1>
+  <p class="lead reveal" style="transition-delay:.16s">
+    Prosjektoppdateringer, leietakerprofiler og presseklipp om Holmestrand sentrum.
+  </p>
+</div>
+
+<section class="section wrap" style="padding-top:0; border-top:none">
+  <div class="news-grid" id="news-grid">
+    <p class="news-empty">Laster nyheter…</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></div>
+        <p>Vi utvikler sentrum for dem som skal leve og jobbe i Holmestrand – fra fjord til fjell.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Utforsk</h4>
+        <ul>
+          <li><a href="til-leie.html">Til leie</a></li>
+          <li><a href="prosjekter.html">Prosjekter</a></li>
+          <li><a href="sentrumsutvikling.html">Sentrumsutvikling</a></li>
+          <li><a href="nyheter.html">Aktuelt</a></li>
+          <li><a href="om-oss.html">Om oss</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="mailto:post@holmestrandutvikling.no">post@holmestrandutvikling.no</a></li>
+          <li><a href="tel:+4733097700">+47 33 09 77 00</a></li>
+          <li><a href="kontakt.html">Kontaktskjema</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <small>© 2025 Holmestrand Utvikling AS</small>
+      <small>Fjord &amp; Lyng</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 60); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  const extIcon = `<svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+
+  function renderCard(item, idx) {
+    const cardImg = item.thumbnail ?? item.image;
+    const imgHtml = cardImg
+      ? `<img src="${cardImg}" alt="${item.title}" loading="lazy">`
+      : '';
+    const readLabel = item.external ? `Les på ${item.source} ${extIcon}` : `Les mer →`;
+    const target    = item.external ? ' target="_blank" rel="noopener"' : '';
+
+    return `
+      <a href="${item.url}"${target} class="ncard reveal" style="transition-delay:${idx * 80}ms">
+        <div class="ncard-img">
+          ${imgHtml}
+          <span class="ncard-source">${item.source}</span>
+        </div>
+        <div class="ncard-body">
+          <div class="ncard-meta">
+            <span class="cat">${item.category}</span>
+            <span class="sep">·</span>
+            <span>${item.dateLabel}</span>
+          </div>
+          <h2>${item.title}</h2>
+          <p>${item.ingress}</p>
+          <div class="ncard-footer">
+            <span class="read">${readLabel}</span>
+          </div>
+        </div>
+      </a>`;
+  }
+
+  /* ===== NYHETER – legg til nye oppføringer her =====
+     Kopier et eksisterende objekt og fyll inn nye verdier.
+     external: true  → lenker åpner i ny fane
+     external: false → lenker åpner på samme nettsted            */
+  const NEWS = [
+    {
+      id: "langgaten-33-hana-mat",
+      title: "Visste du at du enkelt kan spare titusener på kjøp av frukt & grønt?",
+      source: "Aftenposten",
+      date: "2025-02-07",
+      dateLabel: "7. februar 2025",
+      category: "Leietakere",
+      ingress: "Hana Mat i Langgaten 33 er en lokal importbutikk som holder til i Holmestrand sentrum. Ifølge Aftenposten kan du spare tusenvis av kroner i året ved å handle frukt og grønt hos en innvandrerbutikk fremfor dagligvarekjedene.",
+      thumbnail: "Media/langgaten-33-hana-mat/Langgaten-33-hana-mat-litenbilde.png",
+      image: "Media/langgaten-33-hana-mat/langgaten-33-hana-mat.jpg",
+      url: "artikkel.html?id=langgaten-33-hana-mat",
+      external: false
+    },
+    {
+      id: "langgaten-24-loft-for-sentrum",
+      title: "Nye Langgaten 24 vil bli et betydelig løft for sentrum",
+      source: "ByHorten.no",
+      date: "2025-03-13",
+      dateLabel: "13. mars 2025",
+      category: "Prosjekter",
+      ingress: "Holmestrand vokser. Det nye prosjektet «Langgaten 24» vil endre byens sentrum. På stedet der det tidligere var en bensinstasjon, skal det bygges en 5-etasjes og en 16-etasjes bygning, hvor leiligheter og næringsliv vil bli kombinert.",
+      image: "Media/langgaten-24-loft-for-sentrum/langgaten-24-loft-for-sentrum.jpg",
+      url: "artikkel.html?id=langgaten-24-loft-for-sentrum",
+      external: false
+    }
+  ];
+  /* ===== SLUTT NYHETER ===== */
+
+  const grid = document.getElementById('news-grid');
+  if (!NEWS.length) {
+    grid.innerHTML = '<p class="news-empty">Ingen nyheter er lagt til ennå.</p>';
+  } else {
+    grid.innerHTML = NEWS.map(renderCard).join('');
+    grid.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  }
+</script>
+<script src="main.js"></script>
+</body>
+</html>

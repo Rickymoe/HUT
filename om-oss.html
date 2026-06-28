@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Om oss – Holmestrand Utvikling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .om-full-section { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; padding: 80px 0; }
+  .om-left h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1.05; margin: 16px 0 20px; }
+  .om-left h1 em { font-style: italic; color: var(--fjord); }
+  .om-left .lead { font-size: 17px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 48px; }
+  .om-tekst { margin-top: 0; }
+  .om-tekst h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.8rem, 3vw, 2.8rem); line-height: 1.1; margin-bottom: 28px; }
+  .om-tekst h2 em { font-style: italic; color: var(--fjord); }
+  .om-tekst p { font-size: 16px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 20px; }
+  .om-right { position: relative; }
+  .om-blomst { width: 100%; border-radius: 16px; display: block; }
+  .om-right .info-box {
+    position: absolute;
+    left: 24px; right: 24px;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.35);
+    color: var(--ink);
+  }
+  .om-right .info-box:first-of-type { bottom: calc(50% + 12px); }
+  .om-right .info-box:last-of-type  { bottom: 24px; }
+  .info-box { background: rgba(255,255,255,0.55); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.6); border-radius: 16px; padding: 28px; }
+  .info-box h4 { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 14px; }
+  .info-box p { font-size: 15px; color: var(--ink); line-height: 1.6; }
+  .info-box a { color: var(--fjord); font-weight: 500; }
+
+  .verdier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .verdi { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 32px; }
+  .verdi .ikon { width: 44px; height: 44px; border-radius: 12px; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; }
+  .verdi .ikon.fjord { background: var(--mist); }
+  .verdi .ikon.ember { background: #e8f0d0; }
+  .verdi .ikon.sand  { background: var(--sand); }
+  .verdi .ikon svg { width: 22px; height: 22px; }
+  .verdi h3 { font-family: var(--serif); font-weight: 500; font-size: 1.15rem; margin-bottom: 10px; }
+  .verdi p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
+
+  .sitat {
+    background: var(--ink); color: var(--paper); border-radius: 20px; padding: 64px 52px;
+    text-align: center;
+  }
+  .sitat q { font-family: var(--serif); font-style: italic; font-size: clamp(1.4rem, 3vw, 2.2rem); line-height: 1.3; quotes: none; }
+  .sitat q em { color: var(--mist); font-style: normal; }
+  .sitat cite { display: block; margin-top: 22px; font-size: 14px; color: rgba(188,217,224,.7); font-style: normal; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+
+  .eiere-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .eier-gruppe { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+  .eier-gruppenavn { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--paper); background: var(--ink); padding: 14px 24px; }
+  .eier-rad { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 16px 24px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .eier-rad:last-child { border-bottom: none; }
+  .eier-navn { font-size: 15px; font-weight: 600; }
+  .eier-tittel { font-size: 12px; font-weight: 500; color: var(--ink-soft); margin-left: 8px; }
+  .eier-kontakt { display: flex; gap: 16px; flex-wrap: wrap; }
+  .eier-kontakt a { font-size: 13px; color: var(--fjord); font-weight: 500; }
+
+  @media (max-width: 860px) {
+    .om-grid { grid-template-columns: 1fr; gap: 40px; }
+    .verdier-grid { grid-template-columns: 1fr 1fr; }
+    .eiere-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .verdier-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html" class="nav-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></a>
+    <ul class="nav-links">
+      <li><a href="til-leie.html">Til leie</a></li>
+      <li><a href="prosjekter.html">Prosjekter</a></li>
+      <li><a href="sentrumsutvikling.html">Sentrumsutvikling</a></li>
+      <li><a href="nyheter.html">Aktuelt</a></li>
+      <li><a href="om-oss.html" class="active">Om oss</a></li>
+    </ul>
+    <a href="kontakt.html" class="nav-cta">Kontakt</a>
+    <button class="nav-hamburger" aria-label="Meny" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="om-full-section wrap">
+  <div class="om-left">
+    <div class="eyebrow reveal">Selskapet</div>
+    <h1 class="reveal" style="transition-delay:.08s">Forankret i <em>Holmestrand</em></h1>
+    <p class="lead reveal" style="transition-delay:.16s">Vi er et lokalt eiendomsutviklingsselskap med ett mål: å gjøre Holmestrand til et sted folk vil leve, jobbe og trives.</p>
+
+    <div class="om-tekst reveal" style="transition-delay:.24s">
+      <h2>Eiendomsdrift og <em>utvikling</em> i sentrum</h2>
+      <p>Vi drifter vår eiendomsmasse i egen regi og har ca. 200 leieforhold med stort og smått. I sentrum leier vi ut butikklokaler, kontorer til både private og offentlige aktører, leiligheter, minilager og annen sentrumsrelatert virksomhet.</p>
+      <p>Vi har også en næringspark i Våleveien 29 i Holmestrand hvor vi leier ut til lettere produksjonsbedrifter, håndverkere, lager og mindre boder.</p>
+      <p>Vi er et eiendomsselskap med fokus på å utvikle sentrumssonen i Holmestrand. Vi ønsker å skape et fremtidsrettet sentrum både når det gjelder handel, kontorer, boliger og andre naturlige sentrumsfunksjoner.</p>
+    </div>
+  </div>
+
+  <div class="om-right reveal" style="transition-delay:.1s">
+    <img src="Bilder/Blomst1.jpg" alt="Blomster i Holmestrand sentrum" class="om-blomst">
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="section-head reveal">
+    <h2>Selskapets eiere</h2>
+  </div>
+  <div class="eiere-grid reveal">
+    <div class="eier-gruppe">
+      <div class="eier-gruppenavn">Holmestrand Utvikling AS</div>
+      <div class="eier-rad">
+        <div class="eier-navn">Øistein Hjelmtvedt</div>
+        <div class="eier-kontakt">
+          <a href="tel:+4791551710">915 51 710</a>
+          <a href="mailto:oistein@holmestrandutvikling.no">oistein@holmestrandutvikling.no</a>
+        </div>
+      </div>
+      <div class="eier-rad">
+        <div class="eier-navn">Terje Karlsen</div>
+        <div class="eier-kontakt">
+          <a href="tel:+4791776500">917 76 500</a>
+          <a href="mailto:terje@holmestrandutvikling.no">terje@holmestrandutvikling.no</a>
+        </div>
+      </div>
+      <div class="eier-rad">
+        <div class="eier-navn">Jan Idar Flått</div>
+        <div class="eier-kontakt">
+          <a href="mailto:jan@holmestrandutvikling.no">jan@holmestrandutvikling.no</a>
+        </div>
+      </div>
+    </div>
+    <div class="eier-gruppe">
+      <div class="eier-gruppenavn">ENATA Eiendom AS</div>
+      <div class="eier-rad">
+        <div class="eier-navn">Espen Klevmark <span class="eier-tittel">Styreformann</span></div>
+        <div class="eier-kontakt">
+          <a href="tel:+4790023111">900 23 111</a>
+          <a href="mailto:espen@enata.no">espen@enata.no</a>
+        </div>
+      </div>
+      <div class="eier-rad">
+        <div class="eier-navn">Jon Sæther Storli</div>
+        <div class="eier-kontakt"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="verdier-grid">
+    <div class="verdi reveal">
+      <div class="ikon fjord">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#007898" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <h3>Lokal forankring</h3>
+      <p>Vi kjenner Holmestrand fra innsiden. Alle beslutninger tas med byens beste for øye – ikke kortsiktig profitt.</p>
+    </div>
+    <div class="verdi reveal" style="transition-delay:.07s">
+      <div class="ikon ember">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#687830" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <h3>Langsiktig tenkning</h3>
+      <p>Vi utvikler for generasjoner, ikke for neste kvartal. Kvalitet, bærekraft og varig verdi er ikke kompromisser.</p>
+    </div>
+    <div class="verdi reveal" style="transition-delay:.14s">
+      <div class="ikon sand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#3f4f4d" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h3>Partnerskap</h3>
+      <p>Gode leietakerforhold bygges på tillit og dialog. Vi er tilgjengelige, tydelige og holder det vi lover.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></div>
+        <p>Vi utvikler sentrum for dem som skal leve og jobbe i Holmestrand – fra fjord til fjell.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Utforsk</h4>
+        <ul>
+          <li><a href="til-leie.html">Til leie</a></li>
+          <li><a href="prosjekter.html">Prosjekter</a></li>
+          <li><a href="sentrumsutvikling.html">Sentrumsutvikling</a></li>
+          <li><a href="nyheter.html">Aktuelt</a></li>
+          <li><a href="om-oss.html">Om oss</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="mailto:post@holmestrandutvikling.no">post@holmestrandutvikling.no</a></li>
+          <li><a href="tel:+4733097700">+47 33 09 77 00</a></li>
+          <li><a href="kontakt.html">Kontaktskjema</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <small>© 2025 Holmestrand Utvikling AS</small>
+      <small>Fjord &amp; Lyng</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 60); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<script src="main.js"></script>
+</body>
+</html>

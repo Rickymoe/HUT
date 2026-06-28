@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontakt – Holmestrand Utvikling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .kontakt-grid { display: grid; grid-template-columns: 1fr 420px; gap: 64px; align-items: start; }
+
+  /* Form */
+  .form-card { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 40px; }
+  .form-card h2 { font-family: var(--serif); font-weight: 500; font-size: 1.6rem; margin-bottom: 28px; }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--ink-soft); margin-bottom: 8px; letter-spacing: .04em; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%; padding: 13px 16px; border: 1px solid var(--line);
+    border-radius: 10px; font-family: var(--sans); font-size: 15px; color: var(--ink);
+    background: var(--paper); transition: border-color .2s, box-shadow .2s;
+    outline: none; appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--fjord);
+    box-shadow: 0 0 0 3px rgba(0,120,152,.12);
+  }
+  .form-group textarea { resize: vertical; min-height: 130px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-submit { width: 100%; margin-top: 8px; }
+  .form-note { font-size: 12px; color: var(--ink-soft); margin-top: 12px; text-align: center; }
+
+  /* Success message */
+  .form-success { display: none; text-align: center; padding: 32px 0; }
+  .form-success .check { width: 56px; height: 56px; background: #e8f5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; }
+  .form-success .check svg { width: 28px; height: 28px; fill: #2e7d32; }
+  .form-success h3 { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 10px; }
+  .form-success p { font-size: 14px; color: var(--ink-soft); }
+
+  /* Side info */
+  .kontakt-info { display: flex; flex-direction: column; gap: 20px; }
+  .kinfo-box { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 26px; }
+  .kinfo-box h4 { font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 14px; }
+  .kinfo-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+  .kinfo-row:last-child { margin-bottom: 0; }
+  .kinfo-row svg { width: 18px; height: 18px; fill: var(--fjord); flex-shrink: 0; margin-top: 2px; }
+  .kinfo-row span { font-size: 15px; line-height: 1.5; }
+  .kinfo-row a { color: var(--fjord); font-weight: 500; }
+  .kmap { border-radius: 14px; overflow: hidden; height: 200px; background: linear-gradient(135deg, var(--mist), var(--sand)); display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); }
+  .kmap p { font-size: 14px; color: var(--ink-soft); }
+
+  @media (max-width: 860px) {
+    .kontakt-grid { grid-template-columns: 1fr; gap: 32px; }
+    .kontakt-info { order: -1; }
+  }
+  @media (max-width: 500px) {
+    .form-row { grid-template-columns: 1fr; }
+    .form-card { padding: 28px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html" class="nav-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></a>
+    <ul class="nav-links">
+      <li><a href="til-leie.html">Til leie</a></li>
+      <li><a href="prosjekter.html">Prosjekter</a></li>
+      <li><a href="sentrumsutvikling.html">Sentrumsutvikling</a></li>
+      <li><a href="nyheter.html">Aktuelt</a></li>
+      <li><a href="om-oss.html">Om oss</a></li>
+    </ul>
+    <a href="kontakt.html" class="nav-cta active" style="background:var(--fjord)">Kontakt</a>
+    <button class="nav-hamburger" aria-label="Meny" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero wrap">
+  <div class="eyebrow reveal">Ta kontakt</div>
+  <h1 class="reveal" style="transition-delay:.08s">Vi hører <em>gjerne</em> fra deg</h1>
+  <p class="lead reveal" style="transition-delay:.16s">
+    Spørsmål om lokaler, prosjekter eller samarbeid? Send oss en melding.
+  </p>
+</div>
+
+<section class="section wrap" style="padding-top:0;border-top:none">
+  <div class="kontakt-grid">
+    <div class="form-card reveal" id="form-card">
+      <h2>Send en melding</h2>
+      <form id="kontakt-form" onsubmit="sendForm(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="navn">Navn</label>
+            <input type="text" id="navn" name="navn" placeholder="Ditt navn" required>
+          </div>
+          <div class="form-group">
+            <label for="epost">E-post</label>
+            <input type="email" id="epost" name="epost" placeholder="din@epost.no" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="tlf">Telefon (valgfritt)</label>
+          <input type="tel" id="tlf" name="tlf" placeholder="+47 000 00 000">
+        </div>
+        <div class="form-group">
+          <label for="emne">Gjelder</label>
+          <select id="emne" name="emne">
+            <option value="">Velg kategori</option>
+            <option value="utleie-naering">Utleie næring</option>
+            <option value="utleie-bolig">Utleie bolig</option>
+            <option value="prosjekter">Prosjekter</option>
+            <option value="annet">Annet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="melding">Melding</label>
+          <textarea id="melding" name="melding" placeholder="Beskriv hva du lurer på..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-ember form-submit">Send melding</button>
+        <p class="form-note">Vi svarer som regel innen én arbeidsdag.</p>
+      </form>
+      <div class="form-success" id="form-success">
+        <div class="check">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        </div>
+        <h3>Takk for meldingen!</h3>
+        <p>Vi tar kontakt snart.</p>
+      </div>
+    </div>
+
+    <div class="kontakt-info reveal" style="transition-delay:.1s">
+      <div class="kinfo-box">
+        <h4>Finn oss</h4>
+        <div class="kinfo-row">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+          <span>Dr. Graaruds Plass 3<br>3080 Holmestrand</span>
+        </div>
+      </div>
+      <div class="kinfo-box">
+        <h4>Kontaktinfo</h4>
+        <div class="kinfo-row">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <span><a href="mailto:post@holmestrandutvikling.no">post@holmestrandutvikling.no</a></span>
+        </div>
+        <div class="kinfo-row">
+          <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          <span><a href="tel:+4733097700">+47 33 09 77 00</a></span>
+        </div>
+      </div>
+      <div class="kinfo-box">
+        <h4>Åpningstider</h4>
+        <div class="kinfo-row">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#007898" stroke-width="2"/><polyline points="12 6 12 12 16 14" fill="none" stroke="#007898" stroke-width="2" stroke-linecap="round"/></svg>
+          <span>Mandag–fredag<br>08:30–16:00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></div>
+        <p>Vi utvikler sentrum for dem som skal leve og jobbe i Holmestrand – fra fjord til fjell.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Utforsk</h4>
+        <ul>
+          <li><a href="til-leie.html">Til leie</a></li>
+          <li><a href="prosjekter.html">Prosjekter</a></li>
+          <li><a href="sentrumsutvikling.html">Sentrumsutvikling</a></li>
+          <li><a href="nyheter.html">Aktuelt</a></li>
+      <li><a href="om-oss.html">Om oss</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="mailto:post@holmestrandutvikling.no">post@holmestrandutvikling.no</a></li>
+          <li><a href="tel:+4733097700">+47 33 09 77 00</a></li>
+          <li><a href="kontakt.html">Kontaktskjema</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <small>© 2025 Holmestrand Utvikling AS</small>
+      <small>Fjord &amp; Lyng</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 60); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  function sendForm(e) {
+    e.preventDefault();
+    document.getElementById('kontakt-form').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }
+</script>
+<script src="main.js"></script>
+</body>
+</html>

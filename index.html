@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holmestrand Utvikling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Hero karusell */
+  .hero {
+    position: relative; overflow: hidden; color: var(--paper);
+    height: clamp(520px, 80vh, 860px);
+  }
+
+  /* Slides */
+  .hero-slides { position: absolute; inset: 0; }
+  .hero-slide {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    opacity: 0; transition: opacity 0.6s ease-in-out;
+  }
+  .hero-slide.active { opacity: 1; }
+  /* Dark gradient overlay so text is always readable */
+  .hero-slide::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(
+      105deg,
+      rgba(4,49,58,.72) 0%,
+      rgba(4,49,58,.38) 55%,
+      rgba(4,49,58,.10) 100%
+    );
+  }
+
+  /* Text content */
+  .hero-inner {
+    position: absolute; inset: 0; z-index: 2;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding-bottom: 100px;
+  }
+  .hero .eyebrow { color: rgba(174,184,123,.92); }
+  .hero .eyebrow::before { background: rgba(174,184,123,.92); }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(2.6rem, 6vw, 5rem); line-height: .98; letter-spacing: -.025em;
+    margin: 20px 0 0; max-width: 16ch;
+    text-shadow: 0 2px 24px rgba(4,49,58,.4);
+  }
+  .hero h1 em { font-style: italic; color: var(--mist); }
+  .hero .lead {
+    font-size: clamp(.95rem, 1.4vw, 1.15rem); color: rgba(244,241,233,.85);
+    max-width: 48ch; margin-top: 20px;
+    text-shadow: 0 1px 12px rgba(4,49,58,.5);
+  }
+  .hero-btns { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
+
+  /* Dots */
+  .hero-dots {
+    position: absolute; bottom: 52px; right: 40px; z-index: 4;
+    display: flex; gap: 8px; align-items: center;
+  }
+  .hero-dot {
+    width: 8px; height: 8px; border-radius: 100px;
+    background: rgba(244,241,233,.4); border: none; cursor: pointer; padding: 0;
+    transition: background .3s, width .3s;
+  }
+  .hero-dot.active { background: var(--paper); width: 24px; }
+
+  /* Prev/next arrows */
+  .hero-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 4;
+    background: rgba(4,49,58,.35); backdrop-filter: blur(6px);
+    border: 1px solid rgba(244,241,233,.2); color: var(--paper);
+    width: 44px; height: 44px; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .25s; font-size: 18px;
+  }
+  .hero-arrow:hover { background: rgba(4,49,58,.6); }
+  .hero-arrow.prev { left: 20px; }
+  .hero-arrow.next { right: 20px; }
+
+  @media (max-width: 600px) {
+    .hero { height: clamp(420px, 75vh, 600px); }
+    .hero-inner { padding-bottom: 80px; }
+    .hero-arrow { display: none; }
+    .hero-dots { right: 20px; }
+  }
+
+  /* Quick cards */
+  .quick-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border-bottom: 1px solid var(--line); }
+  .qcard {
+    background: #fff; padding: 38px 32px;
+    transition: background .3s; display: flex; flex-direction: column;
+  }
+  .qcard:hover { background: var(--paper); }
+  .qcard .k { font-family: var(--serif); font-size: 32px; color: var(--fjord); font-weight: 500; }
+  .qcard h3 { font-size: 17px; font-weight: 600; margin: 16px 0 10px; }
+  .qcard p { font-size: 14px; color: var(--ink-soft); flex: 1; }
+  .qcard .arrow { margin-top: 22px; font-size: 14px; font-weight: 600; color: var(--ember); display: inline-flex; align-items: center; gap: 6px; transition: gap .2s; }
+  .qcard:hover .arrow { gap: 10px; }
+  .finn-badge {
+    background: #06BEFB; color: #fff;
+    font-size: 10px; font-weight: 800; letter-spacing: .03em;
+    padding: 3px 7px; border-radius: 4px; line-height: 1;
+  }
+
+  /* Prosjekter */
+  .prosjekt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .pcard { background: #fff; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; transition: transform .3s, box-shadow .3s; }
+  .pcard:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -16px rgba(4,49,58,.18); }
+  .pcard-img {
+    height: 200px; position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #003a49, #007898);
+  }
+  .pcard-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
+  .pcard:hover .pcard-img img { transform: scale(1.05); }
+  .pcard-img.c0 { background: linear-gradient(135deg, #003a49, #007898); }
+  .pcard-img.c1 { background: linear-gradient(135deg, #1f93ad, #004a5c); }
+  .pcard-img.c2 { background: linear-gradient(135deg, #687830, #04313a); }
+  .pcard-body { padding: 24px; }
+  .pcard-body .pill { margin-bottom: 12px; display: inline-block; }
+  .pcard-body h3 { font-family: var(--serif); font-weight: 500; font-size: 1.2rem; margin-bottom: 8px; }
+  .pcard-body p { font-size: 14px; color: var(--ink-soft); line-height: 1.65; }
+  .pcard-meta { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+  .pcard-meta span { font-size: 12px; color: var(--ink-soft); font-weight: 500; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--ink); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+  .stat { background: var(--ink); color: var(--paper); padding: 48px 36px; text-align: center; }
+  .stat .tall { font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 400; }
+  .stat .tall em { font-style: italic; color: var(--mist); }
+  .stat p { font-size: 12px; color: rgba(188,217,224,.7); margin-top: 8px; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; }
+
+  /* Lokaler list */
+  .lokale-list { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+  .lokale-row { background: #fff; padding: 24px 28px; display: flex; align-items: center; gap: 20px; transition: background .2s; }
+  .lokale-row:hover { background: var(--paper); }
+  .lokale-thumb {
+    width: 60px; height: 60px; border-radius: 12px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--fjord), var(--ink));
+    display: flex; align-items: center; justify-content: center;
+  }
+  .lokale-thumb.bolig { background: linear-gradient(135deg, var(--ember), var(--ink)); }
+  .lokale-thumb svg { width: 24px; height: 24px; fill: rgba(244,241,233,.75); }
+  .lokale-info { flex: 1; min-width: 0; }
+  .lokale-info h4 { font-size: 15px; font-weight: 600; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .lokale-info p { font-size: 13px; color: var(--ink-soft); }
+  .lokale-arrow { font-size: 20px; color: var(--sand-deep); flex-shrink: 0; }
+
+  @media (max-width: 900px) {
+    .quick-cards { grid-template-columns: 1fr 1fr; }
+    .prosjekt-grid { grid-template-columns: 1fr 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .hero { height: clamp(400px, 72vh, 560px); }
+    .hero-inner { padding-bottom: 72px; }
+    .quick-cards { grid-template-columns: 1fr; }
+    .prosjekt-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat { padding: 32px 20px; }
+    .lokale-row { padding: 16px 18px; gap: 14px; }
+    .lokale-thumb { width: 48px; height: 48px; }
+    .qcard { padding: 28px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html" class="nav-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></a>
+    <ul class="nav-links">
+      <li><a href="til-leie.html">Til leie</a></li>
+      <li><a href="prosjekter.html">Prosjekter</a></li>
+      <li><a href="sentrumsutvikling.html">Sentrumsutvikling</a></li>
+      <li><a href="nyheter.html">Aktuelt</a></li>
+      <li><a href="om-oss.html">Om oss</a></li>
+    </ul>
+    <a href="kontakt.html" class="nav-cta">Kontakt</a>
+    <button class="nav-hamburger" aria-label="Meny" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- Hero karusell -->
+<section class="hero">
+  <div class="hero-slides">
+    <div class="hero-slide active" style="background-image:url('Prosjekter/Karusell/Langgaten24.0.png')"></div>
+    <div class="hero-slide" style="background-image:url('Prosjekter/Karusell/Langgaten24.1.png')"></div>
+    <div class="hero-slide" style="background-image:url('Prosjekter/Karusell/Langgaten24.2.png')"></div>
+    <div class="hero-slide" style="background-image:url('Prosjekter/Karusell/Langgaten24.3.png')"></div>
+    <div class="hero-slide" style="background-image:url('Prosjekter/Karusell/Langgaten24.4.png')"></div>
+    <div class="hero-slide" style="background-image:url('Prosjekter/Karusell/Langgaten24.5.png')"></div>
+    <div class="hero-slide" style="background-image:url('Prosjekter/Karusell/Langgaten24.6.png')"></div>
+    <div class="hero-slide" style="background-image:url('Prosjekter/Karusell/Langgaten24.7.png')"></div>
+  </div>
+
+  <div class="hero-inner wrap">
+    <div class="eyebrow">Visjoner · Planer · Utvikling</div>
+    <h1>Vi bygger <em>byen</em> for dem som skal leve i den</h1>
+    <p class="lead">
+      Næringslokaler, boliger og helhetlig sentrumsutvikling i hjertet av Holmestrand –
+      fra Bibliotekkvartalet til Holmestrand Brygge.
+    </p>
+    <div class="hero-btns">
+      <a href="til-leie.html" class="btn btn-ember">Se ledige lokaler</a>
+      <a href="prosjekter.html" class="btn btn-ghost">Våre prosjekter</a>
+    </div>
+  </div>
+
+  <button class="hero-arrow prev" aria-label="Forrige">&#8249;</button>
+  <button class="hero-arrow next" aria-label="Neste">&#8250;</button>
+
+  <div class="hero-dots" id="hero-dots"></div>
+
+</section>
+
+<!-- Quick access -->
+<div class="quick-cards">
+  <a href="https://www.finn.no/realestate/businessrent/search.html?orgId=707555245"
+     target="_blank" rel="noopener" class="qcard reveal">
+    <div class="k">01</div>
+    <h3>Utleie næring</h3>
+    <p>Kontor, butikk, kontorhotell, parkering og lager sentralt i Holmestrand.</p>
+    <div class="arrow">
+      <span class="finn-badge">FINN</span>
+      Se lokaler
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </div>
+  </a>
+  <a href="https://www.finn.no/realestate/lettings/search.html?orgId=707555245"
+     target="_blank" rel="noopener" class="qcard reveal" style="transition-delay:.07s">
+    <div class="k">02</div>
+    <h3>Utleie bolig</h3>
+    <p>Sentrumsnære leiligheter med høy standard. Sett deg på venteliste.</p>
+    <div class="arrow">
+      <span class="finn-badge">FINN</span>
+      Se boliger
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </div>
+  </a>
+  <a href="prosjekter.html" class="qcard reveal" style="transition-delay:.14s">
+    <div class="k">03</div>
+    <h3>Prosjekter</h3>
+    <p>Bibliotekkvartalet, Holmestrand Brygge, Langgaten 24 og mer.</p>
+    <div class="arrow">Les mer →</div>
+  </a>
+</div>
+
+
+<!-- Prosjekter -->
+<section class="section section-blur-bg" style="--blur-img:url('Bilder/Star3.jpg')">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">Våre prosjekter</div>
+        <h2>Steder vi bygger</h2>
+      </div>
+      <a href="prosjekter.html" class="link-all">Alle prosjekter →</a>
+    </div>
+    <div class="prosjekt-grid" id="prosjekt-grid"></div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat reveal">
+    <div class="tall">185<em>+</em></div>
+    <p>Leiligheter levert</p>
+  </div>
+  <div class="stat reveal" style="transition-delay:.06s">
+    <div class="tall"><em>1</em></div>
+    <p>Aktivt prosjekt</p>
+  </div>
+  <div class="stat reveal" style="transition-delay:.12s">
+    <div class="tall">200<em>+</em></div>
+    <p>Leieforhold</p>
+  </div>
+  <div class="stat reveal" style="transition-delay:.18s">
+    <div class="tall">3500<em>m²</em></div>
+    <p>Næringslokaler levert</p>
+  </div>
+</div>
+
+
+
+<!-- Aktuelt -->
+<section class="section wrap">
+  <div class="section-head reveal">
+    <div>
+      <div class="eyebrow" style="margin-bottom:14px">Nyheter</div>
+      <h2>Aktuelt</h2>
+    </div>
+    <a href="nyheter.html" class="link-all">Se alle →</a>
+  </div>
+  <div class="prosjekt-grid" id="news-preview-grid"></div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></div>
+        <p>Vi utvikler sentrum for dem som skal leve og jobbe i Holmestrand – fra fjord til fjell.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Utforsk</h4>
+        <ul>
+          <li><a href="til-leie.html">Til leie</a></li>
+          <li><a href="prosjekter.html">Prosjekter</a></li>
+          <li><a href="sentrumsutvikling.html">Sentrumsutvikling</a></li>
+          <li><a href="nyheter.html">Aktuelt</a></li>
+      <li><a href="om-oss.html">Om oss</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="mailto:post@holmestrandutvikling.no">post@holmestrandutvikling.no</a></li>
+          <li><a href="tel:+4733097700">+47 33 09 77 00</a></li>
+          <li><a href="kontakt.html">Kontaktskjema</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <small>© 2025 Holmestrand Utvikling AS</small>
+      <small>Fjord &amp; Lyng</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Prosjekter på startsiden – viser de 3 første
+  const PROJECTS = [
+    {
+      name: "Langgaten 24", status: "under_regulering", statusLabel: "Under regulering",
+      summary: "Nytt sentrumsprosjekt på tomta der det tidligere lå en bensinstasjon. To bygg på fem og seksten etasjer med leiligheter og næringsarealer.",
+      typeLabel: "Bolig og næring",
+      media: { hero: "Prosjekter/Langgaten24/Langgaten24.png" }
+    },
+    {
+      name: "Holmestrand Brygge", status: "ferdigstilt", statusLabel: "Ferdigstilt 2021",
+      summary: "75 leiligheter og nye næringslokaler på brygga i Holmestrand. Binder sentrum til sjøkanten.",
+      typeLabel: "Bolig og næring",
+      media: { hero: "Prosjekter/HolmestrandBrygge/HolmestranBrygge.png" }
+    },
+    {
+      name: "Bibliotekkvartalet", status: "ferdigstilt", statusLabel: "Ferdigstilt",
+      summary: "Tre byggetrinn med til sammen 68 leiligheter i historiske omgivelser midt i Holmestrand sentrum.",
+      typeLabel: "Bolig",
+      media: { hero: "Prosjekter/Biblitekkvartalet.kap3/Bibliotekkvartalet.kap3.png" }
+    }
+  ];
+
+  const pillClass = { under_regulering: 'pill-utvikling', ferdigstilt: 'pill-ferdig', planlegging: 'pill-planlegging' };
+
+  const grid = document.getElementById('prosjekt-grid');
+  grid.innerHTML = PROJECTS.map((p, i) => `
+    <a href="prosjekter.html" class="pcard reveal" style="transition-delay:${i * 80}ms">
+      <div class="pcard-img c${i}">
+        <img src="${p.media.hero}" alt="${p.name}" loading="lazy">
+      </div>
+      <div class="pcard-body">
+        <span class="pill ${pillClass[p.status] ?? 'pill-planlegging'}">${p.statusLabel}</span>
+        <h3>${p.name}</h3>
+        <p>${p.summary}</p>
+        <div class="pcard-meta"><span>${p.typeLabel}</span></div>
+      </div>
+    </a>`).join('');
+
+  grid.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Nyhetsforhåndsvisning – holdes synkronisert med NEWS-arrayet i nyheter.html
+  const NEWS_PREVIEW = [
+    {
+      title: "Visste du at du enkelt kan spare titusener på kjøp av frukt & grønt?",
+      source: "Aftenposten", dateLabel: "7. februar 2025", category: "Leietakere",
+      ingress: "Hana Mat i Langgaten 33 er en lokal importbutikk. Ifølge Aftenposten sparer du tusenvis i året på frukt og grønt.",
+      thumbnail: "Media/langgaten-33-hana-mat/Langgaten-33-hana-mat-litenbilde.png",
+      image: "Media/langgaten-33-hana-mat/langgaten-33-hana-mat.jpg",
+      url: "artikkel.html?id=langgaten-33-hana-mat", external: false
+    },
+    {
+      title: "Nye Langgaten 24 vil bli et betydelig løft for sentrum",
+      source: "ByHorten.no", dateLabel: "13. mars 2025", category: "Prosjekter",
+      ingress: "Holmestrand vokser. Det nye prosjektet «Langgaten 24» vil endre byens sentrum.",
+      image: "Media/langgaten-24-loft-for-sentrum/langgaten-24-loft-for-sentrum.jpg",
+      url: "artikkel.html?id=langgaten-24-loft-for-sentrum", external: false
+    }
+  ];
+
+  const preview = document.getElementById('news-preview-grid');
+  if (preview) {
+    if (!NEWS_PREVIEW.length) {
+      preview.closest('section').style.display = 'none';
+    } else {
+      preview.innerHTML = NEWS_PREVIEW.slice(0, 3).map((p, i) => `
+        <a href="${p.url}"${p.external ? ' target="_blank" rel="noopener"' : ''} class="pcard reveal" style="transition-delay:${i * 80}ms">
+          <div class="pcard-img c${i}">
+            ${(p.thumbnail ?? p.image) ? `<img src="${p.thumbnail ?? p.image}" alt="${p.title}" loading="lazy">` : ''}
+          </div>
+          <div class="pcard-body">
+            <span class="pill pill-planlegging">${p.category}</span>
+            <h3>${p.title}</h3>
+            <p>${p.ingress}</p>
+            <div class="pcard-meta"><span>${p.source} · ${p.dateLabel}</span></div>
+          </div>
+        </a>`).join('');
+      preview.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    }
+  }
+
+  // Hero karusell
+  const slides = document.querySelectorAll('.hero-slide');
+  const dotsContainer = document.getElementById('hero-dots');
+  let current = 0;
+  let timer = null;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'hero-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Bilde ' + (i + 1));
+    d.addEventListener('click', () => { goTo(i); restart(); });
+    dotsContainer.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dotsContainer.children[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dotsContainer.children[current].classList.add('active');
+  }
+
+  function tick() {
+    goTo(current + 1);
+    timer = setTimeout(tick, 7000);
+  }
+
+  function restart() {
+    clearTimeout(timer);
+    timer = setTimeout(tick, 7000);
+  }
+
+  document.querySelector('.hero-arrow.next').addEventListener('click', () => { goTo(current + 1); restart(); });
+  document.querySelector('.hero-arrow.prev').addEventListener('click', () => { goTo(current - 1); restart(); });
+
+  restart();
+</script>
+<script src="main.js"></script>
+</body>
+</html>

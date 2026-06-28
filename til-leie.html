@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Til leie – Holmestrand Utvikling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Fane-velger */
+  .leie-tabs { display: flex; gap: 4px; background: var(--sand); border-radius: 100px; padding: 4px; width: fit-content; margin-bottom: 40px; }
+  .leie-tab {
+    font-size: 14px; font-weight: 600; padding: 10px 22px; border-radius: 100px;
+    border: none; background: transparent; color: var(--ink-soft);
+    cursor: pointer; transition: background .2s, color .2s, box-shadow .2s;
+  }
+  .leie-tab.active { background: #fff; color: var(--ink); box-shadow: 0 1px 4px rgba(4,49,58,.12); }
+
+  /* FINN-seksjon */
+  .finn-panel { display: none; }
+  .finn-panel.active { display: block; }
+
+  .finn-card {
+    background: #fff; border: 1px solid var(--line); border-radius: 20px;
+    overflow: hidden;
+  }
+
+  /* Header med FINN-lenke */
+  .finn-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 28px; border-bottom: 1px solid var(--line);
+    gap: 16px; flex-wrap: wrap;
+  }
+  .finn-header-left { display: flex; align-items: center; gap: 12px; }
+  .finn-logo-badge {
+    background: #06BEFB; color: #fff;
+    font-size: 13px; font-weight: 800; letter-spacing: .02em;
+    padding: 5px 11px; border-radius: 6px; line-height: 1;
+  }
+  .finn-header-left span { font-size: 14px; color: var(--ink-soft); }
+  .finn-ext-link {
+    font-size: 13px; font-weight: 600; color: var(--fjord);
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 18px; border-radius: 100px; border: 1px solid var(--fjord);
+    transition: background .2s, color .2s; white-space: nowrap;
+  }
+  .finn-ext-link:hover { background: var(--fjord); color: #fff; }
+  .finn-ext-link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* iframe + fallback */
+  .finn-iframe-wrap { position: relative; }
+  .finn-iframe-wrap iframe { display: block; width: 100%; border: none; }
+
+  .finn-fallback {
+    display: none; padding: 56px 32px; text-align: center;
+  }
+  .finn-fallback p { font-size: 14px; color: var(--ink-soft); margin-bottom: 24px; max-width: 44ch; margin-left: auto; margin-right: auto; }
+  .finn-fallback .btn { display: inline-flex; align-items: center; gap: 8px; }
+
+  /* Kontaktbanner */
+  .kontakt-banner {
+    background: var(--ink); color: var(--paper); border-radius: 20px; padding: 48px 52px;
+    display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+    margin-top: 48px;
+  }
+  .kontakt-banner h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.4rem, 2.5vw, 2rem); max-width: 28ch; }
+  .kontakt-banner h3 em { font-style: italic; color: var(--mist); }
+
+  @media (max-width: 600px) {
+    .leie-tabs { width: 100%; }
+    .leie-tab { flex: 1; text-align: center; padding: 10px 12px; font-size: 13px; }
+    .kontakt-banner { padding: 34px 28px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html" class="nav-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></a>
+    <ul class="nav-links">
+      <li><a href="til-leie.html" class="active">Til leie</a></li>
+      <li><a href="prosjekter.html">Prosjekter</a></li>
+      <li><a href="sentrumsutvikling.html">Sentrumsutvikling</a></li>
+      <li><a href="nyheter.html">Aktuelt</a></li>
+      <li><a href="om-oss.html">Om oss</a></li>
+    </ul>
+    <a href="kontakt.html" class="nav-cta">Kontakt</a>
+    <button class="nav-hamburger" aria-label="Meny" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero wrap">
+  <div class="eyebrow reveal">Næring & bolig</div>
+  <h1 class="reveal" style="transition-delay:.08s">Finn ditt <em>lokale</em></h1>
+  <p class="lead reveal" style="transition-delay:.16s">
+    Kontor, butikk, kontorhotell og leiligheter sentralt i Holmestrand. Ta kontakt for visning.
+  </p>
+</div>
+
+<section class="section wrap" style="padding-top:0;border-top:none">
+
+  <div class="leie-tabs reveal" role="tablist">
+    <button class="leie-tab active" role="tab" aria-selected="true"  aria-controls="panel-naering" id="tab-naering">Næringseiendom</button>
+    <button class="leie-tab"        role="tab" aria-selected="false" aria-controls="panel-bolig"   id="tab-bolig">Bolig og boder</button>
+  </div>
+
+  <!-- Næringseiendom -->
+  <div class="finn-panel active reveal" id="panel-naering" role="tabpanel" aria-labelledby="tab-naering">
+    <div class="finn-card">
+      <div class="finn-header">
+        <div class="finn-header-left">
+          <span class="finn-logo-badge">FINN</span>
+          <span>Næringseiendom til leie – Holmestrand Utvikling AS</span>
+        </div>
+        <a href="https://www.finn.no/realestate/businessrent/search.html?orgId=707555245"
+           target="_blank" rel="noopener" class="finn-ext-link">
+          Åpne på FINN
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="finn-iframe-wrap" id="wrap-naering">
+        <iframe id="iframe-naering"
+          src="https://www.finn.no/pw/search/realestate-business-letting?orgId=707555245"
+          title="Næringseiendom til leie – Holmestrand Utvikling AS"
+          height="900" scrolling="auto">
+        </iframe>
+        <div class="finn-fallback" id="fallback-naering">
+          <p>Annonsene vises direkte på FINN.no. Klikk for å se alle ledige næringslokaler fra Holmestrand Utvikling AS.</p>
+          <a href="https://www.finn.no/realestate/businessrent/search.html?orgId=707555245"
+             target="_blank" rel="noopener" class="btn btn-fjord">
+            Se ledige lokaler på FINN
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bolig og boder -->
+  <div class="finn-panel" id="panel-bolig" role="tabpanel" aria-labelledby="tab-bolig">
+    <div class="finn-card">
+      <div class="finn-header">
+        <div class="finn-header-left">
+          <span class="finn-logo-badge">FINN</span>
+          <span>Bolig og boder til leie – Holmestrand Utvikling AS</span>
+        </div>
+        <a href="https://www.finn.no/realestate/lettings/search.html?orgId=707555245"
+           target="_blank" rel="noopener" class="finn-ext-link">
+          Åpne på FINN
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="finn-iframe-wrap" id="wrap-bolig">
+        <iframe id="iframe-bolig"
+          src="https://www.finn.no/pw/search/realestate-lettings?orgId=707555245"
+          title="Bolig og boder til leie – Holmestrand Utvikling AS"
+          height="900" scrolling="auto">
+        </iframe>
+        <div class="finn-fallback" id="fallback-bolig">
+          <p>Annonsene vises direkte på FINN.no. Klikk for å se alle ledige boliger og boder fra Holmestrand Utvikling AS.</p>
+          <a href="https://www.finn.no/realestate/lettings/search.html?orgId=707555245"
+             target="_blank" rel="noopener" class="btn btn-fjord">
+            Se ledige boliger på FINN
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kontakt-banner reveal">
+    <h3>Finner du ikke det du leter <em>etter?</em></h3>
+    <a href="kontakt.html" class="btn btn-ember">Ta kontakt med oss</a>
+  </div>
+
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></div>
+        <p>Vi utvikler sentrum for dem som skal leve og jobbe i Holmestrand – fra fjord til fjell.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Utforsk</h4>
+        <ul>
+          <li><a href="til-leie.html">Til leie</a></li>
+          <li><a href="prosjekter.html">Prosjekter</a></li>
+          <li><a href="sentrumsutvikling.html">Sentrumsutvikling</a></li>
+          <li><a href="nyheter.html">Aktuelt</a></li>
+      <li><a href="om-oss.html">Om oss</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="mailto:post@holmestrandutvikling.no">post@holmestrandutvikling.no</a></li>
+          <li><a href="tel:+4733097700">+47 33 09 77 00</a></li>
+          <li><a href="kontakt.html">Kontaktskjema</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <small>© 2025 Holmestrand Utvikling AS</small>
+      <small>Fjord &amp; Lyng</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 60); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Tab-bytte
+  document.querySelectorAll('.leie-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.leie-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+      document.querySelectorAll('.finn-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      document.getElementById(tab.getAttribute('aria-controls')).classList.add('active');
+    });
+  });
+
+  // Aktiver riktig fane fra URL-hash (f.eks. #bolig)
+  if (location.hash === '#bolig') {
+    document.getElementById('tab-bolig').click();
+  }
+
+  // FINN-iframe: partner-widget krever godkjent domene.
+  // Vis iframe på holmestrandutvikling.no, ellers vis fallback-knapp.
+  (function () {
+    const host = window.location.hostname;
+    const onProd = host === 'holmestrandutvikling.no' || host.endsWith('.holmestrandutvikling.no');
+    if (!onProd) {
+      ['naering', 'bolig'].forEach(id => {
+        document.getElementById('iframe-' + id).style.display = 'none';
+        document.getElementById('fallback-' + id).style.display = 'block';
+      });
+    }
+  })();
+</script>
+<script src="main.js"></script>
+</body>
+</html>

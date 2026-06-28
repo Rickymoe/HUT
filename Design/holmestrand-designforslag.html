@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Designforslag – Holmestrand Utvikling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#04313a;       /* dyp petrol, fra logoens mørke toner */
+    --ink-soft:#3f4f4d;
+    --fjord:#007898;     /* LOGOFARGE – petrol/fjordturkis */
+    --sea:#1f93ad;       /* lysere teal-aksent */
+    --mist:#bdd9e0;
+    --sand:#e7e1d2;
+    --sand-deep:#d6cdb8;
+    --paper:#f4f1e9;
+    --ember:#687830;     /* LOGOFARGE – lyng/mosegrønn (aksent + CTA) */
+    --ember-soft:#7f9040;
+    --line:rgba(4,49,58,.14);
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"Schibsted Grotesk",-apple-system,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+  .eyebrow{
+    font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--ember);display:inline-flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--ember)}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(24px);animation:rise .9s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  /* ===== Top badge bar ===== */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(246,241,231,.82);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brandmark{font-family:var(--serif);font-weight:600;font-size:18px;letter-spacing:-.01em}
+  .brandmark span{color:var(--sea)}
+  .badge{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-soft);border:1px solid var(--line);padding:6px 12px;border-radius:100px}
+
+  /* ===== Intro ===== */
+  .intro{padding:90px 0 70px}
+  .intro h1{
+    font-family:var(--serif);font-weight:400;font-optical-sizing:auto;
+    font-size:clamp(2.8rem,7vw,5.6rem);line-height:.98;letter-spacing:-.02em;
+    margin:26px 0 0;max-width:14ch;
+  }
+  .intro h1 em{font-style:italic;color:var(--fjord)}
+  .intro .lead{font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--ink-soft);max-width:54ch;margin-top:28px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+  .chip{font-size:13px;font-weight:500;background:var(--sand);border:1px solid var(--sand-deep);
+    padding:8px 16px;border-radius:100px}
+
+  .section{padding:64px 0;border-top:1px solid var(--line)}
+  .section-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:40px}
+  .section-head h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.6rem,3vw,2.4rem);letter-spacing:-.01em}
+  .section-head .num{font-family:var(--serif);font-size:14px;color:var(--ink-soft)}
+
+  /* ===== Forside mockup ===== */
+  .mock{
+    border-radius:18px;overflow:hidden;border:1px solid var(--line);
+    box-shadow:0 40px 80px -40px rgba(21,33,31,.4);background:#fff;
+  }
+  .mock-nav{display:flex;align-items:center;justify-content:space-between;
+    padding:18px 30px;background:var(--paper);border-bottom:1px solid var(--line)}
+  .mock-nav .logo{font-family:var(--serif);font-weight:600;font-size:17px}
+  .mock-nav .logo span{color:var(--sea)}
+  .mock-nav ul{display:flex;gap:26px;list-style:none}
+  .mock-nav li{font-size:13.5px;font-weight:500;color:var(--ink-soft)}
+  .mock-nav .cta{background:var(--ink);color:var(--paper);font-size:13px;font-weight:600;
+    padding:9px 18px;border-radius:100px}
+  .hero{
+    position:relative;padding:78px 46px 86px;overflow:hidden;
+    background:
+      radial-gradient(120% 90% at 80% -10%, rgba(31,147,173,.22), transparent 60%),
+      linear-gradient(180deg,#00536a 0%, #007898 55%, #003a49 100%);
+    color:var(--paper);
+  }
+  .hero svg.fjord{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;display:block;opacity:.9}
+  .hero .eyebrow{color:var(--ember-soft)}
+  .hero .eyebrow::before{background:var(--ember-soft)}
+  .hero h3{font-family:var(--serif);font-weight:400;font-size:clamp(2.2rem,5.2vw,4rem);
+    line-height:1.02;letter-spacing:-.02em;margin:20px 0 0;max-width:18ch;position:relative}
+  .hero h3 em{font-style:italic;color:var(--mist)}
+  .hero p{max-width:46ch;margin-top:22px;color:rgba(246,241,231,.82);position:relative}
+  .hero .btns{display:flex;gap:14px;margin-top:34px;position:relative;flex-wrap:wrap}
+  .btn{font-size:14px;font-weight:600;padding:14px 26px;border-radius:100px;cursor:pointer;
+    border:1px solid transparent;transition:transform .25s,background .25s,color .25s;text-decoration:none;display:inline-block}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-ember{background:var(--ember);color:#fff}
+  .btn-ember:hover{background:var(--ember-soft)}
+  .btn-ghost{background:transparent;border-color:rgba(246,241,231,.4);color:var(--paper)}
+  .btn-ghost:hover{background:rgba(246,241,231,.1)}
+
+  .mock-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
+  .mcard{background:#fff;padding:34px 28px;transition:background .3s}
+  .mcard:hover{background:var(--paper)}
+  .mcard .k{font-family:var(--serif);font-size:30px;color:var(--fjord);font-weight:500}
+  .mcard h4{font-size:15px;font-weight:600;margin:14px 0 8px}
+  .mcard p{font-size:13.5px;color:var(--ink-soft)}
+  .mcard .arrow{margin-top:18px;font-size:13px;font-weight:600;color:var(--ember)}
+
+  /* ===== Palette ===== */
+  .swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px}
+  .sw{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff}
+  .sw .chip{height:108px;border:none;border-radius:0;padding:0;margin:0;display:block}
+  .sw .info{padding:14px 16px}
+  .sw .name{font-size:14px;font-weight:600}
+  .sw .hex{font-size:12px;color:var(--ink-soft);font-variant-numeric:tabular-nums;text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
+  .sw .role{font-size:11.5px;color:var(--ink-soft);margin-top:6px}
+
+  /* ===== Typography ===== */
+  .type-row{border-bottom:1px solid var(--line);padding:26px 0;display:grid;grid-template-columns:130px 1fr;gap:24px;align-items:baseline}
+  .type-row:last-child{border-bottom:none}
+  .type-row .tag{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .t-display{font-family:var(--serif);font-size:clamp(2.4rem,6vw,4.2rem);font-weight:400;line-height:1;letter-spacing:-.02em}
+  .t-display em{font-style:italic;color:var(--fjord)}
+  .t-h{font-family:var(--serif);font-size:1.9rem;font-weight:500;line-height:1.1}
+  .t-body{font-size:1.05rem;max-width:58ch;color:var(--ink-soft)}
+  .t-eyebrow{font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--ember)}
+  .font-note{display:flex;gap:40px;flex-wrap:wrap;margin-bottom:38px}
+  .font-note div{flex:1;min-width:220px}
+  .font-note .fn{font-family:var(--serif);font-size:26px}
+  .font-note .fn.sans{font-family:var(--sans);font-weight:600}
+  .font-note small{display:block;color:var(--ink-soft);font-size:13px;margin-top:4px}
+
+  /* ===== Components ===== */
+  .comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:30px}
+  .panel.dark{background:var(--ink);color:var(--paper)}
+  .panel .label{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:20px}
+  .panel.dark .label{color:var(--mist)}
+  .btn-set{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .btn-fjord{background:var(--fjord);color:#fff}
+  .btn-fjord:hover{background:var(--sea)}
+  .btn-outline{background:transparent;border-color:var(--line);color:var(--ink)}
+  .btn-outline:hover{background:var(--sand)}
+  .listing{display:flex;gap:16px;align-items:center}
+  .listing .thumb{width:78px;height:78px;border-radius:12px;flex-shrink:0;
+    background:linear-gradient(135deg,var(--fjord),var(--ember))}
+  .listing .lt{font-family:var(--serif);font-size:18px;font-weight:500}
+  .listing .lm{font-size:13px;color:var(--ink-soft)}
+  .tag-pill{display:inline-block;font-size:11px;font-weight:600;background:var(--sand);
+    padding:4px 11px;border-radius:100px;margin-top:8px;color:var(--ink)}
+
+  footer{padding:60px 0 90px;border-top:1px solid var(--line);text-align:center}
+  footer .q{font-family:var(--serif);font-style:italic;font-size:clamp(1.4rem,3vw,2rem);max-width:24ch;margin:0 auto 18px;line-height:1.2}
+  footer small{color:var(--ink-soft);font-size:13px}
+
+  @media(max-width:780px){
+    .mock-nav ul,.mock-nav .cta{display:none}
+    .mock-cards{grid-template-columns:1fr}
+    .comp-grid{grid-template-columns:1fr}
+    .type-row{grid-template-columns:1fr;gap:8px}
+    .hero{padding:54px 26px 64px}
+    .wrap{padding:0 22px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brandmark">Holmestrand <span>Utvikling</span></div>
+    <div class="badge">Designforslag · v2</div>
+  </div>
+</div>
+
+<section class="intro wrap">
+  <div class="eyebrow reveal">Visuell retning</div>
+  <h1 class="reveal" style="animation-delay:.08s">Fjord <em>&</em> Lyng</h1>
+  <p class="lead reveal" style="animation-delay:.16s">
+    En nordisk, redaksjonell stil bygget for tillit og tyngde. Paletten kommer
+    rett fra logoen – fjordturkis og lynggrønt – satt mot varme sand- og
+    papirflater. Rolig, men aldri kjedelig. Premium, men forankret i byen.
+  </p>
+  <div class="meta-row reveal" style="animation-delay:.24s">
+    <span class="chip">Logofarger i kjernen</span>
+    <span class="chip">Fraunces + Schibsted Grotesk</span>
+    <span class="chip">Mye luft</span>
+    <span class="chip">Redaksjonell rytme</span>
+  </div>
+</section>
+
+<!-- ============ FORSIDE-SKISSE ============ -->
+<section class="section wrap">
+  <div class="section-head">
+    <h2>Forside-skisse</h2>
+    <span class="num">01 — Stilen i praksis</span>
+  </div>
+
+  <div class="mock reveal">
+    <div class="mock-nav">
+      <div class="logo">Holmestrand <span>Utvikling</span></div>
+      <ul>
+        <li>Til leie</li><li>Prosjekter</li><li>Sentrumsutvikling</li><li>Om oss</li>
+      </ul>
+      <a class="cta">Kontakt</a>
+    </div>
+
+    <div class="hero">
+      <div class="eyebrow">Visjoner · Planer · Utvikling</div>
+      <h3>Vi bygger <em>byen</em> for dem som skal leve i den</h3>
+      <p>Næringslokaler, boliger og helhetlig sentrumsutvikling i hjertet av Holmestrand – fra Bibliotekkvartalet til Holmestrand Brygge.</p>
+      <div class="btns">
+        <a class="btn btn-ember">Se ledige lokaler</a>
+        <a class="btn btn-ghost">Våre prosjekter</a>
+      </div>
+      <svg class="fjord" viewBox="0 0 1200 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,90 L120,52 L210,96 L320,40 L430,100 L560,30 L690,92 L820,58 L960,104 L1080,64 L1200,98 L1200,160 L0,160 Z" fill="#0d3f47" opacity=".55"/>
+        <path d="M0,120 L160,96 L300,124 L470,88 L640,126 L820,98 L1000,130 L1200,108 L1200,160 L0,160 Z" fill="#082f36" opacity=".8"/>
+      </svg>
+    </div>
+
+    <div class="mock-cards">
+      <div class="mcard">
+        <div class="k">01</div>
+        <h4>Utleie næring</h4>
+        <p>Kontor, butikk, kontorhotell, parkering og lager.</p>
+        <div class="arrow">Finn lokale →</div>
+      </div>
+      <div class="mcard">
+        <div class="k">02</div>
+        <h4>Utleie bolig</h4>
+        <p>Sentrumsnære leiligheter. Sett deg på venteliste.</p>
+        <div class="arrow">Se leiligheter →</div>
+      </div>
+      <div class="mcard">
+        <div class="k">03</div>
+        <h4>Prosjekter</h4>
+        <p>Bibliotekkvartalet, Holmestrand Brygge, Langgaten 24.</p>
+        <div class="arrow">Les mer →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PALETT ============ -->
+<section class="section wrap">
+  <div class="section-head">
+    <h2>Fargepalett</h2>
+    <span class="num">02 — Rett fra logoen</span>
+  </div>
+  <div class="swatches reveal">
+    <div class="sw"><span class="chip" style="background:#007898"></span><div class="info"><div class="name">Petrol</div><div class="hex">#007898</div><div class="role">Logofarge · primær</div></div></div>
+    <div class="sw"><span class="chip" style="background:#687830"></span><div class="info"><div class="name">Lyng</div><div class="hex">#687830</div><div class="role">Logofarge · aksent & CTA</div></div></div>
+    <div class="sw"><span class="chip" style="background:#04313a"></span><div class="info"><div class="name">Dyp petrol</div><div class="hex">#04313A</div><div class="role">Tekst & mørk flate</div></div></div>
+    <div class="sw"><span class="chip" style="background:#1f93ad"></span><div class="info"><div class="name">Sjø</div><div class="hex">#1F93AD</div><div class="role">Lys teal-aksent</div></div></div>
+    <div class="sw"><span class="chip" style="background:#aeb87b"></span><div class="info"><div class="name">Lys lyng</div><div class="hex">#AEB87B</div><div class="role">Myk grønn flate</div></div></div>
+    <div class="sw"><span class="chip" style="background:#e7e1d2"></span><div class="info"><div class="name">Sand</div><div class="hex">#E7E1D2</div><div class="role">Varm bakgrunn</div></div></div>
+    <div class="sw"><span class="chip" style="background:#f4f1e9;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)"></span><div class="info"><div class="name">Papir</div><div class="hex">#F4F1E9</div><div class="role">Sidebakgrunn</div></div></div>
+    <div class="sw"><span class="chip" style="background:#bdd9e0"></span><div class="info"><div class="name">Dis</div><div class="hex">#BDD9E0</div><div class="role">Lys petrol-flate</div></div></div>
+  </div>
+</section>
+
+<!-- ============ TYPOGRAFI ============ -->
+<section class="section wrap">
+  <div class="section-head">
+    <h2>Typografi</h2>
+    <span class="num">03 — Karakter & klarhet</span>
+  </div>
+  <div class="font-note reveal">
+    <div><div class="fn">Fraunces</div><small>Display & overskrifter. En myk, arkitektonisk antikva med kursiv som gir redaksjonell eleganse.</small></div>
+    <div><div class="fn sans">Schibsted Grotesk</div><small>Brødtekst & grensesnitt. Ren, nordisk grotesk – signert et norsk hus. Lokal forankring i detaljene.</small></div>
+  </div>
+  <div class="reveal">
+    <div class="type-row"><span class="tag">Display</span><div class="t-display">Et <em>løft</em> for sentrum</div></div>
+    <div class="type-row"><span class="tag">Overskrift</span><div class="t-h">Nye Langgaten 24 tar form</div></div>
+    <div class="type-row"><span class="tag">Stikktittel</span><div class="t-eyebrow">Visjoner · Planer · Utvikling</div></div>
+    <div class="type-row"><span class="tag">Brødtekst</span><div class="t-body">Holmestrand Utvikling skaper nye muligheter i byen – med næringslokaler, boliger og helhetlig sentrumsutvikling som binder fjord og fjell sammen til ett levende sentrum.</div></div>
+  </div>
+</section>
+
+<!-- ============ KOMPONENTER ============ -->
+<section class="section wrap">
+  <div class="section-head">
+    <h2>Komponenter</h2>
+    <span class="num">04 — Byggeklossene</span>
+  </div>
+  <div class="comp-grid reveal">
+    <div class="panel">
+      <div class="label">Knapper</div>
+      <div class="btn-set">
+        <a class="btn btn-ember">Terrakotta</a>
+        <a class="btn btn-fjord">Fjord</a>
+        <a class="btn btn-outline">Omriss</a>
+      </div>
+    </div>
+    <div class="panel dark">
+      <div class="label">På mørk flate</div>
+      <div class="btn-set">
+        <a class="btn btn-ember">Se lokaler</a>
+        <a class="btn btn-ghost">Les mer</a>
+      </div>
+    </div>
+    <div class="panel" style="grid-column:1/-1">
+      <div class="label">Utleie-kort</div>
+      <div class="listing">
+        <div class="thumb"></div>
+        <div>
+          <div class="lt">Kontorlokale · Dr. Graaruds Plass 3</div>
+          <div class="lm">142 m² · 2. etasje · sentralt i Holmestrand</div>
+          <span class="tag-pill">Ledig nå</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="q reveal">«Rolig, forankret og premium – byen fortjener det.»</div>
+  <small>Designforslag for Holmestrand Utvikling AS · Retning: Fjord &amp; Lyng</small>
+</footer>
+
+</body>
+</html>

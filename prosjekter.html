@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prosjekter – Holmestrand Utvikling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .prosjekt-list { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
+
+  .prow {
+    background: #fff; display: grid; grid-template-columns: 320px 1fr; min-height: 240px;
+    transition: background .25s; text-decoration: none; color: inherit;
+  }
+  .prow:hover { background: var(--paper); }
+
+  .prow-img {
+    position: relative; overflow: hidden;
+    background: linear-gradient(160deg, #003a49, #007898);
+  }
+  .prow-img img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform .5s ease;
+  }
+  .prow:hover .prow-img img { transform: scale(1.04); }
+
+  /* Fallback gradient colours per prosjekt */
+  .prow-img.c0 { background: linear-gradient(160deg, #003a49, #007898); }
+  .prow-img.c1 { background: linear-gradient(160deg, #1f93ad, #004a5c); }
+  .prow-img.c2 { background: linear-gradient(160deg, #687830, #04313a); }
+  .prow-img.c3 { background: linear-gradient(160deg, #007898, #3f4f4d); }
+  .prow-img.c4 { background: linear-gradient(160deg, #003a49, #687830); }
+  .prow-img.c5 { background: linear-gradient(160deg, #04313a, #1f93ad); }
+
+  .sold-badge {
+    position: absolute; top: 14px; left: 14px; z-index: 1;
+    font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    background: rgba(4,49,58,.55); color: rgba(244,241,233,.85);
+    padding: 5px 12px; border-radius: 100px; backdrop-filter: blur(6px);
+  }
+
+  .prow-body { padding: 36px 40px; display: flex; flex-direction: column; justify-content: center; }
+  .prow-body .pill { margin-bottom: 14px; display: inline-block; }
+  .prow-body h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.3rem, 2.2vw, 1.9rem); margin-bottom: 12px; }
+  .prow-body .tagline { font-size: 13px; font-weight: 600; color: var(--ember); margin-bottom: 10px; letter-spacing: .04em; }
+  .prow-body p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; max-width: 52ch; }
+
+  .prow-meta { display: flex; gap: 28px; margin-top: 22px; flex-wrap: wrap; }
+  .prow-meta .mi { }
+  .prow-meta .mi .label { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 3px; }
+  .prow-meta .mi .val { font-size: 15px; font-weight: 600; }
+
+  .highlights { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .hl { font-size: 12px; font-weight: 500; background: var(--sand); border: 1px solid var(--sand-deep); padding: 5px 12px; border-radius: 100px; }
+
+  /* Loading / error states */
+  .state { text-align: center; padding: 80px 20px; color: var(--ink-soft); }
+  .state p { font-size: 16px; }
+
+  @media (max-width: 700px) {
+    .prow { grid-template-columns: 1fr; }
+    .prow-img { height: 200px; }
+    .prow-body { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html" class="nav-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></a>
+    <ul class="nav-links">
+      <li><a href="til-leie.html">Til leie</a></li>
+      <li><a href="prosjekter.html" class="active">Prosjekter</a></li>
+      <li><a href="sentrumsutvikling.html">Sentrumsutvikling</a></li>
+      <li><a href="nyheter.html">Aktuelt</a></li>
+      <li><a href="om-oss.html">Om oss</a></li>
+    </ul>
+    <a href="kontakt.html" class="nav-cta">Kontakt</a>
+    <button class="nav-hamburger" aria-label="Meny" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero wrap">
+  <div class="eyebrow reveal">Utvikling</div>
+  <h1 class="reveal" style="transition-delay:.08s">Prosjekter vi <em>former</em></h1>
+  <p class="lead reveal" style="transition-delay:.16s">
+    Fra historiske bygg til nye kvartal – vi utvikler steder som gir Holmestrand sentrum nytt liv.
+  </p>
+</div>
+
+<section class="section wrap" style="padding-top:0;border-top:none">
+  <div id="prosjekt-container"></div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></div>
+        <p>Vi utvikler sentrum for dem som skal leve og jobbe i Holmestrand – fra fjord til fjell.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Utforsk</h4>
+        <ul>
+          <li><a href="til-leie.html">Til leie</a></li>
+          <li><a href="prosjekter.html">Prosjekter</a></li>
+          <li><a href="sentrumsutvikling.html">Sentrumsutvikling</a></li>
+          <li><a href="nyheter.html">Aktuelt</a></li>
+      <li><a href="om-oss.html">Om oss</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="mailto:post@holmestrandutvikling.no">post@holmestrandutvikling.no</a></li>
+          <li><a href="tel:+4733097700">+47 33 09 77 00</a></li>
+          <li><a href="kontakt.html">Kontaktskjema</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <small>© 2025 Holmestrand Utvikling AS</small>
+      <small>Fjord &amp; Lyng</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 60); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Status → CSS pill class
+  const pillClass = {
+    under_regulering: 'pill-utvikling',
+    under_bygging:    'pill-utvikling',
+    ferdigstilt:      'pill-ferdig',
+    planlegging:      'pill-planlegging'
+  };
+
+  function unitLabel(u) {
+    const n = u.apartments ?? u.apartmentsApprox;
+    if (!n) return null;
+    return n + ' leiligheter';
+  }
+
+  function renderProject(p, idx) {
+    const units  = unitLabel(p.units);
+    const year   = p.completionYear ? p.completionYear : null;
+    const imgSrc = p.media?.hero ?? '';
+
+    const metaItems = [
+      units  ? `<div class="mi"><div class="label">Enheter</div><div class="val">${units}</div></div>` : '',
+      p.typeLabel ? `<div class="mi"><div class="label">Type</div><div class="val">${p.typeLabel}</div></div>` : '',
+      year   ? `<div class="mi"><div class="label">Ferdigstilt</div><div class="val">${year}</div></div>` : ''
+    ].filter(Boolean).join('');
+
+    const hlTags = (p.highlights ?? [])
+      .map(h => `<span class="hl">${h}</span>`)
+      .join('');
+
+    const taglineHtml = p.tagline
+      ? `<div class="tagline">${p.tagline}</div>` : '';
+
+    const soldHtml = p.soldOut
+      ? `<div class="sold-badge">Sluttsolgt</div>` : '';
+
+    const imgHtml = imgSrc
+      ? `<img src="${imgSrc}" alt="${p.name}" loading="lazy">`
+      : '';
+
+    return `
+      <div class="prow reveal" style="transition-delay:${idx * 80}ms">
+        <div class="prow-img c${idx % 6}">
+          ${soldHtml}
+          ${imgHtml}
+        </div>
+        <div class="prow-body">
+          <span class="pill ${pillClass[p.status] ?? 'pill-planlegging'}">${p.statusLabel}</span>
+          ${taglineHtml}
+          <h2>${p.name}</h2>
+          <p>${p.summary}</p>
+          ${metaItems ? `<div class="prow-meta">${metaItems}</div>` : ''}
+          ${hlTags ? `<div class="highlights">${hlTags}</div>` : ''}
+        </div>
+      </div>`;
+  }
+
+  const PROJECTS = [
+    {
+      "id": "langgaten-24", "name": "Langgaten 24", "tagline": "Et betydelig løft for sentrum",
+      "status": "under_regulering", "statusLabel": "Under regulering", "soldOut": false,
+      "completionYear": null, "typeLabel": "Bolig og næring",
+      "units": { "apartments": null, "apartmentsApprox": "65–70" },
+      "summary": "Nytt sentrumsprosjekt på tomta der det tidligere lå en bensinstasjon. Planlagt som to bygg – ett på fem og ett på seksten etasjer – som kombinerer leiligheter og næringsarealer.",
+      "highlights": ["Ca. 65–70 nye leiligheter", "Nye næringsarealer", "To bygg: 5 og 16 etasjer"],
+      "media": { "hero": "Prosjekter/Langgaten24/Langgaten24.png" }
+    },
+    {
+      "id": "holmestrand-brygge", "name": "Holmestrand Brygge", "tagline": "Byen på brygga",
+      "status": "ferdigstilt", "statusLabel": "Sluttsolgt og ferdigstilt", "soldOut": true,
+      "completionYear": 2021, "typeLabel": "Bolig og næring",
+      "units": { "apartments": 75, "apartmentsApprox": null },
+      "summary": "Ferdigstilt boligprosjekt på brygga i Holmestrand med 75 leiligheter og nye næringslokaler. Sluttsolgt i 2021.",
+      "highlights": ["75 nye leiligheter", "Nye næringslokaler", "Sentral beliggenhet på brygga"],
+      "media": { "hero": "Prosjekter/HolmestrandBrygge/HolmestranBrygge.png" }
+    },
+    {
+      "id": "bibliotekkvartalet-3-kapittel", "name": "Bibliotekkvartalet – Tredje kapittel", "tagline": "Tredje kapittel",
+      "status": "ferdigstilt", "statusLabel": "Sluttsolgt og ferdigstilt", "soldOut": true,
+      "completionYear": 2018, "typeLabel": "Bolig",
+      "units": { "apartments": 26, "apartmentsApprox": null },
+      "summary": "Tredje og siste byggetrinn i Bibliotekkvartalet, med 12 familieleiligheter og 14 kompakte leiligheter. Sluttsolgt og ferdigstilt i 2018.",
+      "highlights": ["12 familieleiligheter", "14 kompakte leiligheter"],
+      "media": { "hero": "Prosjekter/Biblitekkvartalet.kap3/Bibliotekkvartalet.kap3.png" }
+    },
+    {
+      "id": "bibliotekkvartalet-2-kapittel", "name": "Bibliotekkvartalet – Andre kapittel", "tagline": "Andre kapittel",
+      "status": "ferdigstilt", "statusLabel": "Sluttsolgt og ferdigstilt", "soldOut": true,
+      "completionYear": 2018, "typeLabel": "Bolig",
+      "units": { "apartments": 23, "apartmentsApprox": null },
+      "summary": "Andre byggetrinn i Bibliotekkvartalet, med 7 familieleiligheter og 16 kompakte leiligheter. Sluttsolgt og ferdigstilt i 2018.",
+      "highlights": ["7 familieleiligheter", "16 kompakte leiligheter"],
+      "media": { "hero": "Prosjekter/Bibliotekkvartalet.kap2/Bibliotekkvartalet.kap2.png" }
+    },
+    {
+      "id": "bibliotekkvartalet-1-kapittel", "name": "Bibliotekkvartalet – Første kapittel", "tagline": "Første kapittel",
+      "status": "ferdigstilt", "statusLabel": "Sluttsolgt og ferdigstilt", "soldOut": true,
+      "completionYear": 2017, "typeLabel": "Bolig",
+      "units": { "apartments": 19, "apartmentsApprox": null },
+      "summary": "Første byggetrinn i Bibliotekkvartalet, med 10 unike utsiktsleiligheter og 9 kompakte leiligheter. Sluttsolgt og ferdigstilt i 2017.",
+      "highlights": ["10 unike utsiktsleiligheter", "9 kompakte leiligheter"],
+      "media": { "hero": "Prosjekter/Bibliotekkvartalet.kap1/Bibliotekkvartalet.kap1.png" }
+    },
+    {
+      "id": "dr-graaruds-plass-1-3", "name": "Dr. Graaruds Plass 1–3", "tagline": null,
+      "status": "ferdigstilt", "statusLabel": "Sluttsolgt og ferdigstilt", "soldOut": true,
+      "completionYear": 2012, "typeLabel": "Bolig og næring",
+      "units": { "apartments": 39, "apartmentsApprox": null },
+      "summary": "Ferdigstilt prosjekt med 39 leiligheter og nye næringsarealer på Dr. Graaruds Plass. Sluttsolgt og ferdigstilt i 2012.",
+      "highlights": ["39 nye leiligheter", "Nye næringsarealer"],
+      "media": { "hero": "Prosjekter/DrGraarudsPlass/DrGraarudsplass.png" }
+    }
+  ];
+
+  const container = document.getElementById('prosjekt-container');
+  container.innerHTML = `<div class="prosjekt-list">
+    ${PROJECTS.map(renderProject).join('')}
+  </div>`;
+  container.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<script src="main.js"></script>
+</body>
+</html>

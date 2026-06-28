@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentrumsutvikling – Holmestrand Utvikling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* Intro-seksjon med bred tekst */
+  .intro-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+  }
+  .intro-grid .lead-block p {
+    font-size: clamp(1rem, 1.4vw, 1.15rem); color: var(--ink-soft);
+    line-height: 1.8; margin-bottom: 20px;
+  }
+  .intro-grid .lead-block p:last-child { margin-bottom: 0; }
+  .intro-aside {
+    background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 36px;
+    position: sticky; top: 104px;
+  }
+  .intro-aside h3 { font-family: var(--serif); font-weight: 500; font-size: 1.25rem; margin-bottom: 20px; }
+  .aside-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .aside-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+  .aside-list li::before {
+    content: ""; flex-shrink: 0; margin-top: 7px;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--ember);
+  }
+
+  /* Tidslinje */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  /* Tre soner: [år·prikk][body]
+     Prikken sitter i gapet mellom de to kolonnene */
+  .tl-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    column-gap: 40px;
+    position: relative;
+  }
+  /* Vertikal linje – sentrert på prikken (120px + 20px inn i gapet = 140px) */
+  .tl-item::before {
+    content: ""; position: absolute;
+    left: 139px; top: 28px; bottom: -32px;
+    width: 1px; background: var(--line);
+  }
+  .tl-item:last-child::before { display: none; }
+
+  .tl-year {
+    padding-top: 4px;
+    padding-right: 16px;          /* luft mellom tekst og prikk */
+    font-family: var(--serif); font-style: italic;
+    font-size: 1.1rem; color: var(--fjord); font-weight: 400;
+    text-align: right; white-space: nowrap;
+  }
+  .tl-body {
+    background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+  .tl-body h3 { font-family: var(--serif); font-weight: 500; font-size: 1.1rem; margin-bottom: 8px; }
+  .tl-body p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
+
+  /* Prikk i gapet: 120px (år-kolonne) + 20px (halvt gap) − 7px (halvradius) = 133px */
+  .tl-dot {
+    position: absolute; left: 133px; top: 8px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--fjord); border: 3px solid var(--paper);
+    box-shadow: 0 0 0 1px var(--fjord);
+  }
+
+  /* Kart-boks */
+  .kart-wrap {
+    border-radius: 20px; overflow: hidden; border: 1px solid var(--line);
+    height: 420px; background: var(--sand);
+    position: relative;
+  }
+  .kart-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  /* Prosjektkort-rad (3 stk) */
+  .prosjekt-rad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .mini-card {
+    background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+    transition: transform .3s, box-shadow .3s; text-decoration: none; color: inherit;
+    display: flex; flex-direction: column;
+  }
+  .mini-card:hover { transform: translateY(-3px); box-shadow: 0 16px 36px -12px rgba(4,49,58,.16); }
+  .mini-card-img {
+    height: 140px; overflow: hidden;
+    background: linear-gradient(135deg, #003a49, #007898);
+  }
+  .mini-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
+  .mini-card:hover .mini-card-img img { transform: scale(1.05); }
+  .mini-card-body { padding: 20px; flex: 1; }
+  .mini-card-body h4 { font-family: var(--serif); font-weight: 500; font-size: 1rem; margin-bottom: 6px; }
+  .mini-card-body p { font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+
+  /* CTA-boks */
+  .cta-box {
+    background: var(--ink); color: var(--paper); border-radius: 20px;
+    padding: 64px 52px; text-align: center;
+  }
+  .cta-box h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.8rem, 3vw, 2.8rem); margin-bottom: 18px; }
+  .cta-box h2 em { font-style: italic; color: var(--mist); }
+  .cta-box p { font-size: 1rem; color: rgba(244,241,233,.75); max-width: 46ch; margin: 0 auto 36px; line-height: 1.7; }
+  .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .intro-grid { grid-template-columns: 1fr; gap: 32px; }
+    .intro-aside { position: static; }
+    .prosjekt-rad { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .prosjekt-rad { grid-template-columns: 1fr; }
+    .tl-item { grid-template-columns: 80px 1fr; column-gap: 28px; }
+    .tl-item::before { left: 93px; }
+    .tl-dot { left: 87px; }
+    .tl-year { padding-right: 10px; font-size: 1rem; }
+    .cta-box { padding: 44px 28px; }
+    .kart-wrap { height: 280px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html" class="nav-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></a>
+    <ul class="nav-links">
+      <li><a href="til-leie.html">Til leie</a></li>
+      <li><a href="prosjekter.html">Prosjekter</a></li>
+      <li><a href="sentrumsutvikling.html" class="active">Sentrumsutvikling</a></li>
+      <li><a href="nyheter.html">Aktuelt</a></li>
+      <li><a href="om-oss.html">Om oss</a></li>
+    </ul>
+    <a href="kontakt.html" class="nav-cta">Kontakt</a>
+    <button class="nav-hamburger" aria-label="Meny" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero wrap">
+  <div class="eyebrow reveal">Holmestrand sentrum</div>
+  <h1 class="reveal" style="transition-delay:.08s">Vi bygger <em>fremtidens</em> bysentrum</h1>
+  <p class="lead reveal" style="transition-delay:.16s">
+    I mer enn to tiår har vi jobbet med å gi Holmestrand sentrum nytt liv –
+    fra Bibliotekkvartalet til brygga og videre inn mot Langgaten.
+  </p>
+</div>
+
+<!-- Intro -->
+<section class="section wrap">
+  <div class="intro-grid">
+    <div class="lead-block reveal">
+      <p>
+        Holmestrand Utvikling AS ble stiftet med ett mål: å skape et levende, attraktivt
+        og bærekraftig sentrum i Holmestrand. Gjennom helhetlig eiendomsutvikling,
+        langsiktige leieforhold og tett samarbeid med kommunen bidrar vi til at flere
+        velger å bo, handle og jobbe i hjertet av byen.
+      </p>
+      <p>
+        Strategien vår er enkel – men krever tålmodighet og langsiktighet: kjøp sentrale
+        eiendommer, utvikle dem med kvalitet, og lei dem ut til virksomheter og beboere
+        som beriker nærmiljøet. Slik bygger vi verdier som varer utover det enkelte prosjekt.
+      </p>
+      <p>
+        Per i dag forvalter vi over 200 leieforhold og har levert mer enn 185 boliger
+        i sentrumsnære prosjekter. Langgaten 24 er neste kapittel – to bygg på fem og seksten
+        etasjer som vil markere seg tydelig i bybildet og gi 65–70 nye sentrumsleiligheter.
+      </p>
+    </div>
+    <aside class="intro-aside reveal" style="transition-delay:.1s">
+      <h3>Nøkkeltall</h3>
+      <ul class="aside-list">
+        <li>Over 185 sentrumsleiligheter levert siden 2005</li>
+        <li>Mer enn 200 aktive leieforhold (næring og bolig)</li>
+        <li>3 500 m² næringslokaler i drift</li>
+        <li>6 gjennomførte prosjekter – ett aktivt under regulering</li>
+        <li>Eier og forvalter eiendom på Dr. Graaruds Plass, Havnegaten, Langgaten og Bibliotekkvartalet</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- Tidslinje -->
+<section class="section wrap">
+  <div class="section-head reveal">
+    <div>
+      <div class="eyebrow" style="margin-bottom:14px">Historikk</div>
+      <h2>Fra visjon til virkelighet</h2>
+    </div>
+  </div>
+  <div class="timeline">
+
+    <div class="tl-item reveal">
+      <div class="tl-year">2012</div>
+      <div class="tl-body">
+        <div class="tl-dot"></div>
+        <h3>Dr. Graaruds Plass 1–3</h3>
+        <p>39 leiligheter og næringsarealer på Dr. Graaruds Plass. Selskapets egen adresse – og starten på en helhetlig utvikling av Holmestrand sentrum.</p>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-year">2017–2018</div>
+      <div class="tl-body">
+        <div class="tl-dot"></div>
+        <h3>Bibliotekkvartalet – tre byggetrinn</h3>
+        <p>68 leiligheter fordelt på tre kapitler, bygget i de historiske omgivelsene rundt det gamle biblioteket. Alle tre trinn sluttsolgt.</p>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-year">2021</div>
+      <div class="tl-body">
+        <div class="tl-dot"></div>
+        <h3>Holmestrand Brygge</h3>
+        <p>75 leiligheter og næringslokaler som binder Holmestrand sentrum til sjøkanten. Prosjektet ble sluttsolgt og ferdigstilt i 2021.</p>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-year">Nå</div>
+      <div class="tl-body">
+        <div class="tl-dot" style="background:var(--ember)"></div>
+        <h3>Langgaten 24 – under regulering</h3>
+        <p>To nye bygg på fem og seksten etasjer på den tidligere bensinstasjonstomta. Planlegger 65–70 nye sentrumsleiligheter og næringsarealer. Reguleringsarbeid pågår.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Prosjekter -->
+<section class="section wrap">
+  <div class="section-head reveal">
+    <div>
+      <div class="eyebrow" style="margin-bottom:14px">Prosjekter</div>
+      <h2>Steder vi har formet</h2>
+    </div>
+    <a href="prosjekter.html" class="link-all">Alle prosjekter →</a>
+  </div>
+  <div class="prosjekt-rad">
+    <a href="prosjekter.html" class="mini-card reveal">
+      <div class="mini-card-img"><img src="Prosjekter/Langgaten24/Langgaten24.png" alt="Langgaten 24" loading="lazy"></div>
+      <div class="mini-card-body">
+        <span class="pill pill-utvikling" style="margin-bottom:10px;display:inline-block">Under regulering</span>
+        <h4>Langgaten 24</h4>
+        <p>65–70 leiligheter og næring. To bygg på 5 og 16 etasjer.</p>
+      </div>
+    </a>
+    <a href="prosjekter.html" class="mini-card reveal" style="transition-delay:.08s">
+      <div class="mini-card-img" style="background:linear-gradient(135deg,#1f93ad,#004a5c)"><img src="Prosjekter/HolmestrandBrygge/HolmestranBrygge.png" alt="Holmestrand Brygge" loading="lazy"></div>
+      <div class="mini-card-body">
+        <span class="pill pill-ferdig" style="margin-bottom:10px;display:inline-block">Ferdigstilt 2021</span>
+        <h4>Holmestrand Brygge</h4>
+        <p>75 leiligheter. Binder sentrum til sjøkanten.</p>
+      </div>
+    </a>
+    <a href="prosjekter.html" class="mini-card reveal" style="transition-delay:.16s">
+      <div class="mini-card-img" style="background:linear-gradient(135deg,#687830,#04313a)"><img src="Prosjekter/Biblitekkvartalet.kap3/Bibliotekkvartalet.kap3.png" alt="Bibliotekkvartalet" loading="lazy"></div>
+      <div class="mini-card-body">
+        <span class="pill pill-ferdig" style="margin-bottom:10px;display:inline-block">Ferdigstilt 2018</span>
+        <h4>Bibliotekkvartalet</h4>
+        <p>68 leiligheter i tre byggetrinn. Historiske omgivelser.</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Kart -->
+<section class="section wrap">
+  <div class="section-head reveal">
+    <div>
+      <div class="eyebrow" style="margin-bottom:14px">Holmestrand sentrum</div>
+      <h2>Finn oss</h2>
+    </div>
+  </div>
+  <div class="kart-wrap reveal">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2013.4!2d10.315639!3d59.488086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46415fa9b1e80001%3A0x1!2sDr.+Graaruds+plass+3%2C+3080+Holmestrand!5e0!3m2!1snb!2sno!4v1"
+      title="Kart – Dr. Graaruds Plass 3, Holmestrand"
+      loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section wrap" style="border-top:none;padding-top:0">
+  <div class="cta-box reveal">
+    <h2>Har du et prosjekt eller en <em>idé?</em></h2>
+    <p>Vi er alltid åpne for dialog om eiendom, utvikling og samarbeid i Holmestrand sentrum.</p>
+    <div class="cta-btns">
+      <a href="kontakt.html" class="btn btn-ember">Ta kontakt</a>
+      <a href="prosjekter.html" class="btn btn-ghost">Se alle prosjekter</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></div>
+        <p>Vi utvikler sentrum for dem som skal leve og jobbe i Holmestrand – fra fjord til fjell.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Utforsk</h4>
+        <ul>
+          <li><a href="til-leie.html">Til leie</a></li>
+          <li><a href="prosjekter.html">Prosjekter</a></li>
+          <li><a href="sentrumsutvikling.html">Sentrumsutvikling</a></li>
+          <li><a href="nyheter.html">Aktuelt</a></li>
+      <li><a href="om-oss.html">Om oss</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="mailto:post@holmestrandutvikling.no">post@holmestrandutvikling.no</a></li>
+          <li><a href="tel:+4733097700">+47 33 09 77 00</a></li>
+          <li><a href="kontakt.html">Kontaktskjema</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <small>© 2025 Holmestrand Utvikling AS</small>
+      <small>Fjord &amp; Lyng</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 60); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+<script src="main.js"></script>
+</body>
+</html>
