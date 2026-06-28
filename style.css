@@ -115,7 +115,7 @@ a { text-decoration: none; color: inherit; }
 /* ===== Nav ===== */
 .nav {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(244,241,233,.88); backdrop-filter: blur(14px);
+  background: rgba(231,225,210,.92); backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
 }
 .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 80px; gap: 24px; }
