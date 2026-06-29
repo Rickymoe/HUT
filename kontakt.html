@@ -35,6 +35,11 @@
   .form-submit { width: 100%; margin-top: 8px; }
   .form-note { font-size: 12px; color: var(--ink-soft); margin-top: 12px; text-align: center; }
 
+  /* Error message */
+  .form-error { display: none; background: #ffeef0; border: 1px solid #f5c2c7; border-radius: 10px; padding: 12px 16px; font-size: 14px; color: #842029; margin-bottom: 20px; }
+  .form-error.visible { display: block; }
+  button:disabled { opacity: 0.6; cursor: not-allowed; }
+
   /* Success message */
   .form-success { display: none; text-align: center; padding: 32px 0; }
   .form-success .check { width: 56px; height: 56px; background: #e8f5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; }
@@ -93,6 +98,7 @@
   <div class="kontakt-grid">
     <div class="form-card reveal" id="form-card">
       <h2>Send en melding</h2>
+      <div class="form-error" id="form-error">Noe gikk galt. Prøv igjen, eller send e-post direkte til <a href="mailto:post@holmestrandutvikling.no">post@holmestrandutvikling.no</a>.</div>
       <form id="kontakt-form" onsubmit="sendForm(event)">
         <div class="form-row">
           <div class="form-group">
@@ -101,7 +107,7 @@
           </div>
           <div class="form-group">
             <label for="epost">E-post</label>
-            <input type="email" id="epost" name="epost" placeholder="din@epost.no" required>
+            <input type="email" id="epost" name="email" placeholder="din@epost.no" required>
           </div>
         </div>
         <div class="form-group">
@@ -205,10 +211,35 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  function sendForm(e) {
+  async function sendForm(e) {
     e.preventDefault();
-    document.getElementById('kontakt-form').style.display = 'none';
-    document.getElementById('form-success').style.display = 'block';
+    const form = document.getElementById('kontakt-form');
+    const btn = form.querySelector('button[type="submit"]');
+    const errorBox = document.getElementById('form-error');
+
+    btn.disabled = true;
+    btn.textContent = 'Sender…';
+    errorBox.classList.remove('visible');
+
+    try {
+      const res = await fetch('https://formspree.io/f/xykqpono', {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        form.style.display = 'none';
+        errorBox.style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+      } else {
+        throw new Error('server');
+      }
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Send melding';
+      errorBox.classList.add('visible');
+    }
   }
 </script>
 <script src="main.js"></script>
