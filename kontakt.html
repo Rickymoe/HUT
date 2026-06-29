@@ -36,18 +36,28 @@
   .form-note { font-size: 12px; color: var(--ink-soft); margin-top: 12px; text-align: center; }
 
   /* Post-it note */
-  .postit {
-    background: #fff9c4;
-    border-left: 4px solid #f9a825;
-    border-radius: 4px 8px 8px 4px;
-    padding: 10px 14px;
-    margin-bottom: 24px;
-    box-shadow: 2px 3px 8px rgba(0,0,0,.12);
-    transform: rotate(-0.6deg);
-    font-size: 13px;
+  .postit-wrap {
+    position: relative;
+    width: 260px;
+    margin-bottom: 28px;
+    transform: rotate(-1.8deg);
+    transform-origin: top left;
+  }
+  .postit-wrap img {
+    width: 100%;
+    display: block;
+  }
+  .postit-text {
+    position: absolute;
+    top: 26%;
+    left: 13%;
+    right: 13%;
     color: #c0392b;
+    font-size: 12.5px;
     font-family: var(--sans);
-    line-height: 1.5;
+    font-weight: 600;
+    line-height: 1.55;
+    text-align: center;
   }
 
   /* Error message */
@@ -112,7 +122,10 @@
 <section class="section wrap" style="padding-top:0;border-top:none">
   <div class="kontakt-grid">
     <div class="form-card reveal" id="form-card">
-      <div class="postit">⚠️ OBS: Meldinger sendes foreløpig til Ricky (rmohncke@gmail.com) — byttes til post@holmestrandutvikling.no ved lansering.</div>
+      <div class="postit-wrap">
+        <img src="Bilder/postit/postit.png" alt="">
+        <p class="postit-text">⚠️ OBS: Meldinger sendes foreløpig til Ricky (rmohncke@gmail.com) — byttes til post@holmestrandutvikling.no ved lansering.</p>
+      </div>
       <h2>Send en melding</h2>
       <div class="form-error" id="form-error">Noe gikk galt. Prøv igjen, eller send e-post direkte til <a href="mailto:post@holmestrandutvikling.no">post@holmestrandutvikling.no</a>.</div>
       <form id="kontakt-form" onsubmit="sendForm(event)">
