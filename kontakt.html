@@ -35,6 +35,21 @@
   .form-submit { width: 100%; margin-top: 8px; }
   .form-note { font-size: 12px; color: var(--ink-soft); margin-top: 12px; text-align: center; }
 
+  /* Post-it note */
+  .postit {
+    background: #fff9c4;
+    border-left: 4px solid #f9a825;
+    border-radius: 4px 8px 8px 4px;
+    padding: 10px 14px;
+    margin-bottom: 24px;
+    box-shadow: 2px 3px 8px rgba(0,0,0,.12);
+    transform: rotate(-0.6deg);
+    font-size: 13px;
+    color: #c0392b;
+    font-family: var(--sans);
+    line-height: 1.5;
+  }
+
   /* Error message */
   .form-error { display: none; background: #ffeef0; border: 1px solid #f5c2c7; border-radius: 10px; padding: 12px 16px; font-size: 14px; color: #842029; margin-bottom: 20px; }
   .form-error.visible { display: block; }
@@ -97,6 +112,7 @@
 <section class="section wrap" style="padding-top:0;border-top:none">
   <div class="kontakt-grid">
     <div class="form-card reveal" id="form-card">
+      <div class="postit">⚠️ OBS: Meldinger sendes foreløpig til Ricky (rmohncke@gmail.com) — byttes til post@holmestrandutvikling.no ved lansering.</div>
       <h2>Send en melding</h2>
       <div class="form-error" id="form-error">Noe gikk galt. Prøv igjen, eller send e-post direkte til <a href="mailto:post@holmestrandutvikling.no">post@holmestrandutvikling.no</a>.</div>
       <form id="kontakt-form" onsubmit="sendForm(event)">
