@@ -163,6 +163,42 @@
       ingress: "Holmestrand vokser. Det nye prosjektet «Langgaten 24» vil endre byens sentrum. På stedet der det tidligere var en bensinstasjon, skal det bygges en 5-etasjes og en 16-etasjes bygning, hvor leiligheter og næringsliv vil bli kombinert.",
       image: "Media/langgaten-24-loft-for-sentrum/langgaten-24-loft-for-sentrum.jpg",
       imageCaption: "Faksimile fra ByHorten.no, publisert 13. mars 2025"
+    },
+    {
+      id: "god-butikk",
+      title: "Økte omsetningen med 60% etter flytting til Holmestrand sentrum",
+      source: "Jarlsberg Avis",
+      sourceUrl: "https://www.jarlsbergavis.no/per-flyttet-driften-fra-svelvik-til-holmestrand-endelig-klaffet-det/s/5-26-547681",
+      date: "2025-01-22",
+      dateLabel: "22. januar 2025",
+      category: "Leietakere",
+      ingress: "I fjor økte vi omsetningen med over 60 prosent. Etter så mange år med å få det til å gå rundt i Svelvik, føles det endelig som om alt har falt på plass nå.",
+      image: "Media/God-butikk/Klaff.png",
+      imageCaption: "Faksimile fra Jarlsberg Avis, publisert 22. januar 2025"
+    },
+    {
+      id: "langgaten24-nyttbygg",
+      title: "Holmestrand Utvikling lanserer nytt prosjekt i Langgaten 24",
+      source: "Jarlsberg Avis",
+      sourceUrl: "https://www.jarlsbergavis.no/planlegger-hoyhus-i-langgaten-holmestrand-har-et-voldsomt-potensial-som-by/s/5-26-545899",
+      date: "2025-01-10",
+      dateLabel: "10. januar 2025",
+      category: "Prosjekter",
+      ingress: "– Vi er veldig glade for at det var vi som vant prosjektkonkurransen og kontrakten. Holmestrand har et voldsomt potensial som by, med betydelige urbane kvaliteter.",
+      image: "Media/Langgaten24-nyttbygg/Lgt24-2-947x1024.png",
+      imageCaption: "Faksimile fra Jarlsberg Avis, publisert 10. januar 2025"
+    },
+    {
+      id: "lange-koer",
+      title: "Lei av innstilte tog og lange køer? Se vår reklamefilm her!",
+      source: "Holmestrand Utvikling",
+      sourceUrl: null,
+      date: "2024-10-09",
+      dateLabel: "Oktober 2024",
+      category: "Næringseiendom",
+      ingress: "Skaff deg et kontor i Holmestrand! Vi har kontorer til alle behov.",
+      image: "Media/lange-koer/thumbnail.jpg",
+      video: "https://holmestrandutvikling.no/wp-content/uploads/2024/10/Skaff-deg-kontor-i-Holmestrand.mp4"
     }
   ];
   /* ===== SLUTT ===== */
@@ -199,7 +235,12 @@
 
       <p class="art-ingress">${item.ingress}</p>
 
-      ${item.image ? `
+      ${item.video ? `
+        <div class="art-klipp">
+          <video controls poster="${item.image ?? ''}" style="width:100%;border-radius:8px;">
+            <source src="${item.video}" type="video/mp4">
+          </video>
+        </div>` : item.image ? `
         <div class="art-klipp">
           <img src="${item.image}" alt="${item.title}">
         </div>
@@ -208,7 +249,7 @@
           ${item.imageCaption ?? ''}
         </p>` : ''}
 
-      <div class="art-kilde-boks">
+      ${item.sourceUrl ? `<div class="art-kilde-boks">
         <p>Artikkelen er opprinnelig publisert av <strong>${item.source}</strong>.
         Klikk for å lese hele saken hos originalkilden.</p>
         <a href="${item.sourceUrl}" target="_blank" rel="noopener" class="btn btn-fjord"
@@ -216,7 +257,7 @@
           Les på ${item.source}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>
-      </div>`;
+      </div>` : ''}`;
 
     // Scroll reveal
     const io = new IntersectionObserver(entries => {
