@@ -75,8 +75,8 @@
   .kinfo-row svg { width: 18px; height: 18px; fill: var(--fjord); flex-shrink: 0; margin-top: 2px; }
   .kinfo-row span { font-size: 15px; line-height: 1.5; }
   .kinfo-row a { color: var(--fjord); font-weight: 500; }
-  .kmap { border-radius: 14px; overflow: hidden; height: 200px; background: linear-gradient(135deg, var(--mist), var(--sand)); display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); }
-  .kmap p { font-size: 14px; color: var(--ink-soft); }
+  .kmap { border-radius: 14px; overflow: hidden; height: 240px; border: 1px solid var(--line); }
+  .kmap iframe { width: 100%; height: 100%; border: 0; display: block; }
 
   @media (max-width: 860px) {
     .kontakt-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -154,6 +154,12 @@
           <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
           <span>Dr. Graaruds Plass 3<br>3080 Holmestrand</span>
         </div>
+      </div>
+      <div class="kmap reveal" style="transition-delay:.05s">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2013.4!2d10.315639!3d59.488086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46415fa9b1e80001%3A0x1!2sDr.+Graaruds+plass+3%2C+3080+Holmestrand!5e0!3m2!1snb!2sno!4v1"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Kart – Dr. Graaruds Plass 3, Holmestrand"></iframe>
       </div>
       <div class="kinfo-box">
         <h4>Kontaktinfo</h4>
