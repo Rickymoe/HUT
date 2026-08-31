@@ -306,11 +306,11 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
     transform: none !important;
     transition: none !important;
   }
-  .btn:hover,
-  .pcard:hover,
-  .nav-cta:hover,
-  .ncard:hover,
-  .mini-card:hover { transform: none; }
-  .webcam-modal { transition: none; }
-  .hero-slide { transition: none; }
+  .btn:hover, .pcard:hover, .nav-cta:hover, .ncard:hover,
+  .mini-card:hover, .webcam-fab:hover,
+  .pcard:hover .pcard-img img, .ncard:hover .ncard-img img,
+  .prow:hover .prow-img img, .mini-card:hover .mini-card-img img {
+    transform: none !important;
+  }
+  .webcam-modal, .hero-slide { transition: none !important; }
 }

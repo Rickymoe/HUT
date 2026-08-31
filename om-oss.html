@@ -21,7 +21,8 @@
   .om-tekst h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.8rem, 3vw, 2.8rem); line-height: 1.1; margin-bottom: 28px; }
   .om-tekst h2 em { font-style: italic; color: var(--fjord); }
   .om-tekst p { font-size: 16px; color: var(--ink-soft); line-height: 1.8; margin-bottom: 20px; }
-  .om-right { position: relative; align-self: stretch; }
+  .om-right { align-self: stretch; }
+  /* object-fit-croppen slår bare inn så lenge venstre tekstkolonne er den høyeste – altså innholdsavhengig. */
   .om-blomst { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; display: block; }
 
   .verdier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }

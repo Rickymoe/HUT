@@ -211,12 +211,14 @@ function initHeroCarousel() {
   const INTERVAL = 7000;
   let current = 0;
   let timer = null;
-  let hovering = false;
+  let paused = false;
 
   slides.forEach((_, i) => {
     const d = document.createElement('button');
+    d.type = 'button';
     d.className = 'hero-dot' + (i === 0 ? ' active' : '');
     d.setAttribute('aria-label', 'Bilde ' + (i + 1));
+    if (i === 0) d.setAttribute('aria-current', 'true');
     d.addEventListener('click', () => { goTo(i); restart(); });
     dotsContainer.appendChild(d);
   });
@@ -224,9 +226,11 @@ function initHeroCarousel() {
   function goTo(n) {
     slides[current].classList.remove('active');
     dotsContainer.children[current].classList.remove('active');
+    dotsContainer.children[current].removeAttribute('aria-current');
     current = (n + slides.length) % slides.length;
     slides[current].classList.add('active');
     dotsContainer.children[current].classList.add('active');
+    dotsContainer.children[current].setAttribute('aria-current', 'true');
   }
 
   function tick() {
@@ -235,7 +239,7 @@ function initHeroCarousel() {
   }
   function schedule() {
     clearTimeout(timer);
-    if (reduced || hovering || document.hidden) return;
+    if (reduced || paused || document.hidden) return;
     timer = setTimeout(tick, INTERVAL);
   }
   function restart() { schedule(); }
@@ -244,8 +248,11 @@ function initHeroCarousel() {
   if (prev) prev.addEventListener('click', () => { goTo(current - 1); restart(); });
 
   if (hero) {
-    hero.addEventListener('mouseenter', () => { hovering = true; schedule(); });
-    hero.addEventListener('mouseleave', () => { hovering = false; schedule(); });
+    hero.addEventListener('mouseenter', () => { paused = true; schedule(); });
+    hero.addEventListener('mouseleave', () => { paused = false; schedule(); });
+    // Tastaturfokus i hero pauser auto-advance på samme måte som hover (WCAG 2.2.2).
+    hero.addEventListener('focusin', () => { paused = true; schedule(); });
+    hero.addEventListener('focusout', () => { paused = false; schedule(); });
   }
   document.addEventListener('visibilitychange', schedule);
 
@@ -254,16 +261,19 @@ function initHeroCarousel() {
 
 // ---- Oppstart -------------------------------------------------------
 async function boot() {
-  await Promise.all([
-    loadPartial('partials/nav.html', 'site-nav'),
-    loadPartial('partials/footer.html', 'site-footer'),
-  ]);
-  initNav();
-  initFooterYear();
+  // DOM-only inits først – disse rører ikke partial-innholdet og skal ikke
+  // vente på de to fetch-ene (ellers er piler/prikker og reveals døde til da).
   initWebcam();
   observeReveals();
   initStatCounters();
   initHeroCarousel();
+  await Promise.all([
+    loadPartial('partials/nav.html', 'site-nav'),
+    loadPartial('partials/footer.html', 'site-footer'),
+  ]);
+  // initNav og initFooterYear må stå etter await – de opererer på injisert markup.
+  initNav();
+  initFooterYear();
 }
 
 if (document.readyState === 'loading') {
