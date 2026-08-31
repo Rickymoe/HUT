@@ -193,6 +193,65 @@ function initStatCounters() {
   io.observe(band);
 }
 
+// ---- Hero-karusell (forside) --------------------------------------
+// Crossfade mellom slides. Auto-advance pauses på hover og når fanen
+// er skjult, og starter ikke i det hele tatt ved prefers-reduced-motion
+// (piler/prikker fungerer fortsatt).
+function initHeroCarousel() {
+  const slidesWrap = document.querySelector('.hero-slides');
+  if (!slidesWrap) return;
+  const slides = [...slidesWrap.querySelectorAll('.hero-slide')];
+  const dotsContainer = document.getElementById('hero-dots');
+  const hero = document.querySelector('.hero');
+  const prev = document.querySelector('.hero-arrow.prev');
+  const next = document.querySelector('.hero-arrow.next');
+  if (slides.length < 2 || !dotsContainer) return;
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const INTERVAL = 7000;
+  let current = 0;
+  let timer = null;
+  let hovering = false;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'hero-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Bilde ' + (i + 1));
+    d.addEventListener('click', () => { goTo(i); restart(); });
+    dotsContainer.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dotsContainer.children[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dotsContainer.children[current].classList.add('active');
+  }
+
+  function tick() {
+    goTo(current + 1);
+    schedule();
+  }
+  function schedule() {
+    clearTimeout(timer);
+    if (reduced || hovering || document.hidden) return;
+    timer = setTimeout(tick, INTERVAL);
+  }
+  function restart() { schedule(); }
+
+  if (next) next.addEventListener('click', () => { goTo(current + 1); restart(); });
+  if (prev) prev.addEventListener('click', () => { goTo(current - 1); restart(); });
+
+  if (hero) {
+    hero.addEventListener('mouseenter', () => { hovering = true; schedule(); });
+    hero.addEventListener('mouseleave', () => { hovering = false; schedule(); });
+  }
+  document.addEventListener('visibilitychange', schedule);
+
+  schedule();
+}
+
 // ---- Oppstart -------------------------------------------------------
 async function boot() {
   await Promise.all([
@@ -204,6 +263,7 @@ async function boot() {
   initWebcam();
   observeReveals();
   initStatCounters();
+  initHeroCarousel();
 }
 
 if (document.readyState === 'loading') {

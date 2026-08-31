@@ -13,7 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
-  /* Hero karusell */
+  /* Hero-karusell */
   .hero {
     position: relative; overflow: hidden; color: var(--paper);
     height: clamp(520px, 80vh, 860px);
@@ -23,8 +23,11 @@
   .hero-slides { position: absolute; inset: 0; }
   .hero-slide {
     position: absolute; inset: 0;
-    background-size: cover; background-position: center;
     opacity: 0; transition: opacity 0.6s ease-in-out;
+  }
+  .hero-slide img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover; display: block;
   }
   .hero-slide.active { opacity: 1; }
   /* Dark gradient overlay so text is always readable */
@@ -175,17 +178,17 @@
 
 <div id="site-nav"></div>
 
-<!-- Hero karusell -->
+<!-- Hero-karusell -->
 <section class="hero">
   <div class="hero-slides">
-    <div class="hero-slide active" style="background-image:url('Prosjekter/Karusell/Langgaten24.0.png')"></div>
-    <div class="hero-slide" style="background-image:url('Prosjekter/Karusell/Langgaten24.1.png')"></div>
-    <div class="hero-slide" style="background-image:url('Prosjekter/Karusell/Langgaten24.2.png')"></div>
-    <div class="hero-slide" style="background-image:url('Prosjekter/Karusell/Langgaten24.3.png')"></div>
-    <div class="hero-slide" style="background-image:url('Prosjekter/Karusell/Langgaten24.4.png')"></div>
-    <div class="hero-slide" style="background-image:url('Prosjekter/Karusell/Langgaten24.5.png')"></div>
-    <div class="hero-slide" style="background-image:url('Prosjekter/Karusell/Langgaten24.6.png')"></div>
-    <div class="hero-slide" style="background-image:url('Prosjekter/Karusell/Langgaten24.7.png')"></div>
+    <div class="hero-slide active"><img src="Prosjekter/Karusell/Langgaten24.0.png" alt="Illustrasjon av Langgaten 24-prosjektet i Holmestrand" fetchpriority="high" width="2157" height="1296"></div>
+    <div class="hero-slide"><img src="Prosjekter/Karusell/Langgaten24.1.png" alt="" loading="lazy" width="2157" height="1296"></div>
+    <div class="hero-slide"><img src="Prosjekter/Karusell/Langgaten24.2.png" alt="" loading="lazy" width="2157" height="1296"></div>
+    <div class="hero-slide"><img src="Prosjekter/Karusell/Langgaten24.3.png" alt="" loading="lazy" width="2157" height="1296"></div>
+    <div class="hero-slide"><img src="Prosjekter/Karusell/Langgaten24.4.png" alt="" loading="lazy" width="2157" height="1296"></div>
+    <div class="hero-slide"><img src="Prosjekter/Karusell/Langgaten24.5.png" alt="" loading="lazy" width="2157" height="1296"></div>
+    <div class="hero-slide"><img src="Prosjekter/Karusell/Langgaten24.6.png" alt="" loading="lazy" width="2157" height="1296"></div>
+    <div class="hero-slide"><img src="Prosjekter/Karusell/Langgaten24.7.png" alt="" loading="lazy" width="2157" height="1296"></div>
   </div>
 
   <div class="hero-inner wrap">
@@ -344,43 +347,6 @@
       window.HUT.observeReveals(preview);
     }
   }
-
-  // Hero karusell
-  const slides = document.querySelectorAll('.hero-slide');
-  const dotsContainer = document.getElementById('hero-dots');
-  let current = 0;
-  let timer = null;
-
-  slides.forEach((_, i) => {
-    const d = document.createElement('button');
-    d.className = 'hero-dot' + (i === 0 ? ' active' : '');
-    d.setAttribute('aria-label', 'Bilde ' + (i + 1));
-    d.addEventListener('click', () => { goTo(i); restart(); });
-    dotsContainer.appendChild(d);
-  });
-
-  function goTo(n) {
-    slides[current].classList.remove('active');
-    dotsContainer.children[current].classList.remove('active');
-    current = (n + slides.length) % slides.length;
-    slides[current].classList.add('active');
-    dotsContainer.children[current].classList.add('active');
-  }
-
-  function tick() {
-    goTo(current + 1);
-    timer = setTimeout(tick, 7000);
-  }
-
-  function restart() {
-    clearTimeout(timer);
-    timer = setTimeout(tick, 7000);
-  }
-
-  document.querySelector('.hero-arrow.next').addEventListener('click', () => { goTo(current + 1); restart(); });
-  document.querySelector('.hero-arrow.prev').addEventListener('click', () => { goTo(current - 1); restart(); });
-
-  restart();
 </script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3b2830d8c1b74ed68dee031783103adc"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
