@@ -130,7 +130,8 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   padding: 8px 14px; border-radius: 100px;
   transition: background .2s, color .2s;
 }
-.nav-links a:hover, .nav-links a.active { background: var(--sand); color: var(--ink); }
+.nav-links a:hover { background: var(--sand); color: var(--ink); }
+.nav-links a.active { background: var(--mist); color: var(--ink); font-weight: 600; }
 .nav-cta {
   background: var(--ink); color: var(--paper);
   font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: 100px;
@@ -194,8 +195,8 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
     display: block; padding: 16px 28px;
     font-size: 16px; font-weight: 500; border-radius: 0;
   }
-  .nav.open .nav-links a:hover,
-  .nav.open .nav-links a.active { background: var(--sand); }
+  .nav.open .nav-links a:hover { background: var(--sand); }
+  .nav.open .nav-links a.active { background: var(--mist); color: var(--ink); font-weight: 600; }
 
   /* Footer */
   .footer-grid { grid-template-columns: 1fr 1fr; }
