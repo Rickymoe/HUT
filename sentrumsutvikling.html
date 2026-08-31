@@ -39,15 +39,18 @@
   /* Tre soner: [år·prikk][body]
      Prikken sitter i gapet mellom de to kolonnene */
   .tl-item {
+    --tl-col: 120px;   /* år-kolonnebredde */
+    --tl-gap: 40px;    /* column-gap */
     display: grid;
-    grid-template-columns: 120px 1fr;
-    column-gap: 40px;
+    grid-template-columns: var(--tl-col) 1fr;
+    column-gap: var(--tl-gap);
     position: relative;
   }
-  /* Vertikal linje – sentrert på prikken (120px + 20px inn i gapet = 140px) */
+  /* Vertikal linje – sentrert i gapet (år-kolonne + halvt gap) */
   .tl-item::before {
     content: ""; position: absolute;
-    left: 139px; top: 28px; bottom: -32px;
+    left: calc(var(--tl-col) + var(--tl-gap) / 2);
+    top: 28px; bottom: -32px;
     width: 1px; background: var(--line);
   }
   .tl-item:last-child::before { display: none; }
@@ -66,9 +69,11 @@
   .tl-body h3 { font-family: var(--serif); font-weight: 500; font-size: 1.1rem; margin-bottom: 8px; }
   .tl-body p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
 
-  /* Prikk i gapet: 120px (år-kolonne) + 20px (halvt gap) − 7px (halvradius) = 133px */
+  /* Prikk i gapet: linja − halv prikkbredde (7px) */
   .tl-dot {
-    position: absolute; left: 133px; top: 8px;
+    position: absolute;
+    left: calc(var(--tl-col) + var(--tl-gap) / 2 - 7px);
+    top: 8px;
     width: 14px; height: 14px; border-radius: 50%;
     background: var(--fjord); border: 3px solid var(--paper);
     box-shadow: 0 0 0 1px var(--fjord);
@@ -117,9 +122,7 @@
   }
   @media (max-width: 600px) {
     .prosjekt-rad { grid-template-columns: 1fr; }
-    .tl-item { grid-template-columns: 80px 1fr; column-gap: 28px; }
-    .tl-item::before { left: 93px; }
-    .tl-dot { left: 87px; }
+    .tl-item { --tl-col: 80px; --tl-gap: 28px; }
     .tl-year { padding-right: 10px; font-size: 1rem; }
     .cta-box { padding: 44px 28px; }
     .kart-wrap { height: 280px; }
