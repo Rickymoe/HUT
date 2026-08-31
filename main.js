@@ -38,7 +38,7 @@ async function loadPartial(url, targetId) {
   if (!target) return;
   try {
     const res = await fetch(url);
-    if (!res.ok) throw new Error('HTTP ' + res.status);
+    if (!res.ok) { console.error('Kunne ikke laste ' + url + ' (HTTP ' + res.status + ')'); return; }
     // outerHTML (ikke innerHTML): placeholder-diven skal ikke bli en wrapper
     // rundt <nav> – en wrapper med nøyaktig navens høyde gir position: sticky
     // ingen plass å feste seg i.
@@ -53,27 +53,29 @@ function initNav() {
   const page = document.body.dataset.page;
   if (page) {
     const link = document.querySelector('.nav a[data-page="' + page + '"]');
-    if (link) link.classList.add('active');
+    if (link) {
+      link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
+    }
   }
   const nav = document.querySelector('.nav');
   const hamburger = document.querySelector('.nav-hamburger');
   if (!nav || !hamburger) return;
+
+  const closeMenu = () => {
+    nav.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+  };
 
   hamburger.addEventListener('click', () => {
     const open = nav.classList.toggle('open');
     hamburger.setAttribute('aria-expanded', String(open));
   });
   nav.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => {
-      nav.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-    });
+    a.addEventListener('click', closeMenu);
   });
   document.addEventListener('click', e => {
-    if (!nav.contains(e.target)) {
-      nav.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-    }
+    if (!nav.contains(e.target)) closeMenu();
   });
 }
 
@@ -154,7 +156,7 @@ function initWebcam() {
 }
 
 // ---- Oppstart -------------------------------------------------------
-document.addEventListener('DOMContentLoaded', async () => {
+async function boot() {
   await Promise.all([
     loadPartial('partials/nav.html', 'site-nav'),
     loadPartial('partials/footer.html', 'site-footer'),
@@ -163,4 +165,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   initFooterYear();
   initWebcam();
   observeReveals();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', boot);
+} else {
+  boot();
+}

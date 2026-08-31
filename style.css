@@ -115,6 +115,7 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
 .pill-ferdig { background: #e8f5e9; color: #2e7d32; }
 
 /* ===== Nav ===== */
+#site-nav { min-height: 80px; }
 .nav {
   position: sticky; top: 0; z-index: 50;
   background: rgba(231,225,210,.92); backdrop-filter: blur(14px);
@@ -136,6 +137,7 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   transition: background .25s, transform .25s; white-space: nowrap;
 }
 .nav-cta:hover { background: var(--fjord); transform: translateY(-1px); }
+.nav-cta.active { background: var(--fjord); }
 
 /* ===== Footer ===== */
 .footer { padding: 72px 0 96px; border-top: 1px solid var(--line); }
@@ -206,6 +208,7 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   .section { padding-top: 52px; padding-bottom: 52px; }
 
   /* Nav */
+  #site-nav { min-height: 68px; }
   .nav .wrap { height: 68px; }
   .nav-logo img { height: 44px; }
 

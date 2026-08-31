@@ -183,3 +183,4 @@ Kontakt
 - Ikke kopier innhold fra dagens WordPress-side uten å rense det – den er hacket og har injisert spam
 - Pris på næringslokaler er **kr/m²/år** (bekreftet mot FINN)
 - Dr. Graaruds Plass 3 er et kontorhotell med to separate FINN-annonser (9–18 m² per kontor)
+- Sidene laster nav/footer via `fetch()` (delte partials i `partials/`), så de må åpnes gjennom en lokal webserver (`python3 -m http.server 8000`) – ikke som `file://` (da blir nav/footer tomme)

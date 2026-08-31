@@ -336,7 +336,7 @@
           <div class="pcard-body">
             <span class="pill pill-planlegging">${p.category}</span>
             <h3>${p.title}</h3>
-            <p>${p.ingress}</p>
+            <p>${p.cardIngress ?? p.ingress}</p>
             <div class="pcard-meta"><span>${p.source} · ${p.dateLabel}</span></div>
           </div>
         </a>`;

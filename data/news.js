@@ -1,5 +1,6 @@
 // Kanonisk nyhetsliste i visnings-rekkefølge. url/external utledes i render:
 //   url = "artikkel.html?id=" + id,  external = false (alle nåværende saker er interne).
+// cardIngress = kort teaser kun for forsidens nyhetsforhåndsvisning (samme card*-konvensjon som data/projects.js).
 window.HUT_NEWS = [
   {
     id: "langgaten-33-hana-mat",
@@ -10,6 +11,7 @@ window.HUT_NEWS = [
     dateLabel: "7. februar 2025",
     category: "Leietakere",
     ingress: "Hana Mat i Langgaten 33 er en lokal importbutikk som holder til i Holmestrand sentrum. Ifølge Aftenposten kan du spare tusenvis av kroner i året ved å handle frukt og grønt hos en innvandrerbutikk fremfor dagligvarekjedene.",
+    cardIngress: "Hana Mat i Langgaten 33 er en lokal importbutikk. Ifølge Aftenposten sparer du tusenvis i året på frukt og grønt.",
     thumbnail: "Media/langgaten-33-hana-mat/Langgaten-33-hana-mat-litenbilde.png",
     image: "Media/langgaten-33-hana-mat/langgaten-33-hana-mat.jpg",
     imageCaption: "Faksimile fra Aftenposten, publisert 3. februar 2025"
@@ -23,6 +25,7 @@ window.HUT_NEWS = [
     dateLabel: "13. mars 2025",
     category: "Prosjekter",
     ingress: "Holmestrand vokser. Det nye prosjektet «Langgaten 24» vil endre byens sentrum. På stedet der det tidligere var en bensinstasjon, skal det bygges en 5-etasjes og en 16-etasjes bygning, hvor leiligheter og næringsliv vil bli kombinert.",
+    cardIngress: "Holmestrand vokser. Det nye prosjektet «Langgaten 24» vil endre byens sentrum.",
     image: "Media/langgaten-24-loft-for-sentrum/langgaten-24-loft-for-sentrum.jpg",
     imageCaption: "Faksimile fra ByHorten.no, publisert 13. mars 2025"
   },
@@ -35,6 +38,7 @@ window.HUT_NEWS = [
     dateLabel: "22. januar 2025",
     category: "Leietakere",
     ingress: "I fjor økte vi omsetningen med over 60 prosent. Etter så mange år med å få det til å gå rundt i Svelvik, føles det endelig som om alt har falt på plass nå.",
+    cardIngress: "I fjor økte vi omsetningen med over 60 prosent. Endelig klaffet det.",
     image: "Media/God-butikk/Klaff.png",
     imageCaption: "Faksimile fra Jarlsberg Avis, publisert 22. januar 2025"
   },
