@@ -295,3 +295,22 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   .webcam-fab { padding: 14px; border-radius: 50%; bottom: 20px; right: 20px; }
   .webcam-modal { border-radius: 16px; }
 }
+
+/* ===== Redusert bevegelse ===== */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal,
+  .qcard.reveal,
+  .pcard.reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .btn:hover,
+  .pcard:hover,
+  .nav-cta:hover,
+  .ncard:hover,
+  .mini-card:hover { transform: none; }
+  .webcam-modal { transition: none; }
+  .hero-slide { transition: none; }
+}
