@@ -155,6 +155,44 @@ function initWebcam() {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeWebcam(); });
 }
 
+// ---- Tellende statistikk-tall (forside) ----------------------------
+// Teller opp fra 0 til data-to når stats-båndet scrolles inn. Uten JS,
+// uten IntersectionObserver eller ved prefers-reduced-motion står de
+// ferdige tallene allerede i markup – da gjør denne ingenting.
+function initStatCounters() {
+  const band = document.querySelector('.stats');
+  if (!band || !band.querySelector('.count[data-to]')) return;
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced || !('IntersectionObserver' in window)) return;
+
+  const countUp = el => {
+    const to = parseInt(el.dataset.to, 10);
+    if (!Number.isFinite(to)) return;
+    const dur = 1400;
+    const t0 = performance.now();
+    el.textContent = '0';
+    const step = now => {
+      const p = Math.min(1, (now - t0) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = String(Math.round(to * eased));
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = String(to);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.querySelectorAll('.count[data-to]').forEach(countUp);
+      io.disconnect();
+    });
+  }, { threshold: 0.3 });
+
+  io.observe(band);
+}
+
 // ---- Oppstart -------------------------------------------------------
 async function boot() {
   await Promise.all([
@@ -165,6 +203,7 @@ async function boot() {
   initFooterYear();
   initWebcam();
   observeReveals();
+  initStatCounters();
 }
 
 if (document.readyState === 'loading') {
