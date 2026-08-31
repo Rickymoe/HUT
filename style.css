@@ -6,6 +6,7 @@
   --mist: #bdd9e0;
   --sand: #e7e1d2;
   --sand-deep: #d6cdb8;
+  --clay: #cdb896;          /* varm tan – aktiv nav-lenke */
   --paper: #f4f1e9;
   --ember: #687830;
   --ember-soft: #7f9040;
@@ -131,7 +132,7 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   transition: background .2s, color .2s;
 }
 .nav-links a:hover { background: var(--sand); color: var(--ink); }
-.nav-links a.active { background: var(--mist); color: var(--ink); font-weight: 600; }
+.nav-links a.active { background: var(--clay); color: var(--ink); font-weight: 600; }
 .nav-cta {
   background: var(--ink); color: var(--paper);
   font-size: 14px; font-weight: 600; padding: 10px 20px; border-radius: 100px;
@@ -196,7 +197,7 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
     font-size: 16px; font-weight: 500; border-radius: 0;
   }
   .nav.open .nav-links a:hover { background: var(--sand); }
-  .nav.open .nav-links a.active { background: var(--mist); color: var(--ink); font-weight: 600; }
+  .nav.open .nav-links a.active { background: var(--clay); color: var(--ink); font-weight: 600; }
 
   /* Footer */
   .footer-grid { grid-template-columns: 1fr 1fr; }
