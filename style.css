@@ -9,6 +9,7 @@
   --paper: #f4f1e9;
   --ember: #687830;
   --ember-soft: #7f9040;
+  --ember-text: #556325;   /* mørkere mosegrønt for liten tekst – AA mot --paper/--sand/#fff */
   --line: rgba(4,49,58,.14);
   --serif: "Fraunces", Georgia, serif;
   --sans: "Schibsted Grotesk", -apple-system, sans-serif;
@@ -68,15 +69,15 @@ a { text-decoration: none; color: inherit; }
 .section-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 48px; }
 .section-head h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -.01em; }
 .section-head .num { font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--ink-soft); }
-.section-head .link-all { font-size: 14px; font-weight: 600; color: var(--ember); transition: gap .2s; display: inline-flex; align-items: center; gap: 6px; }
+.section-head .link-all { font-size: 14px; font-weight: 600; color: var(--ember-text); transition: gap .2s; display: inline-flex; align-items: center; gap: 6px; }
 .section-head .link-all:hover { gap: 10px; }
 
 /* Eyebrow */
 .eyebrow {
   font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase;
-  color: var(--ember); display: inline-flex; align-items: center; gap: 10px;
+  color: var(--ember-text); display: inline-flex; align-items: center; gap: 10px;
 }
-.eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--ember); }
+.eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--ember-text); }
 
 /* Reveal */
 .reveal { opacity: 0; transform: translateY(44px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
