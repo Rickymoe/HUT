@@ -292,44 +292,29 @@
 <div id="site-footer"></div>
 
 <script src="main.js"></script>
+<script src="data/projects.js"></script>
 <script>
-  // Prosjekter på startsiden – viser de 3 første
-  const PROJECTS = [
-    {
-      name: "Langgaten 24", status: "under_regulering", statusLabel: "Under regulering",
-      summary: "Nytt sentrumsprosjekt på tomta der det tidligere lå en bensinstasjon. To bygg på fem og seksten etasjer med leiligheter og næringsarealer.",
-      typeLabel: "Bolig og næring",
-      media: { hero: "Prosjekter/Langgaten24/Langgaten24.png" }
-    },
-    {
-      name: "Holmestrand Brygge", status: "ferdigstilt", statusLabel: "Ferdigstilt 2021",
-      summary: "75 leiligheter og nye næringslokaler på brygga i Holmestrand. Binder sentrum til sjøkanten.",
-      typeLabel: "Bolig og næring",
-      media: { hero: "Prosjekter/HolmestrandBrygge/HolmestranBrygge.png" }
-    },
-    {
-      name: "Bibliotekkvartalet", status: "ferdigstilt", statusLabel: "Ferdigstilt",
-      summary: "Tre byggetrinn med til sammen 68 leiligheter i historiske omgivelser midt i Holmestrand sentrum.",
-      typeLabel: "Bolig",
-      media: { hero: "Prosjekter/Biblitekkvartalet.kap3/Bibliotekkvartalet.kap3.png" }
-    }
-  ];
-
+  // Prosjekter på startsiden – viser de 3 første fra den delte lista
   const pillClass = { under_regulering: 'pill-utvikling', ferdigstilt: 'pill-ferdig', planlegging: 'pill-planlegging' };
 
   const grid = document.getElementById('prosjekt-grid');
-  grid.innerHTML = PROJECTS.map((p, i) => `
+  grid.innerHTML = window.HUT_PROJECTS.slice(0, 3).map((p, i) => {
+    const name = p.cardName ?? p.name;
+    const statusLabel = p.cardStatusLabel ?? p.statusLabel;
+    const summary = p.cardSummary ?? p.summary;
+    return `
     <a href="prosjekter.html" class="pcard reveal" style="transition-delay:${i * 80}ms">
       <div class="pcard-img c${i}">
-        <img src="${p.media.hero}" alt="${p.name}" loading="lazy">
+        <img src="${p.media.hero}" alt="${name}" loading="lazy">
       </div>
       <div class="pcard-body">
-        <span class="pill ${pillClass[p.status] ?? 'pill-planlegging'}">${p.statusLabel}</span>
-        <h3>${p.name}</h3>
-        <p>${p.summary}</p>
+        <span class="pill ${pillClass[p.status] ?? 'pill-planlegging'}">${statusLabel}</span>
+        <h3>${name}</h3>
+        <p>${summary}</p>
         <div class="pcard-meta"><span>${p.typeLabel}</span></div>
       </div>
-    </a>`).join('');
+    </a>`;
+  }).join('');
 
   window.HUT.observeReveals(grid);
 
