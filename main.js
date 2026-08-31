@@ -33,19 +33,42 @@ window.HUT = { observeReveals };
 window.__revealReady = true;
 
 // ---- Partial-laster ---------------------------------------------------
-async function loadPartial(url, targetId) {
+// Cacher nav/footer i sessionStorage. Første sidevisning i en økt henter og
+// lagrer; alle senere navigasjoner injiserer synkront fra cache – da rekker
+// ikke headeren å blinke tomt før den fylles. Cachen revalideres i bakgrunnen
+// (ny versjon vises ved neste navigasjon).
+// outerHTML (ikke innerHTML): placeholder-diven skal ikke bli en wrapper rundt
+// <nav> – en wrapper med nøyaktig navens høyde gir position: sticky ingen plass.
+function loadPartial(url, targetId) {
   const target = document.getElementById(targetId);
-  if (!target) return;
-  try {
-    const res = await fetch(url);
-    if (!res.ok) { console.error('Kunne ikke laste ' + url + ' (HTTP ' + res.status + ')'); return; }
-    // outerHTML (ikke innerHTML): placeholder-diven skal ikke bli en wrapper
-    // rundt <nav> – en wrapper med nøyaktig navens høyde gir position: sticky
-    // ingen plass å feste seg i.
-    target.outerHTML = await res.text();
-  } catch (err) {
-    console.error('Kunne ikke laste ' + url, err);
+  if (!target) return Promise.resolve();
+  const key = 'hut-partial:' + url;
+
+  let cached = null;
+  try { cached = sessionStorage.getItem(key); } catch (e) {}
+
+  const fetchAndStore = () => fetch(url)
+    .then(res => {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.text();
+    })
+    .then(html => {
+      try { sessionStorage.setItem(key, html); } catch (e) {}
+      return html;
+    });
+
+  if (cached) {
+    target.outerHTML = cached;
+    fetchAndStore().catch(() => {});
+    return Promise.resolve();
   }
+
+  return fetchAndStore()
+    .then(html => {
+      const t = document.getElementById(targetId);
+      if (t) t.outerHTML = html;
+    })
+    .catch(err => console.error('Kunne ikke laste ' + url, err));
 }
 
 // ---- Nav: aktiv lenke + hamburger ------------------------------------
