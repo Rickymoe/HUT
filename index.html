@@ -33,12 +33,9 @@
   /* Dark gradient overlay so text is always readable */
   .hero-slide::after {
     content: ""; position: absolute; inset: 0;
-    background: linear-gradient(
-      105deg,
-      rgba(4,49,58,.72) 0%,
-      rgba(4,49,58,.38) 55%,
-      rgba(4,49,58,.10) 100%
-    );
+    background:
+      linear-gradient(to top, rgba(4,49,58,.55) 0%, rgba(4,49,58,0) 42%),
+      linear-gradient(105deg, rgba(4,49,58,.74) 0%, rgba(4,49,58,.45) 62%, rgba(4,49,58,.12) 100%);
   }
 
   /* Text content */
@@ -102,8 +99,7 @@
     transition: background .3s; display: flex; flex-direction: column;
   }
   .qcard:hover { background: var(--paper); }
-  .qcard .k { font-family: var(--serif); font-size: 32px; color: var(--fjord); font-weight: 500; }
-  .qcard h3 { font-size: 17px; font-weight: 600; margin: 16px 0 10px; }
+  .qcard h3 { font-size: 17px; font-weight: 600; margin: 0 0 10px; }
   .qcard p { font-size: 14px; color: var(--ink-soft); flex: 1; }
   .qcard .arrow { margin-top: 22px; font-size: 14px; font-weight: 600; color: var(--ember-text); display: inline-flex; align-items: center; gap: 6px; transition: gap .2s; }
   .qcard:hover .arrow { gap: 10px; }
@@ -215,7 +211,6 @@
 <div class="quick-cards">
   <a href="https://www.finn.no/realestate/businessrent/search.html?orgId=707555245"
      target="_blank" rel="noopener" class="qcard reveal">
-    <div class="k">01</div>
     <h3>Utleie næring</h3>
     <p>Kontor, butikk, kontorhotell, parkering og lager sentralt i Holmestrand.</p>
     <div class="arrow">
@@ -226,7 +221,6 @@
   </a>
   <a href="https://www.finn.no/realestate/lettings/search.html?orgId=707555245"
      target="_blank" rel="noopener" class="qcard reveal" style="transition-delay:.07s">
-    <div class="k">02</div>
     <h3>Utleie bolig</h3>
     <p>Sentrumsnære leiligheter med høy standard. Sett deg på venteliste.</p>
     <div class="arrow">
@@ -236,7 +230,6 @@
     </div>
   </a>
   <a href="prosjekter.html" class="qcard reveal" style="transition-delay:.14s">
-    <div class="k">03</div>
     <h3>Prosjekter</h3>
     <p>Bibliotekkvartalet, Holmestrand Brygge, Langgaten 24 og mer.</p>
     <div class="arrow">Les mer →</div>

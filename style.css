@@ -68,7 +68,6 @@ a { text-decoration: none; color: inherit; }
 .section { padding-top: 80px; padding-bottom: 80px; border-top: 1px solid var(--line); }
 .section-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 48px; }
 .section-head h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -.01em; }
-.section-head .num { font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--ink-soft); }
 .section-head .link-all { font-size: 14px; font-weight: 600; color: var(--ember-text); transition: gap .2s; display: inline-flex; align-items: center; gap: 6px; }
 .section-head .link-all:hover { gap: 10px; }
 
