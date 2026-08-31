@@ -1,37 +1,74 @@
-// Scroll reveal
-const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('visible'), i * 60);
-      revealObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0, rootMargin: '0px 0px -80px 0px' });
+// ===== HUT – felles klientlogikk =====
+// Eneste JS-inngang for alle sider. Laster nav/footer-partials, kjører
+// scroll-reveal, setter aktiv nav-lenke og webkamera-popup.
+
+document.documentElement.classList.add('js');
+
+// ---- Delt scroll-reveal -------------------------------------------------
+// Én observer for hele siden. Stagger settes med transition-delay i markup,
+// ikke via setTimeout (den gamle i*60-varianten staggeret aldri på mobil).
+const revealObserver =
+  ('IntersectionObserver' in window)
+    ? new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 })
+    : null;
 
 function observeReveals(root) {
-  (root || document).querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  const scope = root || document;
+  const els = scope.querySelectorAll('.reveal');
+  if (!revealObserver) {
+    els.forEach(el => el.classList.add('visible'));
+    return;
+  }
+  els.forEach(el => revealObserver.observe(el));
 }
-observeReveals();
 
-// Hamburger menu
-const nav = document.querySelector('.nav');
-const hamburger = document.querySelector('.nav-hamburger');
+window.HUT = { observeReveals };
+window.__revealReady = true;
 
-if (hamburger) {
+// ---- Partial-laster ---------------------------------------------------
+async function loadPartial(url, targetId) {
+  const target = document.getElementById(targetId);
+  if (!target) return;
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    // outerHTML (ikke innerHTML): placeholder-diven skal ikke bli en wrapper
+    // rundt <nav> – en wrapper med nøyaktig navens høyde gir position: sticky
+    // ingen plass å feste seg i.
+    target.outerHTML = await res.text();
+  } catch (err) {
+    console.error('Kunne ikke laste ' + url, err);
+  }
+}
+
+// ---- Nav: aktiv lenke + hamburger ------------------------------------
+function initNav() {
+  const page = document.body.dataset.page;
+  if (page) {
+    const link = document.querySelector('.nav a[data-page="' + page + '"]');
+    if (link) link.classList.add('active');
+  }
+  const nav = document.querySelector('.nav');
+  const hamburger = document.querySelector('.nav-hamburger');
+  if (!nav || !hamburger) return;
+
   hamburger.addEventListener('click', () => {
     const open = nav.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', open);
+    hamburger.setAttribute('aria-expanded', String(open));
   });
-
-  // Close on nav link click
   nav.querySelectorAll('.nav-links a').forEach(a => {
     a.addEventListener('click', () => {
       nav.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
     });
   });
-
-  // Close on outside click
   document.addEventListener('click', e => {
     if (!nav.contains(e.target)) {
       nav.classList.remove('open');
@@ -40,10 +77,16 @@ if (hamburger) {
   });
 }
 
-// ===== Webcam floating button + popup =====
+function initFooterYear() {
+  const el = document.getElementById('footer-year');
+  if (el) el.textContent = String(new Date().getFullYear());
+}
+
+// ---- Webkamera flytende knapp + popup -------------------------------
 const WEBCAM_URL = 'http://holmestrand.azurewebsites.net/Webcam/havna.jpg';
 
-document.body.insertAdjacentHTML('beforeend', `
+function initWebcam() {
+  document.body.insertAdjacentHTML('beforeend', `
   <button class="webcam-fab" id="webcam-fab" aria-label="Webkamera – Holmestrand Havn">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
       <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/>
@@ -75,45 +118,49 @@ document.body.insertAdjacentHTML('beforeend', `
       <div class="webcam-footer" id="webcam-ts"></div>
     </div>
   </div>
-`);
+  `);
 
-function loadWebcam() {
-  const img = document.getElementById('webcam-img');
-  const loading = document.getElementById('webcam-loading');
-  const ts = document.getElementById('webcam-ts');
-  loading.style.display = 'flex';
-  img.style.opacity = '0';
-  const src = WEBCAM_URL + '?t=' + Date.now();
-  img.onload = () => {
-    loading.style.display = 'none';
-    img.style.opacity = '1';
-    const now = new Date();
-    ts.textContent = 'Hentet ' + now.toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit' });
-  };
-  img.onerror = () => {
-    loading.textContent = 'Bildet er ikke tilgjengelig.';
-  };
-  img.src = src;
-}
-
-function openWebcam() {
   const overlay = document.getElementById('webcam-overlay');
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  loadWebcam();
+
+  function loadWebcam() {
+    const img = document.getElementById('webcam-img');
+    const loading = document.getElementById('webcam-loading');
+    const ts = document.getElementById('webcam-ts');
+    loading.style.display = 'flex';
+    img.style.opacity = '0';
+    img.onload = () => {
+      loading.style.display = 'none';
+      img.style.opacity = '1';
+      ts.textContent = 'Hentet ' + new Date().toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit' });
+    };
+    img.onerror = () => { loading.textContent = 'Bildet er ikke tilgjengelig.'; };
+    img.src = WEBCAM_URL + '?t=' + Date.now();
+  }
+  function openWebcam() {
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    loadWebcam();
+  }
+  function closeWebcam() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('webcam-fab').addEventListener('click', openWebcam);
+  document.getElementById('webcam-close').addEventListener('click', closeWebcam);
+  document.getElementById('webcam-refresh').addEventListener('click', loadWebcam);
+  overlay.addEventListener('click', e => { if (e.target === e.currentTarget) closeWebcam(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeWebcam(); });
 }
 
-function closeWebcam() {
-  document.getElementById('webcam-overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-document.getElementById('webcam-fab').addEventListener('click', openWebcam);
-document.getElementById('webcam-close').addEventListener('click', closeWebcam);
-document.getElementById('webcam-refresh').addEventListener('click', loadWebcam);
-document.getElementById('webcam-overlay').addEventListener('click', e => {
-  if (e.target === e.currentTarget) closeWebcam();
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeWebcam();
+// ---- Oppstart -------------------------------------------------------
+document.addEventListener('DOMContentLoaded', async () => {
+  await Promise.all([
+    loadPartial('partials/nav.html', 'site-nav'),
+    loadPartial('partials/footer.html', 'site-footer'),
+  ]);
+  initNav();
+  initFooterYear();
+  initWebcam();
+  observeReveals();
 });

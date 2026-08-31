@@ -83,6 +83,8 @@ a { text-decoration: none; color: inherit; }
 .reveal.visible { opacity: 1; transform: none; }
 .qcard.reveal, .pcard.reveal { transform: translateY(44px) scale(0.97); }
 .qcard.reveal.visible, .pcard.reveal.visible { transform: none; }
+/* Uten JS: ingen reveal-skjuling – vis alt umiddelbart. */
+html:not(.js) .reveal { opacity: 1; transform: none; }
 
 /* Buttons */
 .btn {
