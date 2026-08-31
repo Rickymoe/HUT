@@ -293,6 +293,7 @@
 
 <script src="main.js"></script>
 <script src="data/projects.js"></script>
+<script src="data/news.js"></script>
 <script>
   // Prosjekter på startsiden – viser de 3 første fra den delte lista
   const pillClass = { under_regulering: 'pill-utvikling', ferdigstilt: 'pill-ferdig', planlegging: 'pill-planlegging' };
@@ -318,55 +319,19 @@
 
   window.HUT.observeReveals(grid);
 
-  // Nyhetsforhåndsvisning – holdes synkronisert med NEWS-arrayet i nyheter.html
-  const NEWS_PREVIEW = [
-    {
-      title: "Visste du at du enkelt kan spare titusener på kjøp av frukt & grønt?",
-      source: "Aftenposten", dateLabel: "7. februar 2025", category: "Leietakere",
-      ingress: "Hana Mat i Langgaten 33 er en lokal importbutikk. Ifølge Aftenposten sparer du tusenvis i året på frukt og grønt.",
-      thumbnail: "Media/langgaten-33-hana-mat/Langgaten-33-hana-mat-litenbilde.png",
-      image: "Media/langgaten-33-hana-mat/langgaten-33-hana-mat.jpg",
-      url: "artikkel.html?id=langgaten-33-hana-mat", external: false
-    },
-    {
-      title: "Nye Langgaten 24 vil bli et betydelig løft for sentrum",
-      source: "ByHorten.no", dateLabel: "13. mars 2025", category: "Prosjekter",
-      ingress: "Holmestrand vokser. Det nye prosjektet «Langgaten 24» vil endre byens sentrum.",
-      image: "Media/langgaten-24-loft-for-sentrum/langgaten-24-loft-for-sentrum.jpg",
-      url: "artikkel.html?id=langgaten-24-loft-for-sentrum", external: false
-    },
-    {
-      title: "Økte omsetningen med 60% etter flytting til Holmestrand sentrum",
-      source: "Jarlsberg Avis", dateLabel: "22. januar 2025", category: "Leietakere",
-      ingress: "I fjor økte vi omsetningen med over 60 prosent. Endelig klaffet det.",
-      image: "Media/God-butikk/Klaff.png",
-      url: "artikkel.html?id=god-butikk", external: false
-    },
-    {
-      title: "Lei av innstilte tog og lange køer? Se vår reklamefilm her!",
-      source: "Holmestrand Utvikling", dateLabel: "Oktober 2024", category: "Næringseiendom",
-      ingress: "Skaff deg et kontor i Holmestrand! Vi har kontorer til alle behov.",
-      image: "Media/lange-koer/thumbnail.jpg",
-      url: "artikkel.html?id=lange-koer", external: false
-    },
-    {
-      title: "Holmestrand Utvikling lanserer nytt prosjekt i Langgaten 24",
-      source: "Jarlsberg Avis", dateLabel: "10. januar 2025", category: "Prosjekter",
-      ingress: "Holmestrand har et voldsomt potensial som by, med betydelige urbane kvaliteter.",
-      image: "Media/Langgaten24-nyttbygg/Lgt24-2-947x1024.png",
-      url: "artikkel.html?id=langgaten24-nyttbygg", external: false
-    }
-  ];
-
+  // Nyhetsforhåndsvisning – viser de 3 første fra den delte lista
   const preview = document.getElementById('news-preview-grid');
   if (preview) {
-    if (!NEWS_PREVIEW.length) {
+    if (!window.HUT_NEWS.length) {
       preview.closest('section').style.display = 'none';
     } else {
-      preview.innerHTML = NEWS_PREVIEW.slice(0, 3).map((p, i) => `
-        <a href="${p.url}"${p.external ? ' target="_blank" rel="noopener"' : ''} class="pcard reveal" style="transition-delay:${i * 80}ms">
+      preview.innerHTML = window.HUT_NEWS.slice(0, 3).map((p, i) => {
+        const url = "artikkel.html?id=" + p.id;
+        const img = p.thumbnail ?? p.image;
+        return `
+        <a href="${url}" class="pcard reveal" style="transition-delay:${i * 80}ms">
           <div class="pcard-img c${i}">
-            ${(p.thumbnail ?? p.image) ? `<img src="${p.thumbnail ?? p.image}" alt="${p.title}" loading="lazy">` : ''}
+            ${img ? `<img src="${img}" alt="${p.title}" loading="lazy">` : ''}
           </div>
           <div class="pcard-body">
             <span class="pill pill-planlegging">${p.category}</span>
@@ -374,7 +339,8 @@
             <p>${p.ingress}</p>
             <div class="pcard-meta"><span>${p.source} · ${p.dateLabel}</span></div>
           </div>
-        </a>`).join('');
+        </a>`;
+      }).join('');
       window.HUT.observeReveals(preview);
     }
   }
