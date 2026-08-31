@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>document.documentElement.classList.add("js");addEventListener("load",function(){setTimeout(function(){if(window.__revealReady)return;document.querySelectorAll(".reveal").forEach(function(e){e.classList.add("visible")})},1500)});</script>
 <title>Aktuelt – Holmestrand Utvikling</title>
 <link rel="icon" type="image/png" sizes="32x32" href="Bilder/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="Bilder/favicon-16.png">
@@ -78,22 +79,9 @@
   @media (max-width: 560px) { .news-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
-<body>
+<body data-page="nyheter">
 
-<nav class="nav">
-  <div class="wrap">
-    <a href="index.html" class="nav-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></a>
-    <ul class="nav-links">
-      <li><a href="til-leie.html">Til leie</a></li>
-      <li><a href="prosjekter.html">Prosjekter</a></li>
-      <li><a href="sentrumsutvikling.html">Sentrumsutvikling</a></li>
-      <li><a href="nyheter.html" class="active">Aktuelt</a></li>
-      <li><a href="om-oss.html">Om oss</a></li>
-    </ul>
-    <a href="kontakt.html" class="nav-cta">Kontakt</a>
-    <button class="nav-hamburger" aria-label="Meny" aria-expanded="false"><span></span><span></span><span></span></button>
-  </div>
-</nav>
+<div id="site-nav"></div>
 
 <div class="page-hero wrap">
   <div class="eyebrow reveal">Nyheter og presseklipp</div>
@@ -109,47 +97,10 @@
   </div>
 </section>
 
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="footer-logo"><img src="Logo/HUTLogo.png" alt="Holmestrand Utvikling AS"></div>
-        <p>Vi utvikler sentrum for dem som skal leve og jobbe i Holmestrand – fra fjord til fjell.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Utforsk</h4>
-        <ul>
-          <li><a href="til-leie.html">Til leie</a></li>
-          <li><a href="prosjekter.html">Prosjekter</a></li>
-          <li><a href="sentrumsutvikling.html">Sentrumsutvikling</a></li>
-          <li><a href="nyheter.html">Aktuelt</a></li>
-          <li><a href="om-oss.html">Om oss</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Kontakt</h4>
-        <ul>
-          <li><a href="mailto:post@holmestrandutvikling.no">post@holmestrandutvikling.no</a></li>
-          <li><a href="tel:+4733097700">+47 33 09 77 00</a></li>
-          <li><a href="kontakt.html">Kontaktskjema</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <small>© 2025 Holmestrand Utvikling AS</small>
-      <small>Fjord &amp; Lyng</small>
-    </div>
-  </div>
-</footer>
+<div id="site-footer"></div>
 
+<script src="main.js"></script>
 <script>
-  const io = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 60); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
   const extIcon = `<svg class="ext-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
 
   function renderCard(item, idx) {
@@ -255,10 +206,9 @@
     grid.innerHTML = '<p class="news-empty">Ingen nyheter er lagt til ennå.</p>';
   } else {
     grid.innerHTML = NEWS.map(renderCard).join('');
-    grid.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    window.HUT.observeReveals(grid);
   }
 </script>
-<script src="main.js"></script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3b2830d8c1b74ed68dee031783103adc"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
