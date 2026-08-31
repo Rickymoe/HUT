@@ -31,14 +31,6 @@
   }
   .prow:hover .prow-img img { transform: scale(1.04); }
 
-  /* Fallback gradient colours per prosjekt */
-  .prow-img.c0 { background: linear-gradient(160deg, #003a49, #007898); }
-  .prow-img.c1 { background: linear-gradient(160deg, #1f93ad, #004a5c); }
-  .prow-img.c2 { background: linear-gradient(160deg, #687830, #04313a); }
-  .prow-img.c3 { background: linear-gradient(160deg, #007898, #3f4f4d); }
-  .prow-img.c4 { background: linear-gradient(160deg, #003a49, #687830); }
-  .prow-img.c5 { background: linear-gradient(160deg, #04313a, #1f93ad); }
-
   .sold-badge {
     position: absolute; top: 14px; left: 14px; z-index: 1;
     font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
@@ -133,7 +125,7 @@
 
     return `
       <div class="prow reveal" style="transition-delay:${idx * 80}ms">
-        <div class="prow-img c${idx % 6}">
+        <div class="prow-img">
           ${soldHtml}
           ${imgHtml}
         </div>
