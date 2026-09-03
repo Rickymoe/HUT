@@ -30,12 +30,10 @@
   .section-intro { font-size: 16px; color: var(--ink-soft); line-height: 1.8; max-width: 64ch; margin: 0 0 40px; }
 
   /* Eiendomsporteføljen */
-  .portefolje-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .gaard { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
-  .gaard-foto { aspect-ratio: 4 / 3; background: var(--sand); color: rgba(4,49,58,.22); display: flex; align-items: center; justify-content: center; }
-  .gaard-foto svg { width: 44px; height: 44px; }
-  .gaard-tekst { padding: 18px 20px; }
-  .gaard-navn { font-family: var(--serif); font-weight: 500; font-size: 1.05rem; line-height: 1.25; }
+  .portefolje-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .gaard { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+  .gaard-ikon { display: block; width: 26px; height: 26px; color: var(--ember-text); margin-bottom: 14px; }
+  .gaard-navn { font-family: var(--serif); font-weight: 500; font-size: 1.1rem; line-height: 1.25; }
   .gaard-adr { font-size: 13px; color: var(--ink-soft); margin-top: 5px; }
 
   /* Selskapsstruktur */
@@ -98,55 +96,20 @@
     <h2>Eiendomsporteføljen</h2>
   </div>
   <p class="section-intro reveal">Konsernet eier og drifter store deler av Holmestrand sentrum – rundt 18 eiendommer i Langgaten, Tordenskjoldsgate, på Dr. Graaruds plass, ved havna og i Våleveien. Nesten hele Langgaten fra nummer 23 til 42.</p>
+  <svg width="0" height="0" style="display:none" aria-hidden="true"><symbol id="i-bygg" viewBox="0 0 24 24"><path d="M3 21h18M6 21V8l6-4 6 4v13M10 21v-4h4v4M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol></svg>
   <div class="portefolje-grid reveal">
-    <div class="gaard">
-      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
-      <div class="gaard-tekst"><div class="gaard-navn">Kvartal Langgaten</div><div class="gaard-adr">Langgaten 36, 38, 40 og 42</div></div>
-    </div>
-    <div class="gaard">
-      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
-      <div class="gaard-tekst"><div class="gaard-navn">Frellumstadgården</div><div class="gaard-adr">Langgaten 32</div></div>
-    </div>
-    <div class="gaard">
-      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
-      <div class="gaard-tekst"><div class="gaard-navn">Henningsengården</div><div class="gaard-adr">Langgaten 29</div></div>
-    </div>
-    <div class="gaard">
-      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
-      <div class="gaard-tekst"><div class="gaard-navn">Uni-Kvartalet</div><div class="gaard-adr">Langgaten 23 og 27 · Tordenskjoldsgate 5</div></div>
-    </div>
-    <div class="gaard">
-      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
-      <div class="gaard-tekst"><div class="gaard-navn">Ihlengården</div><div class="gaard-adr">Tordenskjoldsgate 6 og 8</div></div>
-    </div>
-    <div class="gaard">
-      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
-      <div class="gaard-tekst"><div class="gaard-navn">Stenstadgården</div><div class="gaard-adr">Dr. Graaruds plass 1</div></div>
-    </div>
-    <div class="gaard">
-      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
-      <div class="gaard-tekst"><div class="gaard-navn">Dr. Graaruds plass 3</div><div class="gaard-adr">Kontorhotell</div></div>
-    </div>
-    <div class="gaard">
-      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
-      <div class="gaard-tekst"><div class="gaard-navn">Nordeagården</div><div class="gaard-adr">Havnegaten 7</div></div>
-    </div>
-    <div class="gaard">
-      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
-      <div class="gaard-tekst"><div class="gaard-navn">Apotekergården</div><div class="gaard-adr">Langgaten 34</div></div>
-    </div>
-    <div class="gaard">
-      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
-      <div class="gaard-tekst"><div class="gaard-navn">Langgaten 24</div><div class="gaard-adr">Under utvikling</div></div>
-    </div>
-    <div class="gaard">
-      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
-      <div class="gaard-tekst"><div class="gaard-navn">Langgaten 33</div><div class="gaard-adr">Butikk og bolig</div></div>
-    </div>
-    <div class="gaard">
-      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
-      <div class="gaard-tekst"><div class="gaard-navn">Våleveien Næringspark</div><div class="gaard-adr">Våleveien 29</div></div>
-    </div>
+    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Kvartal Langgaten</div><div class="gaard-adr">Langgaten 36, 38, 40 og 42</div></div>
+    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Frellumstadgården</div><div class="gaard-adr">Langgaten 32</div></div>
+    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Henningsengården</div><div class="gaard-adr">Langgaten 29</div></div>
+    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Uni-Kvartalet</div><div class="gaard-adr">Langgaten 23 og 27 · Tordenskjoldsgate 5</div></div>
+    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Ihlengården</div><div class="gaard-adr">Tordenskjoldsgate 6 og 8</div></div>
+    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Stenstadgården</div><div class="gaard-adr">Dr. Graaruds plass 1</div></div>
+    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Dr. Graaruds plass 3</div><div class="gaard-adr">Kontorhotell</div></div>
+    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Nordeagården</div><div class="gaard-adr">Havnegaten 7</div></div>
+    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Apotekergården</div><div class="gaard-adr">Langgaten 34</div></div>
+    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Langgaten 24</div><div class="gaard-adr">Under utvikling</div></div>
+    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Langgaten 33</div><div class="gaard-adr">Butikk og bolig</div></div>
+    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Våleveien Næringspark</div><div class="gaard-adr">Våleveien 29</div></div>
   </div>
 </section>
 
