@@ -49,102 +49,53 @@ Målet er en rask, moderne, statisk nettside (HTML/CSS/JS eller et rammeverk du 
 - Knapper: avrundede (border-radius 100px), to varianter – lynggrønn (primær CTA) og petrol (sekundær)
 - Bakgrunnsflater veksler mellom `--paper` og `--sand`
 
-Se `holmestrand-designforslag.html` for komplett stilguide med forside-skisse, fargepalett, typografi-skala og komponenteksempler.
+Fasit for designsystemet er `style.css` (tokens øverst) – den opprinnelige
+stilguide-fila `holmestrand-designforslag.html` er slettet.
 
 ---
 
 ## Filer i prosjektet
 
-### `holmestrand-designforslag.html`
-Komplett visuell stilguide med:
-- Forside-mockup (nav, hero med SVG-fjordmotiv, prosjektkort)
-- Fargepalett med hex-koder
-- Typografi-skala
-- Knapper og komponenter
-- Seksjon 05: «Næringseiendom til leie» med FINN-iframe og kontaktbar
+- `index.html` … `kontakt.html` – én HTML-fil per side (8 sider)
+- `style.css` – felles stilark, designsystem «Fjord & Lyng»
+- `main.js` – eneste JS-inngang: laster nav/footer-partials (`partials/nav.html`,
+  `partials/footer.html`) via `fetch()` + sessionStorage-cache, + scroll-reveal,
+  hamburger, webkamera-popup, hero-karusell, stat-tellere
+- `data/projects.js` – `window.HUT_PROJECTS`, 6 prosjekter (Langgaten 24,
+  Holmestrand Brygge, Bibliotekkvartalet ×3, Dr. Graaruds Plass 1–3). Lastes som
+  klassisk `<script src>` FØR sidas inline-script (ikke `type="module"`).
+- `data/news.js` – `window.HUT_NEWS`, nyhetssaker. Samme lastemønster.
+- `Logo/HUTLogo.png` – original PNG-logo, nå kun kilde for faviconene (selve
+  merket er inline-SVG i partialene).
 
-### `projects.json`
-Strukturert metadata for alle 6 prosjekter (Langgaten 24, Holmestrand Brygge, Bibliotekkvartalet ×3, Dr. Graaruds Plass 1–3).
-
-Skjema per prosjekt:
-```json
-{
-  "id": "langgaten-24",
-  "name": "Langgaten 24",
-  "tagline": "Et betydelig løft for sentrum",
-  "status": "under_regulering",
-  "statusLabel": "Under regulering",
-  "soldOut": false,
-  "completionYear": null,
-  "type": "kombinert",
-  "typeLabel": "Bolig og næring",
-  "location": { "address": "...", "postalCode": "3080", "city": "Holmestrand", "coordinates": { "lat": null, "lng": null } },
-  "units": { "apartments": null, "apartmentsApprox": "65–70", "commercial": true, "breakdown": [] },
-  "buildings": [{ "floors": 5 }, { "floors": 16 }],
-  "summary": "...",
-  "highlights": ["..."],
-  "media": { "hero": "https://...", "gallery": [] },
-  "links": { "detail": "https://...", "press": "https://..." },
-  "byggherre": { "name": "Holmestrand Utvikling AS", "url": "https://holmestrandutvikling.no/" },
-  "leverandor": { "name": null, "url": null }
-}
-```
-
-### `naeringseiendom.json`
-8 næringslokaler til leie, hentet fra FINN (orgId 707555245).
-
-Skjema per lokale:
-```json
-{
-  "id": "havnegaten-7-havnefront",
-  "title": "Lokaler ved havnefront - romslig og sentralt",
-  "useTypes": ["Kontor", "Butikk/Handel", "Serveringslokale/Kantine", "Andre"],
-  "address": { "street": "Havnegaten 7", "postalCode": "3080", "city": "Holmestrand", "coordinates": { "lat": null, "lng": null } },
-  "area": { "m2": 175, "m2Min": null, "m2Max": null, "raw": "175 m²" },
-  "price": { "amount": 1300, "currency": "NOK", "period": "per_m2_per_year", "raw": "1 300,-" },
-  "landlord": "Holmestrand Utvikling AS",
-  "available": true,
-  "etasje": 1,
-  "byggeaar": 1983,
-  "kontorplasser": 8,
-  "overtakelse": "2025-08-01",
-  "fasiliteter": ["Aircondition", "Bredbåndstilknytning", "Heis"],
-  "beskrivelse": "...",
-  "media": { "hero": "https://images.finncdn.no/...", "gallery": [] },
-  "links": { "finn": "https://www.finn.no/realestate/businessrent/ad.html?finnkode=418907004", "finnkode": "418907004" },
-  "kontakt": { "navn": "Øistein Hjelmvedt", "rolle": "Ansvarlig for utleie av næringseiendom", "telefon": "33 09 77 00", "mobil": "91 55 17 10" }
-}
-```
-
-**OBS:** 6 av 8 lokaler mangler fortsatt FINN-kode i `links`. Hent dem med:
-```bash
-curl -s "https://www.finn.no/pw/search/realestate-business-letting?orgId=707555245" | grep -oP 'finnkode=\K[0-9]+'
-```
+Tidligere `holmestrand-designforslag.html`, `projects.json`, `nyheter.json` og
+`naeringseiendom.json` er alle slettet – ikke anta at de finnes.
 
 ---
 
 ## Arkitekturvalg
 
-### Næringseiendom – FINN-iframe
-Næringslokaler vises via FINN sin partnerwidget som en `<iframe>`. Dette gir automatisk oppdatering uten vedlikehold.
-```html
-<iframe
-  src="https://www.finn.no/pw/search/realestate-business-letting?orgId=707555245"
-  title="Næringseiendom til leie – Holmestrand Utvikling AS"
-  width="100%" height="900" frameborder="0" scrolling="auto" loading="lazy">
-</iframe>
-```
+### Til leie – lenke til FINN (IKKE iframe)
+`til-leie.html` er et rent utlenkings-kort til FINNs offentlige søk, med
+fane-velger næring/bolig:
+- næring: `https://www.finn.no/realestate/businessrent/search.html?orgId=707555245`
+- bolig:  `https://www.finn.no/realestate/lettings/search.html?orgId=707555245`
 
-### Prosjekter – JSON-drevet
-Prosjekter rendres fra `projects.json`. Aktive prosjekter (`soldOut: false`) vises fremst.
+FINN partner-widget i `<iframe>` (`finn.no/pw/search/...`) ble vurdert og
+forkastet:
+- ren JS + `<meta robots="noindex,nofollow">` → gir null SEO til
+  holmestrandutvikling.no uansett
+- krever aktiv FINN-partneravtale + godkjent domene
+- HUT kjørte nettopp den løsningen på WP-siden i ~1,5 år (2024–2025) uten
+  Google-effekt
 
-### Bolig til leie
-Holmestrand Utvikling har også bolig til leie via FINN (orgId 707555245, kategori `lettings`).
-Vurder tilsvarende iframe:
-```
-https://www.finn.no/pw/search/realestate-lettings?orgId=707555245
-```
-Alternativt Idealista – sjekk hvilken plattform de bruker for boligannonser.
+Vei til SEO senere («alt. C»): statiske annonsekort bygget fra data HUT
+leverer (regneark e.l.) + **HUT-eide** bilder + `RealEstateListing`-JSON-LD.
+Krever ingen FINN-avtale. Skraping av finn.no er ikke lov. Blokkert på at HUT
+leverer innhold.
+
+### Prosjekter – data-drevet
+Prosjekter rendres fra `data/projects.js` (`window.HUT_PROJECTS`).
 
 ---
 
@@ -166,12 +117,11 @@ Google Maps: lat 59.488086, lng 10.315639
 ## Navigasjonsstruktur
 ```
 Hjem
-Til leie
-  └── Næringseiendom   (FINN-iframe, orgId 707555245)
-  └── Bolig / boder    (FINN-iframe eller Idealista)
-Prosjekter             (fra projects.json)
-Sentrumsutvikling      (redaksjonell side, innhold mangler)
-Om oss                 (innhold mangler)
+Til leie                (fane-velger; begge faner lenker til FINN-søk, orgId 707555245)
+Prosjekter              (fra data/projects.js)
+Sentrumsutvikling
+Aktuelt                 (fra data/news.js)
+Om oss
 Kontakt
 ```
 
