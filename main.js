@@ -247,10 +247,16 @@ function initHeroCarousel() {
   });
 
   function goTo(n) {
+    const target = (n + slides.length) % slides.length;
+    if (target === current) return;
+    // Utgående slide holdes ugjennomsiktig (.prev) under den innkommende.
+    slides.forEach((s) => s.classList.remove('prev'));
+    slides[current].classList.add('prev');
     slides[current].classList.remove('active');
     dotsContainer.children[current].classList.remove('active');
     dotsContainer.children[current].removeAttribute('aria-current');
-    current = (n + slides.length) % slides.length;
+    current = target;
+    slides[current].classList.remove('prev');
     slides[current].classList.add('active');
     dotsContainer.children[current].classList.add('active');
     dotsContainer.children[current].setAttribute('aria-current', 'true');
