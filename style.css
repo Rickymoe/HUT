@@ -115,6 +115,32 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
 .pill-planlegging { background: var(--sand); color: var(--ink-soft); }
 .pill-ferdig { background: #e8f5e9; color: #2e7d32; }
 
+/* ===== Logo / merke ===== */
+.hut-brand { display: flex; align-items: center; gap: 12px; }
+.hut-brand-text {
+  font-weight: 600; font-size: 14px; line-height: 1.22;
+  letter-spacing: .11em; text-transform: uppercase; color: var(--ink);
+}
+.hut-logo-mark { display: block; width: auto; overflow: visible; flex-shrink: 0; }
+
+/* Innlasting: hver bit gjør én omdreining om sin egen X-akse, forskjøvet.
+   Kjører én gang når nav/footer-partialen settes inn (dvs. ved hver sidelast). */
+.hut-logo-mark .shard {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: hut-logo-in 1444ms cubic-bezier(.55, .05, .3, 1) both;
+}
+.hut-logo-mark .s1 { animation-delay: 0ms; }
+.hut-logo-mark .s2 { animation-delay: 260ms; }
+.hut-logo-mark .s3 { animation-delay: 520ms; }
+.hut-logo-mark .s4 { animation-delay: 780ms; }
+
+@keyframes hut-logo-in {
+  from { opacity: 0; transform: perspective(480px) rotateX(-360deg); }
+  55%  { opacity: 1; }
+  to   { opacity: 1; transform: perspective(480px) rotateX(0deg); }
+}
+
 /* ===== Nav ===== */
 #site-nav { min-height: 80px; }
 .nav {
@@ -123,8 +149,8 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   border-bottom: 1px solid var(--line);
 }
 .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 80px; gap: 24px; }
-.nav-logo { display: flex; align-items: center; flex-shrink: 0; }
-.nav-logo img { height: 54px; width: auto; display: block; mix-blend-mode: multiply; }
+.nav-logo { flex-shrink: 0; }
+.nav-logo .hut-logo-mark { height: 46px; }
 .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; margin-left: auto; }
 .nav-links a {
   font-size: 14px; font-weight: 500; color: var(--ink-soft);
@@ -144,7 +170,9 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
 /* ===== Footer ===== */
 .footer { padding: 72px 0 96px; border-top: 1px solid var(--line); }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 56px; }
-.footer-logo img { height: 44px; width: auto; display: block; margin-bottom: 14px; mix-blend-mode: multiply; }
+.footer-logo { margin-bottom: 14px; }
+.footer-logo .hut-logo-mark { height: 40px; }
+.footer-logo .hut-brand-text { font-size: 13px; }
 .footer-brand p { font-size: 14px; color: var(--ink-soft); max-width: 34ch; line-height: 1.7; }
 .footer-col h4 { font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 16px; }
 .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
@@ -212,7 +240,9 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   /* Nav */
   #site-nav { min-height: 68px; }
   .nav .wrap { height: 68px; }
-  .nav-logo img { height: 44px; }
+  .nav-logo .hut-logo-mark { height: 38px; }
+  .hut-brand { gap: 10px; }
+  .hut-brand-text { font-size: 12.5px; letter-spacing: .09em; }
 
   /* Page hero */
   .page-hero { padding-top: 48px; padding-bottom: 40px; }
@@ -315,4 +345,8 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
     transform: none !important;
   }
   .webcam-modal, .hero-slide { transition: none !important; }
+
+  /* Logo: ingen 3D-spinn – bitene toner bare rolig inn */
+  @keyframes hut-logo-in { from { opacity: 0; } to { opacity: 1; } }
+  .hut-logo-mark .shard { animation-duration: 500ms; animation-timing-function: ease; }
 }
