@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>document.documentElement.classList.add("js");addEventListener("load",function(){setTimeout(function(){if(window.__revealReady)return;document.querySelectorAll(".reveal").forEach(function(e){e.classList.add("visible")})},1500)});</script>
 <title>Om oss – Holmestrand Utvikling</title>
+<meta name="description" content="Holmestrand Utvikling AS eier og drifter store deler av Holmestrand sentrum – rundt 18 eiendommer i Langgaten og sentrumsgatene rundt. Del av Jarlsberg EiendomSelskab Holding AS.">
+
 <link rel="icon" type="image/png" sizes="32x32" href="Bilder/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="Bilder/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="Bilder/favicon-180.png">
@@ -25,23 +27,25 @@
   /* object-fit-croppen slår bare inn så lenge venstre tekstkolonne er den høyeste – altså innholdsavhengig. */
   .om-blomst { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; display: block; }
 
-  .verdier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .verdi { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 32px; }
-  .verdi .ikon { width: 44px; height: 44px; border-radius: 12px; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; }
-  .verdi .ikon.fjord { background: var(--mist); }
-  .verdi .ikon.ember { background: #e8f0d0; }
-  .verdi .ikon.sand  { background: var(--sand); }
-  .verdi .ikon svg { width: 22px; height: 22px; }
-  .verdi h3 { font-family: var(--serif); font-weight: 500; font-size: 1.15rem; margin-bottom: 10px; }
-  .verdi p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
+  .section-intro { font-size: 16px; color: var(--ink-soft); line-height: 1.8; max-width: 64ch; margin: 0 0 40px; }
 
-  .sitat {
-    background: var(--ink); color: var(--paper); border-radius: 20px; padding: 64px 52px;
-    text-align: center;
-  }
-  .sitat q { font-family: var(--serif); font-style: italic; font-size: clamp(1.4rem, 3vw, 2.2rem); line-height: 1.3; quotes: none; }
-  .sitat q em { color: var(--mist); font-style: normal; }
-  .sitat cite { display: block; margin-top: 22px; font-size: 14px; color: rgba(188,217,224,.7); font-style: normal; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+  /* Eiendomsporteføljen */
+  .portefolje-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .gaard { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+  .gaard-foto { aspect-ratio: 4 / 3; background: var(--sand); color: rgba(4,49,58,.22); display: flex; align-items: center; justify-content: center; }
+  .gaard-foto svg { width: 44px; height: 44px; }
+  .gaard-tekst { padding: 18px 20px; }
+  .gaard-navn { font-family: var(--serif); font-weight: 500; font-size: 1.05rem; line-height: 1.25; }
+  .gaard-adr { font-size: 13px; color: var(--ink-soft); margin-top: 5px; }
+
+  /* Selskapsstruktur */
+  .struktur-topp { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--paper); background: var(--ink); padding: 13px 22px; border-radius: 10px; }
+  .struktur-liste { list-style: none; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin-top: 18px; background: #fff; }
+  .struktur-liste li { display: flex; align-items: baseline; justify-content: space-between; gap: 28px; padding: 16px 24px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .struktur-liste li:last-child { border-bottom: none; }
+  .struktur-liste li:first-child { background: var(--paper); }
+  .sel-navn { font-size: 15px; font-weight: 600; flex-shrink: 0; }
+  .sel-bygg { font-size: 13px; color: var(--ink-soft); text-align: right; }
 
   .eiere-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .eier-gruppe { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
@@ -56,12 +60,13 @@
   @media (max-width: 860px) {
     .om-full-section { grid-template-columns: 1fr; gap: 32px; }
     .om-blomst { border-radius: 12px; height: auto; }
-    .om-grid { grid-template-columns: 1fr; gap: 40px; }
-    .verdier-grid { grid-template-columns: 1fr 1fr; }
     .eiere-grid { grid-template-columns: 1fr; }
+    .portefolje-grid { grid-template-columns: 1fr 1fr; }
+    .struktur-liste li { flex-direction: column; gap: 5px; }
+    .sel-bygg { text-align: left; }
   }
   @media (max-width: 560px) {
-    .verdier-grid { grid-template-columns: 1fr; }
+    .portefolje-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -85,6 +90,83 @@
 
   <div class="om-right reveal" style="transition-delay:.1s">
     <img src="Bilder/Blomst1.jpg" alt="Blomster i Holmestrand sentrum" class="om-blomst">
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="section-head reveal">
+    <h2>Eiendomsporteføljen</h2>
+  </div>
+  <p class="section-intro reveal">Konsernet eier og drifter store deler av Holmestrand sentrum – rundt 18 eiendommer i Langgaten, Tordenskjoldsgate, på Dr. Graaruds plass, ved havna og i Våleveien. Nesten hele Langgaten fra nummer 23 til 42.</p>
+  <div class="portefolje-grid reveal">
+    <div class="gaard">
+      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
+      <div class="gaard-tekst"><div class="gaard-navn">Kvartal Langgaten</div><div class="gaard-adr">Langgaten 36, 38, 40 og 42</div></div>
+    </div>
+    <div class="gaard">
+      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
+      <div class="gaard-tekst"><div class="gaard-navn">Frellumstadgården</div><div class="gaard-adr">Langgaten 32</div></div>
+    </div>
+    <div class="gaard">
+      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
+      <div class="gaard-tekst"><div class="gaard-navn">Henningsengården</div><div class="gaard-adr">Langgaten 29</div></div>
+    </div>
+    <div class="gaard">
+      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
+      <div class="gaard-tekst"><div class="gaard-navn">Uni-Kvartalet</div><div class="gaard-adr">Langgaten 23 og 27 · Tordenskjoldsgate 5</div></div>
+    </div>
+    <div class="gaard">
+      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
+      <div class="gaard-tekst"><div class="gaard-navn">Ihlengården</div><div class="gaard-adr">Tordenskjoldsgate 6 og 8</div></div>
+    </div>
+    <div class="gaard">
+      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
+      <div class="gaard-tekst"><div class="gaard-navn">Stenstadgården</div><div class="gaard-adr">Dr. Graaruds plass 1</div></div>
+    </div>
+    <div class="gaard">
+      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
+      <div class="gaard-tekst"><div class="gaard-navn">Dr. Graaruds plass 3</div><div class="gaard-adr">Kontorhotell</div></div>
+    </div>
+    <div class="gaard">
+      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
+      <div class="gaard-tekst"><div class="gaard-navn">Nordeagården</div><div class="gaard-adr">Havnegaten 7</div></div>
+    </div>
+    <div class="gaard">
+      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
+      <div class="gaard-tekst"><div class="gaard-navn">Apotekergården</div><div class="gaard-adr">Langgaten 34</div></div>
+    </div>
+    <div class="gaard">
+      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
+      <div class="gaard-tekst"><div class="gaard-navn">Langgaten 24</div><div class="gaard-adr">Under utvikling</div></div>
+    </div>
+    <div class="gaard">
+      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
+      <div class="gaard-tekst"><div class="gaard-navn">Langgaten 33</div><div class="gaard-adr">Butikk og bolig</div></div>
+    </div>
+    <div class="gaard">
+      <div class="gaard-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M6 21V8l6-4 6 4v13"/><path d="M10 21v-4h4v4"/><path d="M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01"/></svg></div>
+      <div class="gaard-tekst"><div class="gaard-navn">Våleveien Næringspark</div><div class="gaard-adr">Våleveien 29</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap">
+  <div class="section-head reveal">
+    <h2>Selskapsstruktur</h2>
+  </div>
+  <p class="section-intro reveal">Holmestrand Utvikling AS er en del av <strong>Jarlsberg EiendomSelskab Holding AS</strong>, som samler eiendomsselskapene i konsernet. Hvert kvartal eller bygg driftes gjennom sitt eget selskap.</p>
+  <div class="reveal">
+    <span class="struktur-topp">Jarlsberg EiendomSelskab Holding AS</span>
+    <ul class="struktur-liste">
+      <li><span class="sel-navn">Holmestrand Utvikling AS</span><span class="sel-bygg">Kvartal Langgaten, Frellumstadgården, Stenstadgården, Henningsengården, Ihlengården</span></li>
+      <li><span class="sel-navn">Dr. Graaruds plass 1-3 Næring AS</span><span class="sel-bygg">Dr. Graaruds plass 3</span></li>
+      <li><span class="sel-navn">NordeaGården AS</span><span class="sel-bygg">Havnegaten 7</span></li>
+      <li><span class="sel-navn">Uni-Kvartalet AS</span><span class="sel-bygg">Langgaten 23 og 27, Tordenskjoldsgate 5</span></li>
+      <li><span class="sel-navn">ApotekerGården Holmestrand AS</span><span class="sel-bygg">Langgaten 34</span></li>
+      <li><span class="sel-navn">Våleveien Næringspark AS</span><span class="sel-bygg">Våleveien 29</span></li>
+      <li><span class="sel-navn">Langgaten 24 AS</span><span class="sel-bygg">Langgaten 24</span></li>
+      <li><span class="sel-navn">Langgaten 33 AS</span><span class="sel-bygg">Langgaten 33</span></li>
+    </ul>
   </div>
 </section>
 
@@ -129,32 +211,6 @@
         <div class="eier-navn">Jon Sæther Storli</div>
         <div class="eier-kontakt"></div>
       </div>
-    </div>
-  </div>
-</section>
-
-<section class="section wrap">
-  <div class="verdier-grid">
-    <div class="verdi reveal">
-      <div class="ikon fjord">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#007898" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      </div>
-      <h3>Lokal forankring</h3>
-      <p>Vi kjenner Holmestrand fra innsiden. Alle beslutninger tas med byens beste for øye – ikke kortsiktig profitt.</p>
-    </div>
-    <div class="verdi reveal" style="transition-delay:.07s">
-      <div class="ikon ember">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#687830" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      </div>
-      <h3>Langsiktig tenkning</h3>
-      <p>Vi utvikler for generasjoner, ikke for neste kvartal. Kvalitet, bærekraft og varig verdi er ikke kompromisser.</p>
-    </div>
-    <div class="verdi reveal" style="transition-delay:.14s">
-      <div class="ikon sand">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#3f4f4d" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      </div>
-      <h3>Partnerskap</h3>
-      <p>Gode leietakerforhold bygges på tillit og dialog. Vi er tilgjengelige, tydelige og holder det vi lover.</p>
     </div>
   </div>
 </section>
