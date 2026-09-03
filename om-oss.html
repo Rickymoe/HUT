@@ -48,11 +48,15 @@
   .eiere-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .eier-gruppe { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
   .eier-gruppenavn { font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--paper); background: var(--ink); padding: 14px 24px; }
-  .eier-rad { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 16px 24px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  .eier-rad { display: flex; align-items: center; gap: 14px; padding: 14px 24px; border-bottom: 1px solid var(--line); }
   .eier-rad:last-child { border-bottom: none; }
+  .eier-foto { width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; overflow: hidden; background: var(--sand); display: flex; align-items: center; justify-content: center; }
+  .eier-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .eier-foto span { font-size: 13px; font-weight: 600; color: var(--ink-soft); letter-spacing: .03em; }
+  .eier-info { flex: 1; min-width: 0; }
   .eier-navn { font-size: 15px; font-weight: 600; }
   .eier-tittel { font-size: 12px; font-weight: 500; color: var(--ink-soft); margin-left: 8px; }
-  .eier-kontakt { display: flex; gap: 16px; flex-wrap: wrap; }
+  .eier-kontakt { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 3px; }
   .eier-kontakt a { font-size: 13px; color: var(--fjord); font-weight: 500; }
 
   @media (max-width: 860px) {
@@ -141,38 +145,52 @@
     <div class="eier-gruppe">
       <div class="eier-gruppenavn">Holmestrand Utvikling AS</div>
       <div class="eier-rad">
-        <div class="eier-navn">Øistein Hjelmtvedt</div>
-        <div class="eier-kontakt">
-          <a href="tel:+4791551710">915 51 710</a>
-          <a href="mailto:oistein@holmestrandutvikling.no">oistein@holmestrandutvikling.no</a>
+        <div class="eier-foto"><img src="Bilder/oistein.jpg" alt="Øistein Hjelmtvedt" width="42" height="42" loading="lazy"></div>
+        <div class="eier-info">
+          <div class="eier-navn">Øistein Hjelmtvedt</div>
+          <div class="eier-kontakt">
+            <a href="tel:+4791551710">915 51 710</a>
+            <a href="mailto:oistein@holmestrandutvikling.no">oistein@holmestrandutvikling.no</a>
+          </div>
         </div>
       </div>
       <div class="eier-rad">
-        <div class="eier-navn">Terje Karlsen</div>
-        <div class="eier-kontakt">
-          <a href="tel:+4791776500">917 76 500</a>
-          <a href="mailto:terje@holmestrandutvikling.no">terje@holmestrandutvikling.no</a>
+        <div class="eier-foto"><img src="Bilder/terje.jpg" alt="Terje Karlsen" width="42" height="42" loading="lazy"></div>
+        <div class="eier-info">
+          <div class="eier-navn">Terje Karlsen</div>
+          <div class="eier-kontakt">
+            <a href="tel:+4791776500">917 76 500</a>
+            <a href="mailto:terje@holmestrandutvikling.no">terje@holmestrandutvikling.no</a>
+          </div>
         </div>
       </div>
       <div class="eier-rad">
-        <div class="eier-navn">Jan Idar Flått</div>
-        <div class="eier-kontakt">
-          <a href="mailto:jan@holmestrandutvikling.no">jan@holmestrandutvikling.no</a>
+        <div class="eier-foto" aria-hidden="true"><span>JF</span></div>
+        <div class="eier-info">
+          <div class="eier-navn">Jan Idar Flått</div>
+          <div class="eier-kontakt">
+            <a href="mailto:jan@holmestrandutvikling.no">jan@holmestrandutvikling.no</a>
+          </div>
         </div>
       </div>
     </div>
     <div class="eier-gruppe">
       <div class="eier-gruppenavn">ENATA Eiendom AS</div>
       <div class="eier-rad">
-        <div class="eier-navn">Espen Klevmark <span class="eier-tittel">Styreformann</span></div>
-        <div class="eier-kontakt">
-          <a href="tel:+4790023111">900 23 111</a>
-          <a href="mailto:espen@enata.no">espen@enata.no</a>
+        <div class="eier-foto" aria-hidden="true"><span>EK</span></div>
+        <div class="eier-info">
+          <div class="eier-navn">Espen Klevmark <span class="eier-tittel">Styreformann</span></div>
+          <div class="eier-kontakt">
+            <a href="tel:+4790023111">900 23 111</a>
+            <a href="mailto:espen@enata.no">espen@enata.no</a>
+          </div>
         </div>
       </div>
       <div class="eier-rad">
-        <div class="eier-navn">Jon Sæther Storli</div>
-        <div class="eier-kontakt"></div>
+        <div class="eier-foto" aria-hidden="true"><span>JS</span></div>
+        <div class="eier-info">
+          <div class="eier-navn">Jon Sæther Storli</div>
+        </div>
       </div>
     </div>
   </div>
