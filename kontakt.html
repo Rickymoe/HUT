@@ -83,8 +83,8 @@
   /* Kontaktpersoner */
   .personer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .person { display: flex; gap: 20px; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 24px; align-items: flex-start; }
-  .person-foto { width: 72px; height: 72px; border-radius: 50%; background: var(--sand); color: rgba(4,49,58,.22); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .person-foto svg { width: 34px; height: 34px; }
+  .person-foto { width: 72px; height: 72px; border-radius: 50%; background: var(--sand); flex-shrink: 0; overflow: hidden; }
+  .person-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .person-navn { font-family: var(--serif); font-weight: 500; font-size: 1.15rem; }
   .person-rolle { font-size: 13px; color: var(--ink-soft); line-height: 1.5; margin: 4px 0 12px; }
   .person-kontakt { display: flex; flex-direction: column; gap: 4px; }
@@ -211,7 +211,7 @@
   </div>
   <div class="personer-grid">
     <div class="person reveal">
-      <div class="person-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="7.5" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg></div>
+      <div class="person-foto"><img src="Bilder/terje.jpg" alt="Terje Karlsen" width="72" height="72" loading="lazy"></div>
       <div class="person-tekst">
         <div class="person-navn">Terje Karlsen</div>
         <div class="person-rolle">Partner · eiendomsdrift og utleie av leiligheter og boder</div>
@@ -222,7 +222,7 @@
       </div>
     </div>
     <div class="person reveal" style="transition-delay:.08s">
-      <div class="person-foto" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="7.5" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></svg></div>
+      <div class="person-foto"><img src="Bilder/oistein.jpg" alt="Øistein Hjelmtvedt" width="72" height="72" loading="lazy"></div>
       <div class="person-tekst">
         <div class="person-navn">Øistein Hjelmtvedt</div>
         <div class="person-rolle">Partner · utviklingsprosjekter og utleie av næringslokaler</div>
