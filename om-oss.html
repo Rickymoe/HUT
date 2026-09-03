@@ -29,12 +29,34 @@
 
   .section-intro { font-size: 16px; color: var(--ink-soft); line-height: 1.8; max-width: 64ch; margin: 0 0 40px; }
 
-  /* Eiendomsporteføljen */
-  .portefolje-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .gaard { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
-  .gaard-ikon { display: block; width: 26px; height: 26px; color: var(--ember-text); margin-bottom: 14px; }
-  .gaard-navn { font-family: var(--serif); font-weight: 500; font-size: 1.1rem; line-height: 1.25; }
-  .gaard-adr { font-size: 13px; color: var(--ink-soft); margin-top: 5px; }
+  /* Eiendomsporteføljen – kart + tegnforklaring */
+  .portefolje-kart { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 16px; margin: 0 0 26px; overflow: hidden; background: var(--paper); }
+  .portefolje-kart text { font-family: var(--sans); }
+  .kart-bygg polygon { fill: #6f7c74; opacity: .1; }
+  .kart-gater .gate-kant { fill: none; stroke: rgba(4,49,58,.26); stroke-linecap: round; stroke-linejoin: round; }
+  .kart-gater path:not(.gate-kant) { fill: none; stroke: var(--paper); stroke-linecap: round; stroke-linejoin: round; }
+  .kart-gatenavn { font-size: 12px; font-weight: 600; letter-spacing: .02em; fill: #556063; paint-order: stroke; stroke: var(--paper); stroke-width: 3.6px; }
+  .kart-gatenavn--hoved { font-size: 16px; letter-spacing: .2em; fill: #3f4f4d; }
+  .kart-fjell { font-family: var(--serif); font-style: italic; font-size: 12px; fill: #7d8a58; }
+  .kart-vann { font-family: var(--serif); font-style: italic; font-size: 13px; fill: var(--sea); text-anchor: end; }
+  .kart-poi { font-size: 11.5px; font-weight: 500; fill: var(--ink-soft); paint-order: stroke; stroke: var(--paper); stroke-width: 3.6px; }
+  .kart-punkt { fill: var(--ink-soft); }
+  .kart-nr { font-size: 11px; font-weight: 700; fill: #fff; }
+  .hut-fp { stroke: #fff; stroke-width: .6; transition: filter .15s; }
+  .hut-nr-bg { fill: var(--ink); transition: fill .15s; }
+  .kg-halo { fill: var(--fjord); opacity: 0; }
+  .kart-gaard { cursor: pointer; }
+  .kart-gaard:hover .hut-fp, .kart-gaard:focus-visible .hut-fp, .kart-gaard.hl .hut-fp { filter: brightness(1.18); }
+  .kart-gaard:hover .hut-nr-bg, .kart-gaard:focus-visible .hut-nr-bg, .kart-gaard.hl .hut-nr-bg { fill: var(--fjord); }
+  .kart-kompass line { stroke: var(--ink-soft); stroke-width: 1.3; }
+  .kart-kompass path { fill: var(--ink-soft); }
+  .kart-kompass text { font-size: 9px; font-weight: 700; fill: var(--ink-soft); }
+
+  .kart-legende { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px 26px; }
+  .kart-legende li { display: flex; gap: 12px; align-items: baseline; font-size: 14px; color: var(--ink-soft); padding: 3px 0; transition: color .15s; }
+  .kart-legende li b { color: var(--fjord); font-weight: 700; font-variant-numeric: tabular-nums; flex-shrink: 0; width: 1.5em; text-align: right; }
+  .kart-legende li .g-navn { font-weight: 600; color: var(--ink); }
+  .kart-legende li.hl { color: var(--ink); }
 
   /* Selskapsstruktur */
   .struktur-topp { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--paper); background: var(--ink); padding: 13px 22px; border-radius: 10px; }
@@ -63,12 +85,11 @@
     .om-full-section { grid-template-columns: 1fr; gap: 32px; }
     .om-blomst { border-radius: 12px; height: auto; }
     .eiere-grid { grid-template-columns: 1fr; }
-    .portefolje-grid { grid-template-columns: 1fr 1fr; }
     .struktur-liste li { flex-direction: column; gap: 5px; }
     .sel-bygg { text-align: left; }
   }
   @media (max-width: 560px) {
-    .portefolje-grid { grid-template-columns: 1fr; }
+    .kart-legende { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -100,21 +121,219 @@
     <h2>Eiendomsporteføljen</h2>
   </div>
   <p class="section-intro reveal">Konsernet eier og drifter store deler av Holmestrand sentrum – rundt 18 eiendommer i Langgaten, Tordenskjoldsgate, på Dr. Graaruds plass, ved havna og i Våleveien. Nesten hele Langgaten fra nummer 23 til 42.</p>
-  <svg width="0" height="0" style="display:none" aria-hidden="true"><symbol id="i-bygg" viewBox="0 0 24 24"><path d="M3 21h18M6 21V8l6-4 6 4v13M10 21v-4h4v4M9.5 9h.01M14.5 9h.01M9.5 12.5h.01M14.5 12.5h.01" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol></svg>
-  <div class="portefolje-grid reveal">
-    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Kvartal Langgaten</div><div class="gaard-adr">Langgaten 36, 38, 40 og 42</div></div>
-    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Frellumstadgården</div><div class="gaard-adr">Langgaten 32</div></div>
-    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Henningsengården</div><div class="gaard-adr">Langgaten 29</div></div>
-    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Uni-Kvartalet</div><div class="gaard-adr">Langgaten 23 og 27 · Tordenskjoldsgate 5</div></div>
-    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Ihlengården</div><div class="gaard-adr">Tordenskjoldsgate 6 og 8</div></div>
-    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Stenstadgården</div><div class="gaard-adr">Dr. Graaruds plass 1</div></div>
-    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Dr. Graaruds plass 3</div><div class="gaard-adr">Kontorhotell</div></div>
-    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Nordeagården</div><div class="gaard-adr">Havnegaten 7</div></div>
-    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Apotekergården</div><div class="gaard-adr">Langgaten 34</div></div>
-    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Langgaten 24</div><div class="gaard-adr">Under utvikling</div></div>
-    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Langgaten 33</div><div class="gaard-adr">Butikk og bolig</div></div>
-    <div class="gaard"><svg class="gaard-ikon" aria-hidden="true"><use href="#i-bygg"/></svg><div class="gaard-navn">Våleveien Næringspark</div><div class="gaard-adr">Våleveien 29</div></div>
-  </div>
+<svg class="portefolje-kart reveal" viewBox="0 0 1267 682" role="img" aria-label="Kart over Holmestrand sentrum. Holmestrand Utvikling AS eier de fargede byggene.">
+  <rect x="-30" y="-30" width="1327" height="742" fill="var(--paper)"/>
+  <path d="M-30 -30 H1297 V54 C 836 74 380 40 -30 70 Z" fill="var(--mist)" opacity="0.5"/>
+  <path d="M-30 712 H1297 V662 C 887 650 380 674 -30 658 Z" fill="#aeb87b" opacity="0.24"/>
+  <text class="kart-fjell" x="14" y="674">Fjellet</text>
+  <g class="kart-bygg">
+    <polygon points="117,526 108,479 82,484 91,531 117,526"/>
+    <polygon points="1166,232 1337,170 1340,178 1356,173 1352,162 1429,135 1380,-2 1401,-10 1390,-42 1384,-40 1348,-27 1324,-94 1336,-98 1309,-173 1126,-108 1098,-98 1131,29 1148,237 1149,237 1152,247 1169,241 1166,232"/>
+    <polygon points="244,-155 268,-136 285,-158 281,-161 296,-180 272,-199 254,-177 258,-173 244,-155"/>
+    <polygon points="819,346 895,340 889,268 886,233 816,238 807,239 808,250 811,249 819,346"/>
+    <polygon points="856,487 837,489 842,551 852,559 877,557 871,485 876,485 876,474 870,474 870,476 865,476 865,486 856,487"/>
+    <polygon points="1096,463 1117,461 1119,480 1098,482 1096,463"/>
+    <polygon points="862,54 881,52 878,5 859,7 862,54"/>
+    <polygon points="816,238 886,233 963,227 963,225 955,133 818,145 819,154 809,155 811,171 813,171 815,184 812,184 816,238"/>
+    <polygon points="966,256 1030,251 1036,250 1043,328 1026,330 1026,335 1039,334 1048,333 1051,333 1050,328 1100,324 1093,236 1105,235 1103,214 1092,215 1039,219 1028,220 963,225 963,227 966,256"/>
+    <polygon points="629,507 597,509 595,483 658,479 660,505 652,505 629,507"/>
+    <polygon points="365,461 368,496 402,494 403,503 391,504 392,516 404,516 404,517 409,517 438,515 434,457 435,457 433,429 422,421 376,425 379,453 364,455 365,461"/>
+    <polygon points="417,526 419,554 444,552 442,514 438,515 409,517 410,527 417,526"/>
+    <polygon points="376,574 378,574 381,540 352,537 349,572 360,573 358,591 375,592 376,574"/>
+    <polygon points="471,727 470,727 470,749 482,749 482,755 502,755 503,716 482,715 482,716 471,716 471,727"/>
+    <polygon points="300,486 360,479 353,427 243,440 250,492 280,489 281,496 301,494 300,486"/>
+    <polygon points="98,152 91,171 113,218 119,220 137,221 195,241 196,238 229,249 245,201 220,194 219,197 210,194 214,182 210,181 206,180 202,191 197,190 237,77 240,78 242,73 224,66 228,54 158,29 152,45 138,40 98,152"/>
+    <polygon points="152,318 156,318 164,336 182,328 217,339 244,254 229,249 196,238 195,241 137,221 135,228 124,225 108,273 118,277 116,283 113,282 106,303 109,305 101,330 106,340 120,345 139,352 140,349 141,349 152,318"/>
+    <polygon points="-14,433 -19,447 47,433 60,404 50,400 51,398 8,380 -15,434 -14,433"/>
+    <polygon points="1195,432 1190,361 1152,364 1144,373 1149,446 1151,446 1196,443 1195,432"/>
+    <polygon points="652,505 653,514 654,520 630,521 629,507 652,505"/>
+    <polygon points="655,535 658,567 658,576 613,580 609,539 655,535"/>
+    <polygon points="653,514 685,511 685,513 726,510 730,562 721,573 699,574 698,564 658,567 655,535 654,520 653,514"/>
+    <polygon points="551,461 527,462 514,463 468,468 464,428 471,419 547,412 550,458 551,461"/>
+    <polygon points="529,490 527,462 551,461 552,479 570,478 571,492 554,494 553,488 529,490"/>
+    <polygon points="120,345 106,394 169,410 182,359 141,349 140,349 139,352 120,345"/>
+    <polygon points="182,530 146,537 149,554 239,536 231,495 224,497 229,523 182,532 182,530"/>
+    <polygon points="445,224 450,279 488,276 486,244 488,244 487,241 500,240 498,220 445,224"/>
+    <polygon points="828,4 822,5 822,3 809,4 809,6 794,7 798,59 813,58 813,59 826,58 826,57 841,55 837,8 837,4 834,4 833,-5 827,-4 828,4"/>
+    <polygon points="841,55 862,54 859,7 837,8 841,55"/>
+    <polygon points="878,5 881,52 896,51 896,52 910,51 910,50 925,49 924,41 936,40 933,-2 905,-0 905,-2 893,-1 893,-0 877,1 878,5"/>
+    <polygon points="966,256 973,334 1026,330 1043,328 1036,250 1030,251 966,256"/>
+    <polygon points="963,225 1028,220 1092,215 1089,186 1095,186 1094,174 1088,174 1086,142 1091,141 1089,114 1065,115 1066,124 1015,128 1016,148 1010,148 995,149 994,130 955,133 963,225"/>
+  </g>
+  <g class="kart-gater">
+    <path class="gate-kant" d="M 1010 148 L 1011 160 L 1028 160 L 1033 165 L 1039 219 L 1048 333" stroke-width="5.4"/>
+    <path class="gate-kant" d="M -425 1011 L -386 1000 L -335 982 L -279 970 L -226 963 L -96 951 L -1 937 L 39 936 L 90 943 L 132 950 L 185 969 L 229 988 L 292 1022 L 411 1085 L 529 1144 L 608 1174 L 683 1194 L 832 1223 L 938 1240 L 1017 1257 L 1148 1304 L 1279 1349 L 1376 1368 L 1465 1377" stroke-width="5.8"/>
+    <path class="gate-kant" d="M -1083 453 L -865 549 L -843 542 L -807 517 L -775 507 L -712 520 L -699 522 L -622 536 L -556 544 L -450 548 L -294 518 L -278 513" stroke-width="5.8"/>
+    <path class="gate-kant" d="M 445 399 L 442 375 L 438 319 L 416 96" stroke-width="5.8"/>
+    <path class="gate-kant" d="M 113 1 L -75 -57 L -81 -59 L -153 -80 L -233 -102 L -301 -122 L -405 -152 L -450 -165 L -490 -176 L -627 -214 L -666 -223 L -727 -236" stroke-width="5.8"/>
+    <path class="gate-kant" d="M 226 423 L 228 439 L 236 486 L 247 502 L 278 507 L 332 512 L 361 519" stroke-width="5.8"/>
+    <path class="gate-kant" d="M 265 54 L 297 64 L 315 70 L 349 79 L 406 94 L 416 96 L 432 94 L 454 92 L 542 82 L 575 79 L 582 79 L 625 76 L 728 100 L 789 112" stroke-width="5.8"/>
+    <path class="gate-kant" d="M 1129 344 L 1127 316 L 1124 255 L 1113 117 L 1111 85" stroke-width="5.8"/>
+    <path class="gate-kant" d="M 789 112 L 815 113 L 923 103 L 947 100 L 969 97 L 1007 95 L 1111 85" stroke-width="5.8"/>
+    <path class="gate-kant" d="M 758 373 L 760 410 L 761 437 L 769 575" stroke-width="5.8"/>
+    <path class="gate-kant" d="M 465 630 L 463 611 L 462 601 L 459 577 L 446 418 L 445 399" stroke-width="5.8"/>
+    <path class="gate-kant" d="M -65 319 L 13 351 L 73 373" stroke-width="5.8"/>
+    <path class="gate-kant" d="M -97 237 L -121 181 L -133 151 L -147 130 L -181 97 L -204 85 L -217 78 L -281 47 L -347 19" stroke-width="5.8"/>
+    <path class="gate-kant" d="M -65 319 L -84 272 L -97 237" stroke-width="5.8"/>
+    <path class="gate-kant" d="M 73 373 L 91 403 L 104 447" stroke-width="5.8"/>
+    <path class="gate-kant" d="M 265 54 L 113 1" stroke-width="5.8"/>
+    <path class="gate-kant" d="M 361 519 L 382 531 L 445 576 L 459 577" stroke-width="5.8"/>
+    <path class="gate-kant" d="M -278 513 L -204 488 L -192 480 L -183 469 L -174 455" stroke-width="5.8"/>
+    <path class="gate-kant" d="M 1138 501 L 1134 445 L 1129 362 L 1129 344" stroke-width="5.8"/>
+    <path class="gate-kant" d="M 565 620 L 567 638 L 567 653 L 566 657 L 561 663 L 557 666 L 410 681" stroke-width="5.8"/>
+    <path class="gate-kant" d="M 816 597 L 837 606 L 858 623" stroke-width="6.0"/>
+    <path class="gate-kant" d="M 728 100 L 720 127 L 719 161 L 734 323 L 736 346 L 739 374" stroke-width="6.3"/>
+    <path class="gate-kant" d="M 405 81 L 398 35 L 394 8 L 667 6 L 696 -30 L 715 -15 L 769 -8 L 777 -7 L 783 31 L 790 33 L 794 93 L 788 92 L 652 72 L 416 80 L 405 81" stroke-width="6.3"/>
+    <path class="gate-kant" d="M 729 125 L 726 134 L 745 342 L 747 343 L 752 343 L 796 340 L 796 344 L 804 344 L 819 346 L 811 249 L 808 250 L 807 239 L 816 238 L 812 184 L 815 184 L 813 171 L 811 171 L 809 155 L 819 154 L 818 145 L 816 136 L 803 137 L 790 133 L 741 119 L 734 120 L 729 125" stroke-width="6.3"/>
+    <path class="gate-kant" d="M 758 373 L 833 366 L 860 364 L 1129 344" stroke-width="6.3"/>
+    <path class="gate-kant" d="M -37 529 L -30 516 L -19 496 L -8 484 L 1 476 L 11 471 L 22 467 L 104 447 L 217 424 L 226 423 L 347 409 L 445 399 L 481 395 L 688 379 L 700 378 L 739 374 L 758 373" stroke-width="6.4"/>
+    <path class="gate-kant" d="M 1129 344 L 1338 326 L 1374 323 L 1409 319 L 1544 311 L 1576 312 L 1595 314 L 1631 322 L 1722 343 L 1743 346" stroke-width="6.4"/>
+    <path class="gate-kant" d="M -1349 17 L -1298 19 L -1275 22 L -1264 24 L -1211 37 L -1158 50 L -1111 63 L -1085 73 L -1010 105 L -926 150 L -834 196 L -756 226 L -728 238 L -560 296 L -504 315 L -482 323 L -466 329 L -420 346 L -394 356 L -264 407 L -248 415 L -239 419 L -174 455 L -161 462 L -108 492 L -37 529" stroke-width="7.2"/>
+    <path class="gate-kant" d="M 901 646 L 892 632 L 883 623 L 882 617 L 880 604 L 880 591" stroke-width="7.2"/>
+    <path class="gate-kant" d="M 852 593 L 853 607 L 858 623 L 871 637 L 884 644 L 901 646" stroke-width="7.2"/>
+    <path class="gate-kant" d="M 901 646 L 915 651 L 927 653 L 938 653 L 995 646 L 1031 643 L 1102 645" stroke-width="7.2"/>
+    <path class="gate-kant" d="M -37 529 L 55 578 L 86 592 L 117 604 L 154 615 L 184 621 L 221 628 L 254 632 L 289 635 L 342 637 L 411 635 L 465 630 L 565 620 L 654 612 L 816 597 L 852 593 L 866 592 L 880 591 L 940 585 L 1000 580 L 1140 570 L 1329 557 L 1367 553 L 1473 536 L 1549 521 L 1589 511 L 1627 499 L 1695 471 L 1748 444 L 1790 419 L 1810 406" stroke-width="7.2"/>
+    <path d="M 1010 148 L 1011 160 L 1028 160 L 1033 165 L 1039 219 L 1048 333" stroke-width="1.8"/>
+    <path d="M -425 1011 L -386 1000 L -335 982 L -279 970 L -226 963 L -96 951 L -1 937 L 39 936 L 90 943 L 132 950 L 185 969 L 229 988 L 292 1022 L 411 1085 L 529 1144 L 608 1174 L 683 1194 L 832 1223 L 938 1240 L 1017 1257 L 1148 1304 L 1279 1349 L 1376 1368 L 1465 1377" stroke-width="2.2"/>
+    <path d="M -1083 453 L -865 549 L -843 542 L -807 517 L -775 507 L -712 520 L -699 522 L -622 536 L -556 544 L -450 548 L -294 518 L -278 513" stroke-width="2.2"/>
+    <path d="M 445 399 L 442 375 L 438 319 L 416 96" stroke-width="2.2"/>
+    <path d="M 113 1 L -75 -57 L -81 -59 L -153 -80 L -233 -102 L -301 -122 L -405 -152 L -450 -165 L -490 -176 L -627 -214 L -666 -223 L -727 -236" stroke-width="2.2"/>
+    <path d="M 226 423 L 228 439 L 236 486 L 247 502 L 278 507 L 332 512 L 361 519" stroke-width="2.2"/>
+    <path d="M 265 54 L 297 64 L 315 70 L 349 79 L 406 94 L 416 96 L 432 94 L 454 92 L 542 82 L 575 79 L 582 79 L 625 76 L 728 100 L 789 112" stroke-width="2.2"/>
+    <path d="M 1129 344 L 1127 316 L 1124 255 L 1113 117 L 1111 85" stroke-width="2.2"/>
+    <path d="M 789 112 L 815 113 L 923 103 L 947 100 L 969 97 L 1007 95 L 1111 85" stroke-width="2.2"/>
+    <path d="M 758 373 L 760 410 L 761 437 L 769 575" stroke-width="2.2"/>
+    <path d="M 465 630 L 463 611 L 462 601 L 459 577 L 446 418 L 445 399" stroke-width="2.2"/>
+    <path d="M -65 319 L 13 351 L 73 373" stroke-width="2.2"/>
+    <path d="M -97 237 L -121 181 L -133 151 L -147 130 L -181 97 L -204 85 L -217 78 L -281 47 L -347 19" stroke-width="2.2"/>
+    <path d="M -65 319 L -84 272 L -97 237" stroke-width="2.2"/>
+    <path d="M 73 373 L 91 403 L 104 447" stroke-width="2.2"/>
+    <path d="M 265 54 L 113 1" stroke-width="2.2"/>
+    <path d="M 361 519 L 382 531 L 445 576 L 459 577" stroke-width="2.2"/>
+    <path d="M -278 513 L -204 488 L -192 480 L -183 469 L -174 455" stroke-width="2.2"/>
+    <path d="M 1138 501 L 1134 445 L 1129 362 L 1129 344" stroke-width="2.2"/>
+    <path d="M 565 620 L 567 638 L 567 653 L 566 657 L 561 663 L 557 666 L 410 681" stroke-width="2.2"/>
+    <path d="M 816 597 L 837 606 L 858 623" stroke-width="2.4"/>
+    <path d="M 728 100 L 720 127 L 719 161 L 734 323 L 736 346 L 739 374" stroke-width="2.7"/>
+    <path d="M 405 81 L 398 35 L 394 8 L 667 6 L 696 -30 L 715 -15 L 769 -8 L 777 -7 L 783 31 L 790 33 L 794 93 L 788 92 L 652 72 L 416 80 L 405 81" stroke-width="2.7"/>
+    <path d="M 729 125 L 726 134 L 745 342 L 747 343 L 752 343 L 796 340 L 796 344 L 804 344 L 819 346 L 811 249 L 808 250 L 807 239 L 816 238 L 812 184 L 815 184 L 813 171 L 811 171 L 809 155 L 819 154 L 818 145 L 816 136 L 803 137 L 790 133 L 741 119 L 734 120 L 729 125" stroke-width="2.7"/>
+    <path d="M 758 373 L 833 366 L 860 364 L 1129 344" stroke-width="2.7"/>
+    <path d="M -37 529 L -30 516 L -19 496 L -8 484 L 1 476 L 11 471 L 22 467 L 104 447 L 217 424 L 226 423 L 347 409 L 445 399 L 481 395 L 688 379 L 700 378 L 739 374 L 758 373" stroke-width="2.8"/>
+    <path d="M 1129 344 L 1338 326 L 1374 323 L 1409 319 L 1544 311 L 1576 312 L 1595 314 L 1631 322 L 1722 343 L 1743 346" stroke-width="2.8"/>
+    <path d="M -1349 17 L -1298 19 L -1275 22 L -1264 24 L -1211 37 L -1158 50 L -1111 63 L -1085 73 L -1010 105 L -926 150 L -834 196 L -756 226 L -728 238 L -560 296 L -504 315 L -482 323 L -466 329 L -420 346 L -394 356 L -264 407 L -248 415 L -239 419 L -174 455 L -161 462 L -108 492 L -37 529" stroke-width="3.6"/>
+    <path d="M 901 646 L 892 632 L 883 623 L 882 617 L 880 604 L 880 591" stroke-width="3.6"/>
+    <path d="M 852 593 L 853 607 L 858 623 L 871 637 L 884 644 L 901 646" stroke-width="3.6"/>
+    <path d="M 901 646 L 915 651 L 927 653 L 938 653 L 995 646 L 1031 643 L 1102 645" stroke-width="3.6"/>
+    <path d="M -37 529 L 55 578 L 86 592 L 117 604 L 154 615 L 184 621 L 221 628 L 254 632 L 289 635 L 342 637 L 411 635 L 465 630 L 565 620 L 654 612 L 816 597 L 852 593 L 866 592 L 880 591 L 940 585 L 1000 580 L 1140 570 L 1329 557 L 1367 553 L 1473 536 L 1549 521 L 1589 511 L 1627 499 L 1695 471 L 1748 444 L 1790 419 L 1810 406" stroke-width="3.6"/>
+  </g>
+  <g class="kart-hut">
+    <g class="kart-gaard" data-g="1" tabindex="0" role="listitem" aria-label="1. Kvartal Langgaten">
+      <polygon class="hut-fp" points="889,382 836,386 827,398 831,459 863,456 864,465 869,465 870,467 875,467 874,456 875,456 874,432 881,432 881,428 892,427 889,382" fill="var(--fjord)"/>
+      <polygon class="hut-fp" points="892,427 948,423 945,378 889,382 892,427" fill="var(--fjord)"/>
+      <polygon class="hut-fp" points="1006,415 1030,413 1027,373 966,378 969,418 991,416 992,423 1006,422 1006,415" fill="var(--fjord)"/>
+      <polygon class="hut-fp" points="1090,410 1115,409 1113,375 1101,367 1051,371 1054,409 1063,408 1064,418 1091,416 1090,410" fill="var(--fjord)"/>
+      <circle class="hut-nr-bg" cx="957.0" cy="416.5" r="10"/>
+      <text class="kart-nr" x="957.0" y="420.1" text-anchor="middle">1</text>
+      <title>1. Kvartal Langgaten</title>
+    </g>
+    <g class="kart-gaard" data-g="2" tabindex="0" role="listitem" aria-label="2. Frellumstadgården">
+      <polygon class="hut-fp" points="654,443 603,447 604,454 550,458 547,412 651,404 652,404 654,443" fill="var(--fjord)"/>
+      <circle class="hut-nr-bg" cx="614.4" cy="433.1" r="10"/>
+      <text class="kart-nr" x="614.4" y="436.7" text-anchor="middle">2</text>
+      <title>2. Frellumstadgården</title>
+    </g>
+    <g class="kart-gaard" data-g="3" tabindex="0" role="listitem" aria-label="3. Henningsengården">
+      <polygon class="hut-fp" points="531,371 626,363 623,318 624,318 620,272 546,278 525,280 528,313 526,313 527,327 531,371" fill="var(--fjord)"/>
+      <circle class="hut-nr-bg" cx="564.4" cy="320.3" r="10"/>
+      <text class="kart-nr" x="564.4" y="323.9" text-anchor="middle">3</text>
+      <title>3. Henningsengården</title>
+    </g>
+    <g class="kart-gaard" data-g="4" tabindex="0" role="listitem" aria-label="4. Uni-Kvartalet">
+      <polygon class="hut-fp" points="514,463 516,488 526,487 529,514 529,515 522,516 521,507 518,507 525,587 488,590 478,581 468,468 514,463" fill="var(--fjord)"/>
+      <circle class="hut-nr-bg" cx="511.2" cy="514.3" r="10"/>
+      <text class="kart-nr" x="511.2" y="517.9" text-anchor="middle">4</text>
+      <title>4. Uni-Kvartalet</title>
+    </g>
+    <g class="kart-gaard" data-g="5" tabindex="0" role="listitem" aria-label="5. Ihlengården">
+      <polygon class="hut-fp" points="487,330 484,301 452,303 457,366 468,376 531,371 527,327 487,330" fill="var(--fjord)"/>
+      <polygon class="hut-fp" points="450,279 451,297 505,293 503,275 488,276 450,279" fill="var(--fjord)"/>
+      <circle class="hut-nr-bg" cx="481.4" cy="314.5" r="10"/>
+      <text class="kart-nr" x="481.4" y="318.1" text-anchor="middle">5</text>
+      <title>5. Ihlengården</title>
+    </g>
+    <g class="kart-gaard" data-g="6" tabindex="0" role="listitem" aria-label="6. Stenstadgården">
+      <polygon class="hut-fp" points="626,363 626,364 704,356 713,346 708,278 709,278 708,265 704,265 697,266 697,268 670,270 669,266 657,267 620,272 624,318 623,318 626,363" fill="var(--fjord)"/>
+      <circle class="hut-nr-bg" cx="669.6" cy="301.4" r="10"/>
+      <text class="kart-nr" x="669.6" y="305.0" text-anchor="middle">6</text>
+      <title>6. Stenstadgården</title>
+    </g>
+    <g class="kart-gaard" data-g="7" tabindex="0" role="listitem" aria-label="7. Dr. Graaruds plass 3">
+      <polygon class="hut-fp" points="657,267 669,266 670,270 697,268 697,266 704,265 701,222 704,221 703,208 702,208 695,124 653,128 653,130 640,131 640,129 608,131 612,180 613,179 620,272 657,267" fill="var(--fjord)"/>
+      <circle class="hut-nr-bg" cx="664.7" cy="206.7" r="10"/>
+      <text class="kart-nr" x="664.7" y="210.3" text-anchor="middle">7</text>
+      <title>7. Dr. Graaruds plass 3</title>
+    </g>
+    <g class="kart-gaard" data-g="8" tabindex="0" role="listitem" aria-label="8. Nordeagården">
+      <polygon class="hut-fp" points="445,224 498,220 500,240 503,275 505,293 507,315 526,313 528,313 525,280 546,278 542,227 585,223 583,197 585,197 584,183 582,184 576,117 499,124 499,126 492,127 491,114 436,119 443,191 440,191 442,204 443,204 445,224" fill="var(--fjord)"/>
+      <circle class="hut-nr-bg" cx="509.4" cy="211.2" r="10"/>
+      <text class="kart-nr" x="509.4" y="214.8" text-anchor="middle">8</text>
+      <title>8. Nordeagården</title>
+    </g>
+    <g class="kart-gaard" data-g="9" tabindex="0" role="listitem" aria-label="9. Apotekergården">
+      <polygon class="hut-fp" points="685,511 680,448 666,449 667,465 657,466 654,443 652,404 651,404 651,403 707,398 717,406 726,510 685,513 685,511" fill="var(--fjord)"/>
+      <circle class="hut-nr-bg" cx="677.4" cy="452.4" r="10"/>
+      <text class="kart-nr" x="677.4" y="456.0" text-anchor="middle">9</text>
+      <title>9. Apotekergården</title>
+    </g>
+    <g class="kart-gaard" data-g="10" tabindex="0" role="listitem" aria-label="10. Langgaten 24">
+      <polygon class="hut-fp" points="182,530 182,532 229,523 224,497 214,446 167,456 182,530" fill="var(--ember)"/>
+      <circle class="hut-nr-bg" cx="197.2" cy="501.9" r="10"/>
+      <text class="kart-nr" x="197.2" y="505.5" text-anchor="middle">10</text>
+      <title>10. Langgaten 24</title>
+    </g>
+    <g class="kart-gaard" data-g="11" tabindex="0" role="listitem" aria-label="11. Langgaten 33">
+      <polygon class="hut-fp" points="895,340 895,342 959,337 956,294 955,294 953,263 889,268 895,340" fill="var(--fjord)"/>
+      <circle class="hut-nr-bg" cx="924.5" cy="309.9" r="10"/>
+      <text class="kart-nr" x="924.5" y="313.5" text-anchor="middle">11</text>
+      <title>11. Langgaten 33</title>
+    </g>
+  </g>
+  <text class="kart-gatenavn" x="-188" y="474" dy="-4" text-anchor="middle" transform="rotate(-50.6 -188 474)">Kirkegaten</text>
+  <text class="kart-gatenavn" x="440" y="347" dy="-4" text-anchor="middle" transform="rotate(85.9 440 347)">Tordenskjoldsgate</text>
+  <text class="kart-gatenavn kart-gatenavn--hoved" x="221" y="424" dy="-4" text-anchor="middle" transform="rotate(-10.6 221 424)">LANGGATEN</text>
+  <text class="kart-gatenavn" x="814" y="211" dy="-4" text-anchor="middle" transform="rotate(85.1 814 211)">Dr. Graaruds plass</text>
+  <text class="kart-gatenavn" x="-168" y="458" dy="-4" text-anchor="middle" transform="rotate(31.2 -168 458)">Rådhusgaten</text>
+  <text class="kart-gatenavn" x="262" y="504" dy="-4" text-anchor="middle" transform="rotate(10.3 262 504)">Bakgaten</text>
+  <text class="kart-gatenavn" x="443" y="93" dy="-4" text-anchor="middle" transform="rotate(-6.5 443 93)">Havnegaten</text>
+  <text class="kart-vann" x="1255" y="20">Oslofjorden</text>
+  <circle class="kart-punkt" cx="107" cy="323" r="3"/>
+  <text class="kart-poi" x="115" y="327">Torvet</text>
+  <g class="kart-gaard" data-g="12" tabindex="0" role="listitem" aria-label="12. Våleveien Næringspark" transform="translate(1099 668)">
+    <circle class="kg-halo" r="11"/>
+    <path d="M0 -6 L5.5 3.5 L-5.5 3.5 Z" fill="var(--fjord)"/>
+    <text class="kart-poi" x="12" y="3.5">12 · Våleveien 29 — 2 km sør</text>
+    <title>12. Våleveien Næringspark</title>
+  </g>
+  <g class="kart-kompass" transform="rotate(-55.8 1245.1092832617803 34)">
+    <line x1="1245.1092832617803" y1="43" x2="1245.1092832617803" y2="26"/>
+    <path d="M1245.1092832617803 22 l3.2 6.4 l-6.4 0 Z"/>
+    <text x="1245.1092832617803" y="52" text-anchor="middle">N</text>
+  </g>
+</svg>
+  <ol class="kart-legende reveal">
+    <li data-g="1"><b>1</b><span><span class="g-navn">Kvartal Langgaten</span> — Langgaten 36–42</span></li>
+    <li data-g="2"><b>2</b><span><span class="g-navn">Frellumstadgården</span> — Langgaten 32</span></li>
+    <li data-g="3"><b>3</b><span><span class="g-navn">Henningsengården</span> — Langgaten 29</span></li>
+    <li data-g="4"><b>4</b><span><span class="g-navn">Uni-Kvartalet</span> — Langgaten 23/27 · Tordenskjoldsgate 5</span></li>
+    <li data-g="5"><b>5</b><span><span class="g-navn">Ihlengården</span> — Tordenskjoldsgate 6 og 8</span></li>
+    <li data-g="6"><b>6</b><span><span class="g-navn">Stenstadgården</span> — Dr. Graaruds plass 1</span></li>
+    <li data-g="7"><b>7</b><span><span class="g-navn">Dr. Graaruds plass 3</span> — kontorhotell</span></li>
+    <li data-g="8"><b>8</b><span><span class="g-navn">Nordeagården</span> — Havnegaten 7</span></li>
+    <li data-g="9"><b>9</b><span><span class="g-navn">Apotekergården</span> — Langgaten 34</span></li>
+    <li data-g="10"><b>10</b><span><span class="g-navn">Langgaten 24</span> — under utvikling</span></li>
+    <li data-g="11"><b>11</b><span><span class="g-navn">Langgaten 33</span> — butikk og bolig</span></li>
+    <li data-g="12"><b>12</b><span><span class="g-navn">Våleveien Næringspark</span> — Våleveien 29</span></li>
+  </ol>
 </section>
 
 <section class="section wrap">
@@ -199,6 +418,24 @@
 <div id="site-footer"></div>
 
 <script src="main.js"></script>
+<script>
+  // Kart <-> tegnforklaring: hover/fokus på ett bygg utheves begge steder.
+  (function () {
+    var byG = {};
+    document.querySelectorAll('.kart-legende li').forEach(function (li) { byG[li.dataset.g] = { li: li }; });
+    document.querySelectorAll('.kart-gaard').forEach(function (g) { (byG[g.dataset.g] = byG[g.dataset.g] || {}).g = g; });
+    Object.keys(byG).forEach(function (k) {
+      var g = byG[k].g, li = byG[k].li;
+      var on = function () { if (g) g.classList.add('hl'); if (li) li.classList.add('hl'); };
+      var off = function () { if (g) g.classList.remove('hl'); if (li) li.classList.remove('hl'); };
+      if (li) { li.addEventListener('mouseenter', on); li.addEventListener('mouseleave', off); }
+      if (g) {
+        g.addEventListener('mouseenter', on); g.addEventListener('mouseleave', off);
+        g.addEventListener('focus', on); g.addEventListener('blur', off);
+      }
+    });
+  })();
+</script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3b2830d8c1b74ed68dee031783103adc"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
