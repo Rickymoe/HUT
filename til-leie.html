@@ -53,15 +53,10 @@
   .finn-ext-link:hover { background: var(--fjord); color: #fff; }
   .finn-ext-link svg { width: 14px; height: 14px; flex-shrink: 0; }
 
-  /* iframe + fallback */
-  .finn-iframe-wrap { position: relative; }
-  .finn-iframe-wrap iframe { display: block; width: 100%; border: none; }
-
-  .finn-fallback {
-    display: none; padding: 56px 32px; text-align: center;
-  }
-  .finn-fallback p { font-size: 14px; color: var(--ink-soft); margin-bottom: 24px; max-width: 44ch; margin-left: auto; margin-right: auto; }
-  .finn-fallback .btn { display: inline-flex; align-items: center; gap: 8px; }
+  /* Kort-innhold: lenke ut til FINN */
+  .finn-body { padding: 56px 32px; text-align: center; }
+  .finn-body p { font-size: 14px; color: var(--ink-soft); margin-bottom: 24px; max-width: 44ch; margin-left: auto; margin-right: auto; }
+  .finn-body .btn { display: inline-flex; align-items: center; gap: 8px; }
 
   /* Kontaktbanner */
   .kontakt-banner {
@@ -112,20 +107,13 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>
       </div>
-      <div class="finn-iframe-wrap" id="wrap-naering">
-        <iframe id="iframe-naering"
-          src="https://www.finn.no/pw/search/realestate-business-letting?orgId=707555245"
-          title="Næringseiendom til leie – Holmestrand Utvikling AS"
-          height="900" scrolling="auto">
-        </iframe>
-        <div class="finn-fallback" id="fallback-naering">
-          <p>Annonsene vises direkte på FINN.no. Klikk for å se alle ledige næringslokaler fra Holmestrand Utvikling AS.</p>
-          <a href="https://www.finn.no/realestate/businessrent/search.html?orgId=707555245"
-             target="_blank" rel="noopener" class="btn btn-fjord">
-            Se ledige lokaler på FINN
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </a>
-        </div>
+      <div class="finn-body">
+        <p>Alle ledige næringslokaler fra Holmestrand Utvikling AS ligger på FINN.no – alltid oppdatert.</p>
+        <a href="https://www.finn.no/realestate/businessrent/search.html?orgId=707555245"
+           target="_blank" rel="noopener" class="btn btn-fjord">
+          Se ledige lokaler på FINN
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
       </div>
     </div>
   </div>
@@ -144,20 +132,13 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>
       </div>
-      <div class="finn-iframe-wrap" id="wrap-bolig">
-        <iframe id="iframe-bolig"
-          src="https://www.finn.no/pw/search/realestate-lettings?orgId=707555245"
-          title="Bolig og boder til leie – Holmestrand Utvikling AS"
-          height="900" scrolling="auto">
-        </iframe>
-        <div class="finn-fallback" id="fallback-bolig">
-          <p>Annonsene vises direkte på FINN.no. Klikk for å se alle ledige boliger og boder fra Holmestrand Utvikling AS.</p>
-          <a href="https://www.finn.no/realestate/lettings/search.html?orgId=707555245"
-             target="_blank" rel="noopener" class="btn btn-fjord">
-            Se ledige boliger på FINN
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </a>
-        </div>
+      <div class="finn-body">
+        <p>Alle ledige boliger og boder fra Holmestrand Utvikling AS ligger på FINN.no – alltid oppdatert.</p>
+        <a href="https://www.finn.no/realestate/lettings/search.html?orgId=707555245"
+           target="_blank" rel="noopener" class="btn btn-fjord">
+          Se ledige boliger på FINN
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
       </div>
     </div>
   </div>
@@ -188,19 +169,6 @@
   if (location.hash === '#bolig') {
     document.getElementById('tab-bolig').click();
   }
-
-  // FINN-iframe: partner-widget krever godkjent domene.
-  // Vis iframe på holmestrandutvikling.no, ellers vis fallback-knapp.
-  (function () {
-    const host = window.location.hostname;
-    const onProd = host === 'holmestrandutvikling.no' || host.endsWith('.holmestrandutvikling.no');
-    if (!onProd) {
-      ['naering', 'bolig'].forEach(id => {
-        document.getElementById('iframe-' + id).style.display = 'none';
-        document.getElementById('fallback-' + id).style.display = 'block';
-      });
-    }
-  })();
 </script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3b2830d8c1b74ed68dee031783103adc"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
