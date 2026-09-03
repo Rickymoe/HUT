@@ -270,6 +270,48 @@ function initHeroCarousel() {
   if (next) next.addEventListener('click', () => { goTo(current + 1); restart(); });
   if (prev) prev.addEventListener('click', () => { goTo(current - 1); restart(); });
 
+  // Sveip/dra – touch og penn (mus bruker piler/prikker). Crossfade-karusell,
+  // så vi gir en liten elastisk forskyvning av bildene som tilbakemelding og
+  // bytter slide når draget passerer terskelen. Lyttes på hele .hero fordi
+  // .hero-inner (tekst/knapper) ligger oppå bildene.
+  if (hero) {
+    const SWIPE = 45;
+    let dragging = false, startX = 0, startY = 0, dx = 0, decided = false, horizontal = false;
+
+    hero.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse') return;
+      dragging = true; decided = false; horizontal = false;
+      startX = e.clientX; startY = e.clientY; dx = 0;
+      slidesWrap.style.transition = 'none';
+    });
+
+    hero.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      if (!decided) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+        decided = true;
+        horizontal = Math.abs(dx) > Math.abs(dy);
+        if (horizontal) { paused = true; schedule(); }
+      }
+      if (!horizontal) return;
+      e.preventDefault();
+      if (!reduced) slidesWrap.style.transform = 'translateX(' + (dx * 0.4) + 'px)';
+    });
+
+    const endDrag = () => {
+      if (!dragging) return;
+      dragging = false;
+      slidesWrap.style.transition = reduced ? 'none' : 'transform .4s cubic-bezier(.22,1,.36,1)';
+      slidesWrap.style.transform = 'translateX(0)';
+      if (horizontal && Math.abs(dx) > SWIPE) goTo(current + (dx < 0 ? 1 : -1));
+      if (horizontal) { paused = false; restart(); }
+    };
+    hero.addEventListener('pointerup', endDrag);
+    hero.addEventListener('pointercancel', endDrag);
+  }
+
   if (hero) {
     hero.addEventListener('mouseenter', () => { paused = true; schedule(); });
     hero.addEventListener('mouseleave', () => { paused = false; schedule(); });
