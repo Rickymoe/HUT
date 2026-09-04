@@ -63,9 +63,10 @@
   .struktur-liste { list-style: none; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin-top: 18px; background: #fff; }
   .struktur-liste li { display: flex; align-items: baseline; justify-content: space-between; gap: 28px; padding: 16px 24px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
   .struktur-liste li:last-child { border-bottom: none; }
-  .struktur-liste li:first-child { background: var(--paper); }
+  .struktur-liste li:first-child { background: var(--sand); border-bottom-color: var(--sand-deep); }
   .sel-navn { font-size: 15px; font-weight: 600; flex-shrink: 0; }
   .sel-bygg { font-size: 13px; color: var(--ink-soft); text-align: right; }
+  .struktur-liste li:first-child .sel-bygg { color: var(--ink); }
 
   .eiere-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .eier-gruppe { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
