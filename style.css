@@ -174,6 +174,14 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
 .footer-logo { margin-bottom: 14px; }
 .footer-logo .hut-logo-mark { height: 40px; }
 .footer-brand p { font-size: 14px; color: var(--ink-soft); max-width: 34ch; line-height: 1.7; }
+.footer-social { margin-top: 16px; }
+.footer-social a {
+  width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 100px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-soft); transition: background .2s, color .2s;
+}
+.footer-social a:hover { background: var(--sand); color: var(--fjord); }
+.footer-social svg { width: 16px; height: 16px; fill: currentColor; }
 .footer-col h4 { font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 16px; }
 .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .footer-col a { font-size: 14px; color: var(--ink-soft); transition: color .2s; }
