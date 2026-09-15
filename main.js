@@ -127,6 +127,7 @@ function initWebcam() {
           <div class="webcam-sub">Oppdateres hver time</div>
         </div>
         <div class="webcam-actions">
+          <button class="webcam-zoom" id="webcam-zoom" aria-label="Zoom inn 2x" aria-pressed="false">2x</button>
           <button class="webcam-refresh" id="webcam-refresh" aria-label="Oppdater bilde">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <polyline points="23 4 23 10 17 10"/>
@@ -136,7 +137,7 @@ function initWebcam() {
           <button class="webcam-close" id="webcam-close" aria-label="Lukk">&#10005;</button>
         </div>
       </div>
-      <div class="webcam-img-wrap">
+      <div class="webcam-img-wrap" id="webcam-img-wrap">
         <img id="webcam-img" src="" alt="Webkamera Holmestrand Havn">
         <div class="webcam-loading" id="webcam-loading">Laster…</div>
       </div>
@@ -169,11 +170,29 @@ function initWebcam() {
   function closeWebcam() {
     overlay.classList.remove('open');
     document.body.style.overflow = '';
+    resetZoom();
+  }
+  function resetZoom() {
+    const wrap = document.getElementById('webcam-img-wrap');
+    const btn = document.getElementById('webcam-zoom');
+    wrap.classList.remove('zoomed');
+    wrap.scrollLeft = 0; wrap.scrollTop = 0;
+    btn.setAttribute('aria-pressed', 'false');
+    btn.textContent = '2x';
+  }
+  function toggleZoom() {
+    const wrap = document.getElementById('webcam-img-wrap');
+    const btn = document.getElementById('webcam-zoom');
+    const zoomed = wrap.classList.toggle('zoomed');
+    wrap.scrollLeft = 0; wrap.scrollTop = 0;
+    btn.setAttribute('aria-pressed', String(zoomed));
+    btn.textContent = zoomed ? '1x' : '2x';
   }
 
   document.getElementById('webcam-fab').addEventListener('click', openWebcam);
   document.getElementById('webcam-close').addEventListener('click', closeWebcam);
   document.getElementById('webcam-refresh').addEventListener('click', loadWebcam);
+  document.getElementById('webcam-zoom').addEventListener('click', toggleZoom);
   overlay.addEventListener('click', e => { if (e.target === e.currentTarget) closeWebcam(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeWebcam(); });
 }

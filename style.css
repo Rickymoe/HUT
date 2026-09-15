@@ -143,15 +143,15 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
 }
 
 /* ===== Nav ===== */
-#site-nav { min-height: 80px; }
+#site-nav { min-height: 64px; }
 .nav {
   position: sticky; top: 0; z-index: 50;
   background: rgba(231,225,210,.92); backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
 }
-.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 80px; gap: 24px; }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 24px; }
 .nav-logo { flex-shrink: 0; }
-.nav-logo .hut-logo-mark { height: 46px; }
+.nav-logo .hut-logo-mark { height: 36px; }
 .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; margin-left: auto; }
 .nav-links a {
   font-size: 14px; font-weight: 500; color: var(--ink-soft);
@@ -244,9 +244,9 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   .section { padding-top: 52px; padding-bottom: 52px; }
 
   /* Nav */
-  #site-nav { min-height: 68px; }
-  .nav .wrap { height: 68px; }
-  .nav-logo .hut-logo-mark { height: 38px; }
+  #site-nav { min-height: 56px; }
+  .nav .wrap { height: 56px; }
+  .nav-logo .hut-logo-mark { height: 30px; }
 
   /* Page hero */
   .page-hero { padding-top: 48px; padding-bottom: 40px; }
@@ -304,18 +304,22 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
 .webcam-sub { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
 .webcam-actions { display: flex; align-items: center; gap: 8px; }
 
-.webcam-refresh, .webcam-close {
+.webcam-zoom, .webcam-refresh, .webcam-close {
   background: none; border: 1px solid var(--line); border-radius: 100px;
   width: 36px; height: 36px; cursor: pointer; color: var(--ink-soft);
   display: flex; align-items: center; justify-content: center;
-  transition: background .2s, color .2s;
+  transition: background .2s, color .2s, border-color .2s;
 }
-.webcam-refresh:hover, .webcam-close:hover { background: var(--sand); color: var(--ink); }
+.webcam-zoom:hover, .webcam-refresh:hover, .webcam-close:hover { background: var(--sand); color: var(--ink); }
+.webcam-zoom { font-size: 11px; font-weight: 700; }
+.webcam-zoom[aria-pressed="true"] { background: var(--fjord); color: #fff; border-color: var(--fjord); }
 .webcam-refresh svg { width: 16px; height: 16px; }
 .webcam-close { font-size: 14px; }
 
 .webcam-img-wrap { position: relative; background: var(--ink); }
-.webcam-img-wrap img { width: 100%; display: block; transition: opacity .4s; }
+.webcam-img-wrap img { width: 100%; display: block; transition: opacity .4s, transform .3s; }
+.webcam-img-wrap.zoomed { overflow: auto; max-height: 70vh; }
+.webcam-img-wrap.zoomed img { width: 200%; max-width: 200%; cursor: zoom-out; }
 .webcam-loading {
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
   color: rgba(244,241,233,.6); font-size: 14px; min-height: 200px;
