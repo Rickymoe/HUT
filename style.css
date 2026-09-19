@@ -84,6 +84,9 @@ a { text-decoration: none; color: inherit; }
 .reveal.visible { opacity: 1; transform: none; }
 /* Settes kun et øyeblikk av main.js for elementer som er synlige ved sidelast. */
 .reveal.reveal-instant { transition: none !important; }
+/* Sidehodet ligger alltid øverst: aldri skjul det før JS har kjørt (main.js
+   kjører reveal-passet først ved DOMContentLoaded, etter data-scriptene). */
+.page-hero .reveal { opacity: 1; transform: none; transition: none; }
 .pcard.reveal { transform: translateY(44px) scale(0.97); }
 .pcard.reveal.visible { transform: none; }
 /* Uten JS: ingen reveal-skjuling – vis alt umiddelbart. */
