@@ -21,6 +21,11 @@ const revealObserver =
 
 // Elementer som allerede er i viewport ved sidelast (sidehode, første rad)
 // står ferdige fra første paint. Uten dette fader de inn ved hver refresh.
+// Ved reload og tilbake/frem gjenoppretter Chrome scroll-posisjonen etter at
+// dette har kjørt – da er ikke "i viewport nå" til å stole på, og innholdet er
+// allerede sett. Alt vises derfor umiddelbart; reveal er kun for nye besøk.
+const navType = (performance.getEntriesByType('navigation')[0] || {}).type;
+const restoresScroll = navType === 'reload' || navType === 'back_forward';
 let scrolledYet = false;
 addEventListener('scroll', () => { scrolledYet = true; }, { once: true, passive: true });
 
@@ -43,7 +48,7 @@ function observeReveals(root) {
     return;
   }
   els.forEach(el => {
-    if (!scrolledYet && inViewport(el)) showInstantly(el);
+    if (restoresScroll || (!scrolledYet && inViewport(el))) showInstantly(el);
     else revealObserver.observe(el);
   });
 }
