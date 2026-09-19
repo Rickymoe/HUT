@@ -60,7 +60,6 @@ window.__revealReady = true;
 // <nav> – en wrapper med nøyaktig navens høyde gir position: sticky ingen plass.
 function loadPartial(url, targetId) {
   const target = document.getElementById(targetId);
-  if (!target) return Promise.resolve();
   const key = 'hut-partial:' + url;
 
   let cached = null;
@@ -75,6 +74,13 @@ function loadPartial(url, targetId) {
       try { sessionStorage.setItem(key, html); } catch (e) {}
       return html;
     });
+
+  // Nav injiseres allerede av et inline-script rett etter placeholderen (før
+  // første paint, se hver sides <body>) – da er target borte, og vi revaliderer bare.
+  if (!target) {
+    if (cached) fetchAndStore().catch(() => {});
+    return Promise.resolve();
+  }
 
   if (cached) {
     target.outerHTML = cached;
