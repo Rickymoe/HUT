@@ -19,6 +19,22 @@ const revealObserver =
       }, { threshold: 0.08 })
     : null;
 
+// Elementer som allerede er i viewport ved sidelast (sidehode, første rad)
+// står ferdige fra første paint. Uten dette fader de inn ved hver refresh.
+let scrolledYet = false;
+addEventListener('scroll', () => { scrolledYet = true; }, { once: true, passive: true });
+
+function inViewport(el) {
+  const r = el.getBoundingClientRect();
+  return r.top < innerHeight && r.bottom > 0;
+}
+
+function showInstantly(el) {
+  el.classList.add('reveal-instant', 'visible');
+  void el.offsetWidth; // tving style-beregning mens transition er slått av
+  el.classList.remove('reveal-instant');
+}
+
 function observeReveals(root) {
   const scope = root || document;
   const els = scope.querySelectorAll('.reveal');
@@ -26,7 +42,10 @@ function observeReveals(root) {
     els.forEach(el => el.classList.add('visible'));
     return;
   }
-  els.forEach(el => revealObserver.observe(el));
+  els.forEach(el => {
+    if (!scrolledYet && inViewport(el)) showInstantly(el);
+    else revealObserver.observe(el);
+  });
 }
 
 window.HUT = { observeReveals };

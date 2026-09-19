@@ -82,8 +82,10 @@ a { text-decoration: none; color: inherit; }
 /* Reveal */
 .reveal { opacity: 0; transform: translateY(44px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
 .reveal.visible { opacity: 1; transform: none; }
-.qcard.reveal, .pcard.reveal { transform: translateY(44px) scale(0.97); }
-.qcard.reveal.visible, .pcard.reveal.visible { transform: none; }
+/* Settes kun et øyeblikk av main.js for elementer som er synlige ved sidelast. */
+.reveal.reveal-instant { transition: none !important; }
+.pcard.reveal { transform: translateY(44px) scale(0.97); }
+.pcard.reveal.visible { transform: none; }
 /* Uten JS: ingen reveal-skjuling – vis alt umiddelbart. */
 html:not(.js) .reveal { opacity: 1; transform: none; }
 
@@ -348,7 +350,6 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal,
-  .qcard.reveal,
   .pcard.reveal {
     opacity: 1 !important;
     transform: none !important;
