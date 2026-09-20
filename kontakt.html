@@ -17,56 +17,14 @@
 <style>
   .kontakt-grid { display: grid; grid-template-columns: 1fr 420px; gap: 64px; align-items: start; }
 
-  /* Form */
-  .form-card { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 40px; }
-  .form-card h2 { font-family: var(--serif); font-weight: 500; font-size: 1.6rem; margin-bottom: 28px; }
-  .form-group { margin-bottom: 20px; }
-  .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--ink-soft); margin-bottom: 8px; letter-spacing: .04em; }
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    width: 100%; padding: 13px 16px; border: 1px solid var(--line);
-    border-radius: 10px; font-family: var(--sans); font-size: 15px; color: var(--ink);
-    background: var(--paper); transition: border-color .2s, box-shadow .2s;
-    outline: none; appearance: none;
-  }
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    border-color: var(--fjord);
-    box-shadow: 0 0 0 3px rgba(0,120,152,.12);
-  }
-  .form-group textarea { resize: vertical; min-height: 130px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .form-submit { width: 100%; margin-top: 8px; }
-  .form-note { font-size: 12px; color: var(--ink-soft); margin-top: 12px; text-align: center; }
-
-  /* Post-it note */
-  .postit {
-    background: #fff9c4;
-    border-left: 4px solid #f9a825;
-    border-radius: 4px 8px 8px 4px;
-    padding: 10px 14px;
-    margin-bottom: 24px;
-    box-shadow: 2px 3px 8px rgba(0,0,0,.12);
-    transform: rotate(-0.6deg);
-    font-size: 13px;
-    color: #c0392b;
-    font-family: var(--sans);
-    line-height: 1.5;
-  }
-
-  /* Error message */
-  .form-error { display: none; background: #ffeef0; border: 1px solid #f5c2c7; border-radius: 10px; padding: 12px 16px; font-size: 14px; color: #842029; margin-bottom: 20px; }
-  .form-error.visible { display: block; }
-  button:disabled { opacity: 0.6; cursor: not-allowed; }
-
-  /* Success message */
-  .form-success { display: none; text-align: center; padding: 32px 0; }
-  .form-success .check { width: 56px; height: 56px; background: #e8f5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; }
-  .form-success .check svg { width: 28px; height: 28px; fill: #2e7d32; }
-  .form-success h3 { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 10px; }
-  .form-success p { font-size: 14px; color: var(--ink-soft); }
+  /* Mail-kort */
+  .mail-card { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 40px; }
+  .mail-card h2 { font-family: var(--serif); font-weight: 500; font-size: 1.6rem; margin-bottom: 12px; }
+  .mail-card > p { font-size: 15px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 28px; }
+  .mail-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .mail-btns .btn { display: block; padding: 18px 26px; }
+  .mail-note { font-size: 12px; color: var(--ink-soft); margin-top: 20px; text-align: center; }
+  .mail-note a { color: var(--fjord); font-weight: 500; }
 
   /* Side info */
   .kontakt-info { display: flex; flex-direction: column; gap: 20px; }
@@ -104,8 +62,8 @@
     .personer-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 500px) {
-    .form-row { grid-template-columns: 1fr; }
-    .form-card { padding: 28px 22px; }
+    .mail-btns { grid-template-columns: 1fr; }
+    .mail-card { padding: 28px 22px; }
     .sinfo-rad { flex-direction: column; gap: 4px; }
   }
 </style>
@@ -119,55 +77,22 @@
   <div class="eyebrow reveal">Ta kontakt</div>
   <h1 class="reveal" style="transition-delay:.08s">Vi hører <em>gjerne</em> fra deg</h1>
   <p class="lead reveal" style="transition-delay:.16s">
-    Spørsmål om lokaler, prosjekter eller samarbeid? Send oss en melding.
+    Spørsmål om lokaler, prosjekter eller samarbeid? Send oss en <span style="white-space:nowrap">e-post</span>.
   </p>
 </div>
 
 <section class="section wrap" style="padding-top:0;border-top:none">
   <div class="kontakt-grid">
-    <div class="form-card reveal" id="form-card">
-      <div class="postit">⚠️ OBS: Meldinger sendes foreløpig til Ricky (rmohncke@gmail.com) — byttes til post@holmestrandutvikling.no ved lansering.</div>
-      <h2>Send en melding</h2>
-      <div class="form-error" id="form-error">Noe gikk galt. Prøv igjen, eller send e-post direkte til <a href="mailto:post@holmestrandutvikling.no">post@holmestrandutvikling.no</a>.</div>
-      <form id="kontakt-form">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="navn">Navn</label>
-            <input type="text" id="navn" name="navn" placeholder="Ditt navn" required>
-          </div>
-          <div class="form-group">
-            <label for="epost">E-post</label>
-            <input type="email" id="epost" name="email" placeholder="din@epost.no" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="tlf">Telefon (valgfritt)</label>
-          <input type="tel" id="tlf" name="tlf" placeholder="+47 000 00 000">
-        </div>
-        <div class="form-group">
-          <label for="emne">Gjelder</label>
-          <select id="emne" name="emne">
-            <option value="">Velg kategori</option>
-            <option value="utleie-naering">Utleie næring</option>
-            <option value="utleie-bolig">Utleie bolig</option>
-            <option value="prosjekter">Prosjekter</option>
-            <option value="annet">Annet</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="melding">Melding</label>
-          <textarea id="melding" name="melding" placeholder="Beskriv hva du lurer på..." required></textarea>
-        </div>
-        <button type="submit" class="btn btn-ember form-submit">Send melding</button>
-        <p class="form-note">Vi svarer som regel innen én arbeidsdag.</p>
-      </form>
-      <div class="form-success" id="form-success">
-        <div class="check">
-          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        </div>
-        <h3>Takk for meldingen!</h3>
-        <p>Vi tar kontakt snart.</p>
+    <div class="mail-card reveal">
+      <h2>Send oss en e-post</h2>
+      <p>Velg hva henvendelsen gjelder, så åpnes e-postprogrammet ditt med riktig emne ferdig utfylt.</p>
+      <div class="mail-btns">
+        <a class="btn btn-ember" href="mailto:post@holmestrandutvikling.no?subject=Utleie%20n%C3%A6ring">Utleie næring</a>
+        <a class="btn btn-ember" href="mailto:post@holmestrandutvikling.no?subject=Utleie%20bolig">Utleie bolig</a>
+        <a class="btn btn-ember" href="mailto:post@holmestrandutvikling.no?subject=Prosjekter">Prosjekter</a>
+        <a class="btn btn-ember" href="mailto:post@holmestrandutvikling.no?subject=Annet">Annet</a>
       </div>
+      <p class="mail-note">Vi svarer som regel innen én arbeidsdag. Adressen er <a href="mailto:post@holmestrandutvikling.no">post@holmestrandutvikling.no</a>.</p>
     </div>
 
     <div class="kontakt-info reveal" style="transition-delay:.1s">
@@ -256,40 +181,6 @@
 <div id="site-footer"></div>
 
 <script src="main.js"></script>
-<script>
-  async function sendForm(e) {
-    e.preventDefault();
-    const form = document.getElementById('kontakt-form');
-    const btn = form.querySelector('button[type="submit"]');
-    const errorBox = document.getElementById('form-error');
-
-    btn.disabled = true;
-    btn.textContent = 'Sender…';
-    errorBox.classList.remove('visible');
-
-    try {
-      const res = await fetch('https://formspree.io/f/xykqpono', {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (res.ok) {
-        form.style.display = 'none';
-        errorBox.style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
-      } else {
-        throw new Error('server');
-      }
-    } catch {
-      btn.disabled = false;
-      btn.textContent = 'Send melding';
-      errorBox.classList.add('visible');
-    }
-  }
-
-  document.getElementById('kontakt-form').addEventListener('submit', sendForm);
-</script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3b2830d8c1b74ed68dee031783103adc"}'></script><!-- End Cloudflare Web Analytics -->
 <script data-goatcounter="https://rickymoe.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
