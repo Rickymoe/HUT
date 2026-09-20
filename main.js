@@ -57,6 +57,8 @@ window.HUT = { observeReveals };
 window.__revealReady = true;
 
 // ---- Partial-laster ---------------------------------------------------
+// NB: nøkkelen har versjon («hut-partial-v2:», også i inline-scriptet i hver side). Bump ved strukturendring i en
+// partial, ellers viser åpne faner gammel cachet markup til fanen lukkes.
 // Cacher nav/footer i sessionStorage. Første sidevisning i en økt henter og
 // lagrer; alle senere navigasjoner injiserer synkront fra cache – da rekker
 // ikke headeren å blinke tomt før den fylles. Cachen revalideres i bakgrunnen
@@ -65,7 +67,7 @@ window.__revealReady = true;
 // <nav> – en wrapper med nøyaktig navens høyde gir position: sticky ingen plass.
 function loadPartial(url, targetId) {
   const target = document.getElementById(targetId);
-  const key = 'hut-partial:' + url;
+  const key = 'hut-partial-v2:' + url;
 
   let cached = null;
   try { cached = sessionStorage.getItem(key); } catch (e) {}
@@ -140,15 +142,10 @@ function initFooterYear() {
 // ---- Webkamera flytende knapp + popup -------------------------------
 const WEBCAM_URL = 'http://holmestrand.azurewebsites.net/Webcam/havna.jpg';
 
+// Knappen (#webcam-fab) ligger i partials/nav.html; her bygges bare popupen.
+// Returnerer openWebcam så initWebcamFab kan koble knappen når partialen er på plass.
 function initWebcam() {
   document.body.insertAdjacentHTML('beforeend', `
-  <button class="webcam-fab" id="webcam-fab" aria-label="Webkamera – Holmestrand Havn">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/>
-    </svg>
-    <span>Webkamera</span>
-  </button>
-
   <div class="webcam-overlay" id="webcam-overlay" role="dialog" aria-modal="true" aria-label="Webkamera Holmestrand Havn">
     <div class="webcam-modal">
       <div class="webcam-header">
@@ -219,29 +216,41 @@ function initWebcam() {
     btn.textContent = zoomed ? '1x' : '2x';
   }
 
-  const fab = document.getElementById('webcam-fab');
-  fab.addEventListener('click', openWebcam);
-
-  // Mobil: skjul knappen ved scroll nedover, vis den igjen ved scroll oppover
-  // (CSS-en for .is-hidden gjelder kun ≤600px). Fokus viser den alltid.
-  let lastY = window.scrollY, scrollTick = false;
-  window.addEventListener('scroll', () => {
-    if (scrollTick) return;
-    scrollTick = true;
-    requestAnimationFrame(() => {
-      const y = window.scrollY, dy = y - lastY;
-      if (y <= 120) { fab.classList.remove('is-hidden'); lastY = y; }
-      else if (dy > 6) { fab.classList.add('is-hidden'); lastY = y; }
-      else if (dy < -6) { fab.classList.remove('is-hidden'); lastY = y; }
-      scrollTick = false;
-    });
-  }, { passive: true });
-  fab.addEventListener('focus', () => fab.classList.remove('is-hidden'));
   document.getElementById('webcam-close').addEventListener('click', closeWebcam);
   document.getElementById('webcam-refresh').addEventListener('click', loadWebcam);
   document.getElementById('webcam-zoom').addEventListener('click', toggleZoom);
   overlay.addEventListener('click', e => { if (e.target === e.currentTarget) closeWebcam(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeWebcam(); });
+
+  return openWebcam;
+}
+
+// Kobler den flytende knappen (fra nav-partialen) til popupen. Mobil (≤600px): knappen
+// skjules ved scroll nedover og vises ved scroll oppover (CSS: .is-hidden). Scroll-lytteren
+// festes først etter load + litt tid, så nettleserens scroll-gjenoppretting ved refresh
+// ikke tolkes som at brukeren scroller ned (da ble knappen borte rett etter reload).
+function initWebcamFab(openWebcam) {
+  const fab = document.getElementById('webcam-fab');
+  if (!fab) return;
+  fab.addEventListener('click', openWebcam);
+  fab.addEventListener('focus', () => fab.classList.remove('is-hidden'));
+
+  const listen = () => {
+    let lastY = window.scrollY, tick = false;
+    window.addEventListener('scroll', () => {
+      if (tick) return;
+      tick = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY, dy = y - lastY;
+        if (y <= 120) { fab.classList.remove('is-hidden'); lastY = y; }
+        else if (dy > 6) { fab.classList.add('is-hidden'); lastY = y; }
+        else if (dy < -6) { fab.classList.remove('is-hidden'); lastY = y; }
+        tick = false;
+      });
+    }, { passive: true });
+  };
+  if (document.readyState === 'complete') setTimeout(listen, 400);
+  else window.addEventListener('load', () => setTimeout(listen, 400), { once: true });
 }
 
 // ---- Tellende statistikk-tall (forside) ----------------------------
@@ -400,7 +409,7 @@ function initHeroCarousel() {
 async function boot() {
   // DOM-only inits først – disse rører ikke partial-innholdet og skal ikke
   // vente på de to fetch-ene (ellers er piler/prikker og reveals døde til da).
-  initWebcam();
+  const openWebcam = initWebcam();
   observeReveals();
   initStatCounters();
   initHeroCarousel();
@@ -411,6 +420,7 @@ async function boot() {
   // initNav og initFooterYear må stå etter await – de opererer på injisert markup.
   initNav();
   initFooterYear();
+  initWebcamFab(openWebcam);
 }
 
 if (document.readyState === 'loading') {
