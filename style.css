@@ -1097,4 +1097,6 @@ main:focus { outline: none; }
   .mail-btns { grid-template-columns: 1fr; }
   .mail-card { padding: var(--sp-7) var(--sp-6); }
   .sinfo-rad { flex-direction: column; gap: var(--sp-1); }
+  /* Kolonne: flex-basis er høyde her – 160px på etiketten ga et tomt hull over verdien. */
+  .sinfo-k, .sinfo-v { flex: none; min-width: 0; }
 }
