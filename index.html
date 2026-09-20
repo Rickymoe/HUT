@@ -12,173 +12,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<style>
-  /* Hero-karusell */
-  .hero {
-    position: relative; overflow: hidden; color: var(--paper);
-    height: clamp(520px, 80vh, 860px);
-    touch-action: pan-y;
-    background: var(--ink); /* aldri hvit gjennomlysning bak/mellom slides */
-  }
-
-  /* Slides */
-  .hero-slides { position: absolute; inset: 0; }
-  .hero-slide {
-    position: absolute; inset: 0;
-    opacity: 0; transition: opacity 0.6s ease-in-out;
-  }
-  .hero-slide img {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    /* Utsnittet i cover-beskjæringen. Stående/høye bilder overstyrer med --pos på .hero-slide. */
-    object-position: var(--pos, 50% 50%);
-  }
-  /* Forrige slide blir stående ugjennomsiktig UNDER den innkommende mens den
-     fader inn -> crossfaden dipper aldri ned til bakgrunnen (ingen hvit blink). */
-  .hero-slide.prev { opacity: 1; z-index: 1; }
-  .hero-slide.active { opacity: 1; z-index: 2; }
-  /* Dark gradient overlay so text is always readable */
-  .hero-slide::after {
-    content: ""; position: absolute; inset: 0;
-    background:
-      linear-gradient(to top, rgba(4,49,58,.62) 0%, rgba(4,49,58,0) 52%),
-      linear-gradient(105deg, rgba(4,49,58,.74) 0%, rgba(4,49,58,.45) 62%, rgba(4,49,58,.12) 100%);
-  }
-
-  /* Text content */
-  .hero-inner {
-    position: absolute; inset: 0; z-index: 2;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding-bottom: 100px;
-  }
-  /* Lys tekst + myk mørk skygge: lesbar mot alle 8 bildene, også de lyse partiene. */
-  .hero .eyebrow { color: var(--paper); text-shadow: 0 1px 12px rgba(4,49,58,.85), 0 0 3px rgba(4,49,58,.5); }
-  .hero .eyebrow::before { background: #aeb87b; box-shadow: 0 0 6px rgba(4,49,58,.6); }
-  .hero h1 {
-    font-family: var(--serif); font-weight: 400;
-    font-size: clamp(2.6rem, 6vw, 5rem); line-height: .98; letter-spacing: -.025em;
-    margin: 20px 0 0; max-width: 16ch;
-    text-shadow: 0 2px 24px rgba(4,49,58,.4);
-  }
-  .hero h1 em { font-style: italic; color: var(--mist); }
-  .hero .lead {
-    font-size: clamp(.95rem, 1.4vw, 1.15rem); color: rgba(244,241,233,.85);
-    max-width: 48ch; margin-top: 20px;
-    text-shadow: 0 1px 12px rgba(4,49,58,.5);
-  }
-  .hero-btns { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
-
-  /* Dots */
-  .hero-dots {
-    position: absolute; bottom: 52px; right: 40px; z-index: 4;
-    display: flex; gap: 8px; align-items: center;
-  }
-  .hero-dot {
-    width: 8px; height: 8px; border-radius: 100px;
-    background: rgba(244,241,233,.4); border: none; cursor: pointer; padding: 0;
-    transition: background .3s, width .3s;
-  }
-  .hero-dot.active { background: var(--paper); width: 24px; }
-
-  /* Prev/next arrows */
-  .hero-arrow {
-    position: absolute; top: 50%; transform: translateY(-50%); z-index: 4;
-    background: rgba(4,49,58,.35); backdrop-filter: blur(6px);
-    border: 1px solid rgba(244,241,233,.2); color: var(--paper);
-    width: 44px; height: 44px; border-radius: 50%; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background .25s; font-size: 18px;
-  }
-  .hero-arrow:hover { background: rgba(4,49,58,.6); }
-  .hero-arrow.prev { left: 20px; }
-  .hero-arrow.next { right: 20px; }
-
-  @media (max-width: 600px) {
-    .hero { height: clamp(420px, 75vh, 600px); }
-    .hero-inner { padding-bottom: 80px; }
-    .hero-arrow { display: none; }
-    .hero-dots { right: 20px; }
-  }
-
-  /* Quick cards */
-  /* Hvit stripe i full bredde; selve kortene ligger i samme kolonne som resten av siden (.wrap). */
-  .quick-band { background: #fff; border-bottom: 1px solid var(--line); }
-  .quick-cards { max-width: 1180px; margin: 0 auto; padding: 0 32px; display: grid; grid-template-columns: repeat(3, 1fr); }
-  .qcard { padding: 38px 32px; display: flex; flex-direction: column; border-left: 1px solid var(--line); }
-  .qcard:first-child { border-left: none; padding-left: 0; }
-  .qcard:last-child { padding-right: 0; }
-  .qcard:hover h3 { color: var(--fjord); }
-  .qcard h3 { font-size: 17px; font-weight: 600; margin: 0 0 10px; }
-  .qcard p { font-size: 14px; color: var(--ink-soft); flex: 1; }
-  .qcard .arrow { margin-top: 22px; font-size: 14px; font-weight: 600; color: var(--ember-text); display: inline-flex; align-items: center; gap: 6px; transition: gap .2s; }
-  .qcard:hover .arrow { gap: 10px; }
-  .finn-badge {
-    background: #06BEFB; color: #fff;
-    font-size: 10px; font-weight: 800; letter-spacing: .03em;
-    padding: 3px 7px; border-radius: 4px; line-height: 1;
-  }
-
-  /* Prosjekter */
-  .prosjekt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .pcard { background: #fff; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; transition: transform .3s, box-shadow .3s; display: flex; flex-direction: column; }
-  .pcard:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -16px rgba(4,49,58,.18); }
-  .pcard-img {
-    height: 200px; position: relative; overflow: hidden;
-    background: linear-gradient(135deg, #003a49, #007898);
-    flex-shrink: 0;
-  }
-  .pcard-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
-  .pcard:hover .pcard-img img { transform: scale(1.05); }
-  .pcard-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
-  .pcard-body .pill { margin-bottom: 12px; display: inline-block; align-self: flex-start; }
-  .pcard-body h3 { font-family: var(--serif); font-weight: 500; font-size: 1.2rem; margin-bottom: 8px; }
-  .pcard-body p { font-size: 14px; color: var(--ink-soft); line-height: 1.65; }
-  .pcard-meta { display: flex; gap: 12px; margin-top: auto; padding-top: 16px; flex-wrap: wrap; }
-  .pcard-meta span { font-size: 12px; color: var(--ink-soft); font-weight: 500; }
-
-  /* Stats */
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--ink); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
-  .stat { background: var(--ink); color: var(--paper); padding: 48px 36px; text-align: center; }
-  .stat .tall { font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 400; }
-  .stat .tall em { font-style: italic; color: var(--mist); }
-  .stat p { font-size: 12px; color: rgba(188,217,224,.7); margin-top: 8px; letter-spacing: .08em; text-transform: uppercase; font-weight: 600; }
-
-  /* Lokaler list */
-  .lokale-list { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
-  .lokale-row { background: #fff; padding: 24px 28px; display: flex; align-items: center; gap: 20px; transition: background .2s; }
-  .lokale-row:hover { background: var(--paper); }
-  .lokale-thumb {
-    width: 60px; height: 60px; border-radius: 12px; flex-shrink: 0;
-    background: linear-gradient(135deg, var(--fjord), var(--ink));
-    display: flex; align-items: center; justify-content: center;
-  }
-  .lokale-thumb.bolig { background: linear-gradient(135deg, var(--ember), var(--ink)); }
-  .lokale-thumb svg { width: 24px; height: 24px; fill: rgba(244,241,233,.75); }
-  .lokale-info { flex: 1; min-width: 0; }
-  .lokale-info h4 { font-size: 15px; font-weight: 600; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .lokale-info p { font-size: 13px; color: var(--ink-soft); }
-  .lokale-arrow { font-size: 20px; color: var(--sand-deep); flex-shrink: 0; }
-
-  @media (max-width: 860px) {
-    .quick-cards { grid-template-columns: 1fr; }
-    .qcard, .qcard:first-child, .qcard:last-child { border-left: none; border-top: 1px solid var(--line); padding: 24px 0; }
-    .qcard:first-child { border-top: none; }
-  }
-  @media (max-width: 900px) {
-    .prosjekt-grid { grid-template-columns: 1fr 1fr; }
-    .stats { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 600px) {
-    .hero { height: clamp(400px, 72vh, 560px); }
-    .hero-inner { padding-bottom: 72px; }
-    .quick-cards { padding: 0 20px; }
-    .prosjekt-grid { grid-template-columns: 1fr; }
-    .stats { grid-template-columns: 1fr 1fr; }
-    .stat { padding: 32px 20px; }
-    .lokale-row { padding: 16px 18px; gap: 14px; }
-    .lokale-thumb { width: 48px; height: 48px; }
-  }
-</style>
 </head>
 <body data-page="hjem">
 
@@ -230,7 +63,7 @@
     <div class="arrow">
       <span class="finn-badge">FINN</span>
       Se lokaler
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
     </div>
   </a>
   <a href="https://www.finn.no/realestate/lettings/search.html?orgId=707555245"
@@ -240,7 +73,7 @@
     <div class="arrow">
       <span class="finn-badge">FINN</span>
       Se boliger
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
     </div>
   </a>
   <a href="prosjekter.html" class="qcard">
@@ -257,7 +90,7 @@
   <div class="wrap">
     <div class="section-head reveal">
       <div>
-        <div class="eyebrow" style="margin-bottom:14px">Våre prosjekter</div>
+        <div class="eyebrow eyebrow-gap">Våre prosjekter</div>
         <h2>Steder vi bygger</h2>
       </div>
       <a href="prosjekter.html" class="link-all">Alle prosjekter →</a>
@@ -292,7 +125,7 @@
 <section class="section wrap">
   <div class="section-head reveal">
     <div>
-      <div class="eyebrow" style="margin-bottom:14px">Nyheter</div>
+      <div class="eyebrow eyebrow-gap">Nyheter</div>
       <h2>Aktuelt</h2>
     </div>
     <a href="nyheter.html" class="link-all">Se alle →</a>

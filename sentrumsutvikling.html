@@ -12,122 +12,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<style>
-  /* Intro-seksjon med bred tekst */
-  .intro-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
-  }
-  .intro-grid .lead-block p {
-    font-size: clamp(1rem, 1.4vw, 1.15rem); color: var(--ink-soft);
-    line-height: 1.8; margin-bottom: 20px;
-  }
-  .intro-grid .lead-block p:last-child { margin-bottom: 0; }
-  .intro-aside {
-    background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 36px;
-    position: sticky; top: 104px;
-  }
-  .intro-aside h3 { font-family: var(--serif); font-weight: 500; font-size: 1.25rem; margin-bottom: 20px; }
-  .aside-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-  .aside-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
-  .aside-list li::before {
-    content: ""; flex-shrink: 0; margin-top: 7px;
-    width: 6px; height: 6px; border-radius: 50%; background: var(--ember);
-  }
-
-  /* Tidslinje */
-  .timeline { display: flex; flex-direction: column; gap: 0; }
-  /* Tre soner: [år·prikk][body]
-     Prikken sitter i gapet mellom de to kolonnene */
-  .tl-item {
-    --tl-col: 120px;   /* år-kolonnebredde */
-    --tl-gap: 40px;    /* column-gap */
-    display: grid;
-    grid-template-columns: var(--tl-col) 1fr;
-    column-gap: var(--tl-gap);
-    position: relative;
-  }
-  /* Vertikal linje – sentrert i gapet (år-kolonne + halvt gap) */
-  .tl-item::before {
-    content: ""; position: absolute;
-    left: calc(var(--tl-col) + var(--tl-gap) / 2);
-    top: 28px; bottom: -32px;
-    width: 1px; background: var(--line);
-  }
-  .tl-item:last-child::before { display: none; }
-
-  .tl-year {
-    padding-top: 4px;
-    padding-right: 16px;          /* luft mellom tekst og prikk */
-    font-family: var(--serif); font-style: italic;
-    font-size: 1.1rem; color: var(--fjord); font-weight: 400;
-    text-align: right; white-space: nowrap;
-  }
-  .tl-body {
-    background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 24px 28px;
-    margin-bottom: 32px;
-  }
-  .tl-body h3 { font-family: var(--serif); font-weight: 500; font-size: 1.1rem; margin-bottom: 8px; }
-  .tl-body p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
-
-  /* Prikk i gapet: linja − halv prikkbredde (7px) */
-  .tl-dot {
-    position: absolute;
-    left: calc(var(--tl-col) + var(--tl-gap) / 2 - 7px);
-    top: 8px;
-    width: 14px; height: 14px; border-radius: 50%;
-    background: var(--fjord); border: 3px solid var(--paper);
-    box-shadow: 0 0 0 1px var(--fjord);
-  }
-
-  /* Kart-boks */
-  .kart-wrap {
-    border-radius: 20px; overflow: hidden; border: 1px solid var(--line);
-    height: 420px; background: var(--sand);
-    position: relative;
-  }
-  .kart-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
-
-  /* Prosjektkort-rad (3 stk) */
-  .prosjekt-rad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .mini-card {
-    background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
-    transition: transform .3s, box-shadow .3s; text-decoration: none; color: inherit;
-    display: flex; flex-direction: column;
-  }
-  .mini-card:hover { transform: translateY(-3px); box-shadow: 0 16px 36px -12px rgba(4,49,58,.16); }
-  .mini-card-img {
-    height: 140px; overflow: hidden;
-    background: linear-gradient(135deg, #003a49, #007898);
-  }
-  .mini-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
-  .mini-card:hover .mini-card-img img { transform: scale(1.05); }
-  .mini-card-body { padding: 20px; flex: 1; }
-  .mini-card-body h4 { font-family: var(--serif); font-weight: 500; font-size: 1rem; margin-bottom: 6px; }
-  .mini-card-body p { font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
-
-  /* CTA-boks */
-  .cta-box {
-    background: var(--ink); color: var(--paper); border-radius: 20px;
-    padding: 64px 52px; text-align: center;
-  }
-  .cta-box h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.8rem, 3vw, 2.8rem); margin-bottom: 18px; }
-  .cta-box h2 em { font-style: italic; color: var(--mist); }
-  .cta-box p { font-size: 1rem; color: rgba(244,241,233,.75); max-width: 46ch; margin: 0 auto 36px; line-height: 1.7; }
-  .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-
-  @media (max-width: 900px) {
-    .intro-grid { grid-template-columns: 1fr; gap: 32px; }
-    .intro-aside { position: static; }
-    .prosjekt-rad { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 600px) {
-    .prosjekt-rad { grid-template-columns: 1fr; }
-    .tl-item { --tl-col: 80px; --tl-gap: 28px; }
-    .tl-year { padding-right: 10px; font-size: 1rem; }
-    .cta-box { padding: 44px 28px; }
-    .kart-wrap { height: 280px; }
-  }
-</style>
 </head>
 <body data-page="sentrumsutvikling">
 
@@ -183,7 +67,7 @@
 <section class="section wrap">
   <div class="section-head reveal">
     <div>
-      <div class="eyebrow" style="margin-bottom:14px">Historikk</div>
+      <div class="eyebrow eyebrow-gap">Historikk</div>
       <h2>Fra visjon til virkelighet</h2>
     </div>
   </div>
@@ -219,7 +103,7 @@
     <div class="tl-item reveal">
       <div class="tl-year">Nå</div>
       <div class="tl-body">
-        <div class="tl-dot" style="background:var(--ember)"></div>
+        <div class="tl-dot tl-dot-now"></div>
         <h3>Langgaten 24 – under regulering</h3>
         <p>To nye bygg på fem og seksten etasjer på den tidligere bensinstasjonstomta. Planlegger 65–70 nye sentrumsleiligheter og næringsarealer. Reguleringsarbeid pågår.</p>
       </div>
@@ -232,7 +116,7 @@
 <section class="section wrap">
   <div class="section-head reveal">
     <div>
-      <div class="eyebrow" style="margin-bottom:14px">Prosjekter</div>
+      <div class="eyebrow eyebrow-gap">Prosjekter</div>
       <h2>Steder vi har formet</h2>
     </div>
     <a href="prosjekter.html" class="link-all">Alle prosjekter →</a>
@@ -241,23 +125,23 @@
     <a href="prosjekter.html" class="mini-card reveal">
       <div class="mini-card-img"><img src="Prosjekter/Langgaten24/Langgaten24.png" alt="Langgaten 24" loading="lazy"></div>
       <div class="mini-card-body">
-        <span class="pill pill-utvikling" style="margin-bottom:10px;display:inline-block">Under regulering</span>
+        <span class="pill pill-utvikling">Under regulering</span>
         <h4>Langgaten 24</h4>
         <p>65–70 leiligheter og næring. To bygg på 5 og 16 etasjer.</p>
       </div>
     </a>
     <a href="prosjekter.html" class="mini-card reveal" style="transition-delay:.08s">
-      <div class="mini-card-img" style="background:linear-gradient(135deg,#1f93ad,#004a5c)"><img src="Prosjekter/HolmestrandBrygge/HolmestranBrygge.png" alt="Holmestrand Brygge" loading="lazy"></div>
+      <div class="mini-card-img"><img src="Prosjekter/HolmestrandBrygge/HolmestranBrygge.png" alt="Holmestrand Brygge" loading="lazy"></div>
       <div class="mini-card-body">
-        <span class="pill pill-ferdig" style="margin-bottom:10px;display:inline-block">Ferdigstilt 2021</span>
+        <span class="pill pill-ferdig">Ferdigstilt 2021</span>
         <h4>Holmestrand Brygge</h4>
         <p>75 leiligheter. Binder sentrum til sjøkanten.</p>
       </div>
     </a>
     <a href="prosjekter.html" class="mini-card reveal" style="transition-delay:.16s">
-      <div class="mini-card-img" style="background:linear-gradient(135deg,#687830,#04313a)"><img src="Prosjekter/Biblitekkvartalet.kap3/Bibliotekkvartalet.kap3.png" alt="Bibliotekkvartalet" loading="lazy"></div>
+      <div class="mini-card-img"><img src="Prosjekter/Biblitekkvartalet.kap3/Bibliotekkvartalet.kap3.png" alt="Bibliotekkvartalet" loading="lazy"></div>
       <div class="mini-card-body">
-        <span class="pill pill-ferdig" style="margin-bottom:10px;display:inline-block">Ferdigstilt 2018</span>
+        <span class="pill pill-ferdig">Ferdigstilt 2018</span>
         <h4>Bibliotekkvartalet</h4>
         <p>68 leiligheter i tre byggetrinn. Historiske omgivelser.</p>
       </div>
@@ -269,7 +153,7 @@
 <section class="section wrap">
   <div class="section-head reveal">
     <div>
-      <div class="eyebrow" style="margin-bottom:14px">Holmestrand sentrum</div>
+      <div class="eyebrow eyebrow-gap">Holmestrand sentrum</div>
       <h2>Finn oss</h2>
     </div>
   </div>
@@ -283,7 +167,7 @@
 </section>
 
 <!-- CTA -->
-<section class="section wrap" style="border-top:none;padding-top:0">
+<section class="section section-flush wrap">
   <div class="cta-box reveal">
     <h2>Har du et prosjekt eller en <em>idé?</em></h2>
     <p>Vi er alltid åpne for dialog om eiendom, utvikling og samarbeid i Holmestrand sentrum.</p>

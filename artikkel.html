@@ -12,76 +12,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<style>
-  .artikkel-wrap { max-width: 780px; margin: 0 auto; }
-
-  /* Tilbakelenke */
-  .back-link {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 13px; font-weight: 600; color: var(--ink-soft);
-    margin-bottom: 36px; transition: color .2s;
-  }
-  .back-link:hover { color: var(--fjord); }
-  .back-link svg { width: 16px; height: 16px; }
-
-  /* Metadata-linje */
-  .art-meta {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 13px; color: var(--ink-soft); margin-bottom: 18px; flex-wrap: wrap;
-  }
-  .art-meta .cat {
-    font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-    color: var(--ember-text); font-size: 12px;
-  }
-  .art-meta .sep { color: var(--sand-deep); }
-
-  /* Tittel */
-  .art-title {
-    font-family: var(--serif); font-weight: 400;
-    font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.1;
-    letter-spacing: -.02em; margin-bottom: 20px;
-  }
-
-  /* Ingress */
-  .art-ingress {
-    font-size: clamp(1rem, 1.5vw, 1.15rem); color: var(--ink-soft);
-    line-height: 1.75; border-left: 3px solid var(--ember-text);
-    padding-left: 20px; margin-bottom: 40px;
-  }
-
-  /* Bilde – avisklipp-stil */
-  .art-klipp {
-    border-radius: 16px; overflow: hidden;
-    border: 1px solid var(--line);
-    margin-bottom: 12px;
-    background: var(--ink);
-  }
-  .art-klipp img { width: 100%; display: block; }
-
-  .art-klipp-caption {
-    font-size: 12px; color: var(--ink-soft); margin-bottom: 36px;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .art-klipp-caption .kilde-badge {
-    background: var(--sand); color: var(--ink-soft);
-    font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-    padding: 3px 8px; border-radius: 4px;
-  }
-
-  /* Ekstern lenke-boks */
-  .art-kilde-boks {
-    background: #fff; border: 1px solid var(--line); border-radius: 16px;
-    padding: 28px 32px; display: flex; align-items: center;
-    justify-content: space-between; gap: 24px; flex-wrap: wrap;
-    margin-top: 8px;
-  }
-  .art-kilde-boks p { font-size: 14px; color: var(--ink-soft); max-width: 44ch; line-height: 1.6; }
-  .art-kilde-boks strong { color: var(--ink); }
-
-  /* Ikke funnet */
-  .not-found { text-align: center; padding: 80px 20px; color: var(--ink-soft); }
-  .not-found h2 { font-family: var(--serif); font-size: 2rem; margin-bottom: 16px; }
-</style>
 </head>
 <body data-page="nyheter">
 
@@ -90,9 +20,9 @@
 
 <main id="main" tabindex="-1">
 
-<div class="section wrap" style="border-top:none; padding-top: 48px;">
+<div class="section section-first wrap">
   <div class="artikkel-wrap" id="artikkel-innhold">
-    <p style="color:var(--ink-soft)">Laster…</p>
+    <p class="art-loading">Laster…</p>
   </div>
 </div>
 
@@ -111,7 +41,7 @@
     el.innerHTML = `
       <div class="not-found">
         <h2>Artikkelen ble ikke funnet</h2>
-        <p style="margin-bottom:28px">Den kan ha blitt fjernet eller lenken er feil.</p>
+        <p>Den kan ha blitt fjernet eller lenken er feil.</p>
         <a href="nyheter.html" class="btn btn-outline">← Tilbake til Aktuelt</a>
       </div>`;
   } else {
@@ -137,7 +67,7 @@
 
       ${item.video ? `
         <div class="art-klipp">
-          <video controls poster="${item.image ?? ''}" style="width:100%;border-radius:8px;">
+          <video controls poster="${item.image ?? ''}">
             <source src="${item.video}" type="video/mp4">
           </video>
         </div>` : item.image ? `
@@ -152,10 +82,9 @@
       ${item.sourceUrl ? `<div class="art-kilde-boks">
         <p>Artikkelen er opprinnelig publisert av <strong>${item.source}</strong>.
         Klikk for å lese hele saken hos originalkilden.</p>
-        <a href="${item.sourceUrl}" target="_blank" rel="noopener" class="btn btn-fjord"
-           style="display:inline-flex;align-items:center;gap:8px;white-space:nowrap">
+        <a href="${item.sourceUrl}" target="_blank" rel="noopener" class="btn btn-fjord">
           Les på ${item.source}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>
       </div>` : ''}`;
   }

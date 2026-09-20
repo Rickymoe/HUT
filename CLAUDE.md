@@ -57,7 +57,11 @@ stilguide-fila `holmestrand-designforslag.html` er slettet.
 ## Filer i prosjektet
 
 - `index.html` … `kontakt.html` – én HTML-fil per side (8 sider)
-- `style.css` – felles stilark, designsystem «Fjord & Lyng»
+- `style.css` – ALL CSS i én fil (ingen inline `<style>` i sidene). Rekkefølge: `:root`-tokens → felles komponenter
+  (nav, footer, knapper, webkamera, reduced-motion) → én seksjon per side («Side: …»). Selektorer er unike per side.
+  Bruk tokens, ikke rå tall: skrift `--fs-xs/sm/md/lg/xl/lead/h3/h2/display/h1/hero`, avstand `--sp-N` (N × 4px, padding/margin/gap).
+  Unntak: SVG-kartets tekst (`.kart-*`, SVG-enheter) og logo-ordmerket (`.hut-brand-text`). Hårlinjer 1–3px står som rå px.
+  Statiske `style="…"` skal ikke brukes; bruk klasser (`.section-flush`, `.eyebrow-gap`, `.nowrap`). Unntak: `transition-delay` (reveal-stagger) og `--pos` (hero-utsnitt per slide).
 - `main.js` – eneste JS-inngang: laster nav/footer-partials (`partials/nav.html`,
   `partials/footer.html`) via `fetch()` + sessionStorage-cache, + scroll-reveal,
   hamburger, webkamera-popup, hero-karusell, stat-tellere
@@ -107,7 +111,7 @@ Dr. Graaruds Plass 3, 2. etg
 Telefon: +47 33 09 77 00
 
 Ansvarlig næringseiendom: Øistein Hjelmvedt – mobil 91 55 17 10
-Facebook: https://www.facebook.com/Holmestrand-Utvikling-as-313412958677095/
+Facebook: https://www.facebook.com/HolmestrandUtvikling
 Webkamera havn: https://holmestrandutvikling.no/webkamera/
 Google Maps: lat 59.488086, lng 10.315639
 ```

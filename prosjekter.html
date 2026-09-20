@@ -12,46 +12,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<style>
-  .prosjekt-list { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
-
-  .prow {
-    background: #fff; display: grid; grid-template-columns: 320px 1fr; min-height: 240px;
-    transition: background .25s; text-decoration: none; color: inherit;
-  }
-  .prow:hover { background: var(--paper); }
-
-  .prow-img {
-    position: relative; overflow: hidden;
-    background: linear-gradient(160deg, #003a49, #007898);
-  }
-  .prow-img img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    transition: transform .5s ease;
-  }
-  .prow:hover .prow-img img { transform: scale(1.04); }
-
-  .prow-body { padding: 36px 40px; display: flex; flex-direction: column; justify-content: center; }
-  .prow-body .pill { margin-bottom: 14px; display: inline-block; align-self: flex-start; }
-  .prow-body h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.3rem, 2.2vw, 1.9rem); margin-bottom: 12px; }
-  .prow-body .tagline { font-size: 13px; font-weight: 600; color: var(--ember-text); margin-bottom: 10px; letter-spacing: .04em; }
-  .prow-body p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; max-width: 52ch; }
-
-  .prow-meta { display: flex; gap: 28px; margin-top: 22px; flex-wrap: wrap; }
-  .prow-meta .mi { }
-  .prow-meta .mi .label { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 3px; }
-  .prow-meta .mi .val { font-size: 15px; font-weight: 600; }
-
-  /* Loading / error states */
-  .state { text-align: center; padding: 80px 20px; color: var(--ink-soft); }
-  .state p { font-size: 16px; }
-
-  @media (max-width: 700px) {
-    .prow { grid-template-columns: 1fr; }
-    .prow-img { height: 200px; }
-    .prow-body { padding: 24px; }
-  }
-</style>
 </head>
 <body data-page="prosjekter">
 
@@ -68,7 +28,7 @@
   </p>
 </div>
 
-<section class="section wrap" style="padding-top:0;border-top:none">
+<section class="section section-flush wrap">
   <div id="prosjekt-container"></div>
 </section>
 

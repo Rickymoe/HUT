@@ -12,72 +12,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<style>
-  .news-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .ncard {
-    background: #fff; border: 1px solid var(--line); border-radius: 18px;
-    overflow: hidden; display: flex; flex-direction: column;
-    transition: transform .3s, box-shadow .3s; text-decoration: none; color: inherit;
-  }
-  .ncard:hover { transform: translateY(-4px); box-shadow: 0 20px 44px -14px rgba(4,49,58,.16); }
-
-  .ncard-img {
-    height: 200px; overflow: hidden; position: relative;
-    background: linear-gradient(135deg, var(--fjord), var(--ink));
-    flex-shrink: 0;
-  }
-  .ncard-img img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    transition: transform .5s ease;
-  }
-  .ncard:hover .ncard-img img { transform: scale(1.04); }
-
-  .ncard-source {
-    position: absolute; bottom: 12px; left: 14px;
-    font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-    background: rgba(4,49,58,.5); color: rgba(244,241,233,.9);
-    padding: 4px 10px; border-radius: 100px; backdrop-filter: blur(6px);
-  }
-
-  .ncard-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
-  .ncard-meta {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 12px; color: var(--ink-soft); margin-bottom: 12px;
-  }
-  .ncard-meta .cat {
-    font-weight: 600; color: var(--ember-text); letter-spacing: .06em; text-transform: uppercase;
-  }
-  .ncard-meta .sep { color: var(--line); }
-  .ncard-body h2 {
-    font-family: var(--serif); font-weight: 500;
-    font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.35;
-    margin-bottom: 10px;
-  }
-  .ncard-body p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; flex: 1; }
-  .ncard-footer {
-    margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .ncard-footer .read {
-    font-size: 13px; font-weight: 600; color: var(--ember-text);
-    display: inline-flex; align-items: center; gap: 6px;
-  }
-  .ncard-footer .ext-icon { width: 13px; height: 13px; flex-shrink: 0; }
-
-  /* Tom tilstand */
-  .news-empty {
-    grid-column: 1 / -1; text-align: center;
-    padding: 80px 20px; color: var(--ink-soft); font-size: 15px;
-  }
-
-  @media (max-width: 900px) { .news-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 560px) { .news-grid { grid-template-columns: 1fr; } }
-</style>
 </head>
 <body data-page="nyheter">
 
@@ -94,7 +28,7 @@
   </p>
 </div>
 
-<section class="section wrap" style="padding-top:0; border-top:none">
+<section class="section section-flush wrap">
   <div class="news-grid" id="news-grid">
     <p class="news-empty">Laster nyheter…</p>
   </div>

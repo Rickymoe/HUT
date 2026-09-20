@@ -14,59 +14,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<style>
-  .kontakt-grid { display: grid; grid-template-columns: 1fr 420px; gap: 64px; align-items: start; }
-
-  /* Mail-kort */
-  .mail-card { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 40px; }
-  .mail-card h2 { font-family: var(--serif); font-weight: 500; font-size: 1.6rem; margin-bottom: 12px; }
-  .mail-card > p { font-size: 15px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 28px; }
-  .mail-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .mail-btns .btn { display: block; padding: 18px 26px; }
-  .mail-note { font-size: 12px; color: var(--ink-soft); margin-top: 20px; text-align: center; }
-  .mail-kontakt { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--line); }
-
-  /* Side info */
-  .kontakt-info { display: flex; flex-direction: column; gap: 20px; }
-  .kinfo-box { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 26px; }
-  .kinfo-box h4 { font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 14px; }
-  .kinfo-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
-  .kinfo-row:last-child { margin-bottom: 0; }
-  .kinfo-row svg { width: 18px; height: 18px; fill: var(--fjord); flex-shrink: 0; margin-top: 2px; }
-  .kinfo-row span { font-size: 15px; line-height: 1.5; }
-  .kinfo-row a { color: var(--fjord); font-weight: 500; }
-  .kmap { border-radius: 14px; overflow: hidden; height: 240px; border: 1px solid var(--line); }
-  .kmap iframe { width: 100%; height: 100%; border: 0; display: block; }
-
-  /* Kontaktpersoner */
-  .personer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .person { display: flex; gap: 20px; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 24px; align-items: flex-start; }
-  .person-foto { width: 72px; height: 72px; border-radius: 50%; background: var(--sand); flex-shrink: 0; overflow: hidden; }
-  .person-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .person-navn { font-family: var(--serif); font-weight: 500; font-size: 1.15rem; }
-  .person-rolle { font-size: 13px; color: var(--ink-soft); line-height: 1.5; margin: 4px 0 12px; }
-  .person-kontakt { display: flex; flex-direction: column; gap: 4px; }
-  .person-kontakt a { font-size: 13px; color: var(--fjord); font-weight: 500; }
-  .person-kontakt .person-btn { align-self: flex-start; margin-top: 10px; padding: 9px 20px; color: #fff; font-weight: 600; }
-
-  /* Selskapsinformasjon */
-  .selskapsinfo { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: #fff; }
-  .sinfo-rad { display: flex; gap: 24px; padding: 16px 24px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
-  .sinfo-rad:last-child { border-bottom: none; }
-  .sinfo-k { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); flex: 0 0 160px; }
-  .sinfo-v { font-size: 14px; line-height: 1.6; flex: 1; min-width: 220px; }
-  .sinfo-v a { color: var(--fjord); font-weight: 500; }
-
-  @media (max-width: 860px) {
-    .kontakt-grid { grid-template-columns: 1fr; gap: 32px; }
-    .personer-grid { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 500px) {
-    .mail-btns { grid-template-columns: 1fr; }
-    .mail-card { padding: 28px 22px; }
-    .sinfo-rad { flex-direction: column; gap: 4px; }
-  }
-</style>
 </head>
 <body data-page="kontakt">
 
@@ -79,11 +26,11 @@
   <div class="eyebrow reveal">Ta kontakt</div>
   <h1 class="reveal" style="transition-delay:.08s">Vi hører <em>gjerne</em> fra deg</h1>
   <p class="lead reveal" style="transition-delay:.16s">
-    Spørsmål om lokaler, prosjekter eller samarbeid? Send oss en <span style="white-space:nowrap">e-post</span>.
+    Spørsmål om lokaler, prosjekter eller samarbeid? Send oss en <span class="nowrap">e-post</span>.
   </p>
 </div>
 
-<section class="section wrap" style="padding-top:0;border-top:none">
+<section class="section section-flush wrap">
   <div class="kontakt-grid">
     <div class="mail-card reveal">
       <h2>Skriv eller ring</h2>

@@ -12,67 +12,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<style>
-  /* Fane-velger */
-  .leie-tabs { display: flex; gap: 4px; background: var(--sand); border-radius: 100px; padding: 4px; width: fit-content; margin-bottom: 40px; }
-  .leie-tab {
-    font-size: 14px; font-weight: 600; padding: 10px 22px; border-radius: 100px;
-    border: none; background: transparent; color: var(--ink-soft);
-    cursor: pointer; transition: background .2s, color .2s, box-shadow .2s;
-  }
-  .leie-tab.active { background: #fff; color: var(--ink); box-shadow: 0 1px 4px rgba(4,49,58,.12); }
-
-  /* FINN-seksjon */
-  .finn-panel { display: none; }
-  .finn-panel.active { display: block; }
-
-  .finn-card {
-    background: #fff; border: 1px solid var(--line); border-radius: 20px;
-    overflow: hidden;
-  }
-
-  /* Header med FINN-lenke */
-  .finn-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 28px; border-bottom: 1px solid var(--line);
-    gap: 16px; flex-wrap: wrap;
-  }
-  .finn-header-left { display: flex; align-items: center; gap: 12px; }
-  .finn-logo-badge {
-    background: #06BEFB; color: #fff;
-    font-size: 13px; font-weight: 800; letter-spacing: .02em;
-    padding: 5px 11px; border-radius: 6px; line-height: 1;
-  }
-  .finn-header-left span { font-size: 14px; color: var(--ink-soft); }
-  .finn-ext-link {
-    font-size: 13px; font-weight: 600; color: var(--fjord);
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 9px 18px; border-radius: 100px; border: 1px solid var(--fjord);
-    transition: background .2s, color .2s; white-space: nowrap;
-  }
-  .finn-ext-link:hover { background: var(--fjord); color: #fff; }
-  .finn-ext-link svg { width: 14px; height: 14px; flex-shrink: 0; }
-
-  /* Kort-innhold: lenke ut til FINN */
-  .finn-body { padding: 56px 32px; text-align: center; }
-  .finn-body p { font-size: 14px; color: var(--ink-soft); margin-bottom: 24px; max-width: 44ch; margin-left: auto; margin-right: auto; }
-  .finn-body .btn { display: inline-flex; align-items: center; gap: 8px; }
-
-  /* Kontaktbanner */
-  .kontakt-banner {
-    background: var(--ink); color: var(--paper); border-radius: 20px; padding: 48px 52px;
-    display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
-    margin-top: 48px;
-  }
-  .kontakt-banner h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.4rem, 2.5vw, 2rem); max-width: 28ch; }
-  .kontakt-banner h3 em { font-style: italic; color: var(--mist); }
-
-  @media (max-width: 600px) {
-    .leie-tabs { width: 100%; }
-    .leie-tab { flex: 1; text-align: center; padding: 10px 12px; font-size: 13px; }
-    .kontakt-banner { padding: 34px 28px; }
-  }
-</style>
 </head>
 <body data-page="til-leie">
 
@@ -89,7 +28,7 @@
   </p>
 </div>
 
-<section class="section wrap" style="padding-top:0;border-top:none">
+<section class="section section-flush wrap">
 
   <div class="leie-tabs reveal" role="tablist">
     <button class="leie-tab active" role="tab" aria-selected="true"  aria-controls="panel-naering" id="tab-naering">Næringseiendom</button>
@@ -115,7 +54,7 @@
         <a href="https://www.finn.no/realestate/businessrent/search.html?orgId=707555245"
            target="_blank" rel="noopener" class="btn btn-fjord">
           Se ledige lokaler på FINN
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>
       </div>
     </div>
@@ -140,7 +79,7 @@
         <a href="https://www.finn.no/realestate/lettings/search.html?orgId=707555245"
            target="_blank" rel="noopener" class="btn btn-fjord">
           Se ledige boliger på FINN
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>
       </div>
     </div>
