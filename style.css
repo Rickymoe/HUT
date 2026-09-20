@@ -1018,7 +1018,10 @@ main:focus { outline: none; }
 .eier-tittel { font-size: var(--fs-xs); font-weight: 500; color: var(--ink-soft); margin-left: var(--sp-2); }
 .eier-kontakt { display: flex; align-items: center; gap: var(--sp-4); flex-wrap: wrap; margin-top: var(--sp-1); }
 .eier-kontakt a { font-size: var(--fs-sm); color: var(--fjord); font-weight: 500; }
-.eier-kontakt .btn-sm { color: #fff; font-weight: 600; }
+.eier-kontakt .btn-sm { font-weight: 600; }
+.eier-kontakt .btn-ember { color: #fff; }
+.eier-kontakt .btn-outline { display: inline-flex; align-items: center; gap: var(--sp-2); color: var(--fjord); border-color: var(--fjord); }
+.eier-kontakt .btn-outline svg { width: 14px; height: 14px; flex-shrink: 0; }
 
 @media (max-width: 860px) {
   .om-full-section { grid-template-columns: 1fr; gap: var(--sp-8); }
