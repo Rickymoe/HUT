@@ -219,7 +219,24 @@ function initWebcam() {
     btn.textContent = zoomed ? '1x' : '2x';
   }
 
-  document.getElementById('webcam-fab').addEventListener('click', openWebcam);
+  const fab = document.getElementById('webcam-fab');
+  fab.addEventListener('click', openWebcam);
+
+  // Mobil: skjul knappen ved scroll nedover, vis den igjen ved scroll oppover
+  // (CSS-en for .is-hidden gjelder kun ≤600px). Fokus viser den alltid.
+  let lastY = window.scrollY, scrollTick = false;
+  window.addEventListener('scroll', () => {
+    if (scrollTick) return;
+    scrollTick = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY, dy = y - lastY;
+      if (y <= 120) { fab.classList.remove('is-hidden'); lastY = y; }
+      else if (dy > 6) { fab.classList.add('is-hidden'); lastY = y; }
+      else if (dy < -6) { fab.classList.remove('is-hidden'); lastY = y; }
+      scrollTick = false;
+    });
+  }, { passive: true });
+  fab.addEventListener('focus', () => fab.classList.remove('is-hidden'));
   document.getElementById('webcam-close').addEventListener('click', closeWebcam);
   document.getElementById('webcam-refresh').addEventListener('click', loadWebcam);
   document.getElementById('webcam-zoom').addEventListener('click', toggleZoom);
