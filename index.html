@@ -30,6 +30,8 @@
   .hero-slide img {
     position: absolute; inset: 0;
     width: 100%; height: 100%; object-fit: cover; display: block;
+    /* Utsnittet i cover-beskjæringen. Stående/høye bilder overstyrer med --pos på .hero-slide. */
+    object-position: var(--pos, 50% 50%);
   }
   /* Forrige slide blir stående ugjennomsiktig UNDER den innkommende mens den
      fader inn -> crossfaden dipper aldri ned til bakgrunnen (ingen hvit blink). */
@@ -189,7 +191,7 @@
 <section class="hero">
   <div class="hero-slides">
     <div class="hero-slide active"><img src="Prosjekter/Karusell/Langgaten24.0.jpg" alt="Illustrasjon av Langgaten 24-prosjektet i Holmestrand" fetchpriority="high"></div>
-    <div class="hero-slide"><img src="Prosjekter/Karusell/Langgaten24.1.jpg" alt="" loading="lazy"></div>
+    <div class="hero-slide" style="--pos:62% 75%"><img src="Prosjekter/Karusell/Langgaten24.1.jpg" alt="" loading="lazy"></div>
     <div class="hero-slide"><img src="Prosjekter/Karusell/Langgaten24.2.jpg" alt="" loading="lazy"></div>
     <div class="hero-slide"><img src="Prosjekter/Karusell/Langgaten24.3.jpg" alt="" loading="lazy"></div>
     <div class="hero-slide"><img src="Prosjekter/Karusell/Langgaten24.4.jpg" alt="" loading="lazy"></div>
