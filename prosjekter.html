@@ -31,13 +31,6 @@
   }
   .prow:hover .prow-img img { transform: scale(1.04); }
 
-  .sold-badge {
-    position: absolute; top: 14px; left: 14px; z-index: 1;
-    font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-    background: rgba(4,49,58,.55); color: rgba(244,241,233,.85);
-    padding: 5px 12px; border-radius: 100px; backdrop-filter: blur(6px);
-  }
-
   .prow-body { padding: 36px 40px; display: flex; flex-direction: column; justify-content: center; }
   .prow-body .pill { margin-bottom: 14px; display: inline-block; align-self: flex-start; }
   .prow-body h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.3rem, 2.2vw, 1.9rem); margin-bottom: 12px; }
@@ -48,9 +41,6 @@
   .prow-meta .mi { }
   .prow-meta .mi .label { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 3px; }
   .prow-meta .mi .val { font-size: 15px; font-weight: 600; }
-
-  .highlights { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-  .hl { font-size: 12px; font-weight: 500; background: var(--sand); border: 1px solid var(--sand-deep); padding: 5px 12px; border-radius: 100px; }
 
   /* Loading / error states */
   .state { text-align: center; padding: 80px 20px; color: var(--ink-soft); }
@@ -110,15 +100,8 @@
       year   ? `<div class="mi"><div class="label">Ferdigstilt</div><div class="val">${year}</div></div>` : ''
     ].filter(Boolean).join('');
 
-    const hlTags = (p.highlights ?? [])
-      .map(h => `<span class="hl">${h}</span>`)
-      .join('');
-
     const taglineHtml = p.tagline
       ? `<div class="tagline">${p.tagline}</div>` : '';
-
-    const soldHtml = p.soldOut
-      ? `<div class="sold-badge">Sluttsolgt</div>` : '';
 
     const imgHtml = imgSrc
       ? `<img src="${imgSrc}" alt="${p.name}" loading="lazy">`
@@ -127,7 +110,6 @@
     return `
       <div class="prow reveal" style="transition-delay:${idx * 80}ms">
         <div class="prow-img">
-          ${soldHtml}
           ${imgHtml}
         </div>
         <div class="prow-body">
@@ -136,7 +118,6 @@
           <h2>${p.name}</h2>
           <p>${p.summary}</p>
           ${metaItems ? `<div class="prow-meta">${metaItems}</div>` : ''}
-          ${hlTags ? `<div class="highlights">${hlTags}</div>` : ''}
         </div>
       </div>`;
   }

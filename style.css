@@ -36,20 +36,8 @@ a { text-decoration: none; color: inherit; }
 /* Seksjonsskille */
 .section-divider { height: 80px; background: var(--ink); }
 
-/* Blurret bakgrunnstekstur */
-.section-blur-bg { position: relative; overflow: hidden; }
-.section-blur-bg::before {
-  content: '';
-  position: absolute;
-  top: -30px; bottom: -30px;
-  left: 50%; transform: translateX(-50%);
-  width: 100vw;
-  background: var(--blur-img) center / cover no-repeat;
-  filter: blur(10px);
-  opacity: 0.28;
-  z-index: 0;
-}
-.section-blur-bg > * { position: relative; z-index: 1; }
+/* Seksjon på sand-flate (veksler med --paper) */
+.section-sand { background: var(--sand); }
 
 /* Gatemønster-stripe */
 .star-strip {
