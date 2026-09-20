@@ -132,6 +132,8 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
 .btn-ghost:hover { background: rgba(244,241,233,.12); }
 .btn-outline { background: transparent; border-color: var(--line); color: var(--ink); }
 .btn-outline:hover { background: var(--sand); }
+/* Liten variant, f.eks. «Skriv til …» i personkort og eierliste */
+.btn-sm { padding: var(--sp-2) var(--sp-5); }
 
 /* Pill */
 .pill {
@@ -1014,8 +1016,9 @@ main:focus { outline: none; }
 .eier-info { flex: 1; min-width: 0; }
 .eier-navn { font-size: var(--fs-md); font-weight: 600; }
 .eier-tittel { font-size: var(--fs-xs); font-weight: 500; color: var(--ink-soft); margin-left: var(--sp-2); }
-.eier-kontakt { display: flex; gap: var(--sp-4); flex-wrap: wrap; margin-top: 3px; }
+.eier-kontakt { display: flex; align-items: center; gap: var(--sp-4); flex-wrap: wrap; margin-top: var(--sp-1); }
 .eier-kontakt a { font-size: var(--fs-sm); color: var(--fjord); font-weight: 500; }
+.eier-kontakt .btn-sm { color: #fff; font-weight: 600; }
 
 @media (max-width: 860px) {
   .om-full-section { grid-template-columns: 1fr; gap: var(--sp-8); }
@@ -1026,6 +1029,7 @@ main:focus { outline: none; }
 }
 @media (max-width: 560px) {
   .kart-legende { grid-template-columns: 1fr; }
+  .eier-kontakt { flex-direction: column; align-items: flex-start; gap: var(--sp-2); }
 }
 
 /* ==========================================================
@@ -1063,7 +1067,7 @@ main:focus { outline: none; }
 .person-rolle { font-size: var(--fs-sm); color: var(--ink-soft); line-height: 1.5; margin: var(--sp-1) 0 var(--sp-3); }
 .person-kontakt { display: flex; flex-direction: column; gap: var(--sp-1); }
 .person-kontakt a { font-size: var(--fs-sm); color: var(--fjord); font-weight: 500; }
-.person-kontakt .person-btn { align-self: flex-start; margin-top: var(--sp-3); padding: var(--sp-2) var(--sp-5); color: #fff; font-weight: 600; }
+.person-kontakt .person-btn { align-self: flex-start; margin-top: var(--sp-3); color: #fff; font-weight: 600; }
 
 /* Selskapsinformasjon */
 .selskapsinfo { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: #fff; }
