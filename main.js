@@ -140,7 +140,7 @@ function initFooterYear() {
 }
 
 // ---- Webkamera flytende knapp + popup -------------------------------
-const WEBCAM_URL = 'http://holmestrand.azurewebsites.net/Webcam/havna.jpg';
+const WEBCAM_URL = 'https://holmestrand.azurewebsites.net/Webcam/havna.jpg';
 
 // Knappen (#webcam-fab) ligger i partials/nav.html; her bygges bare popupen.
 // Returnerer openWebcam så initWebcamFab kan koble knappen når partialen er på plass.

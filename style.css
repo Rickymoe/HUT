@@ -11,6 +11,13 @@
   --paper: #f4f1e9;
   --ember: #687830;
   --ember-text: #556325;   /* mørkere mosegrønt for liten tekst – AA mot --paper/--sand/#fff */
+  --white: #fff;
+  --ink-deep: #003a49;      /* mørkeste petrol – start på bilde-plassholder-gradienter */
+  --lys-lyng: #aeb87b;      /* myk grønn – aksent på mørk/bildeflate */
+  --success-bg: #e8f5e9;  --success-text: #2e7d32;   /* pill: ledig / ferdig */
+  --warn-bg: #fff3e0;     --warn-text: #b34100;      /* pill: venteliste */
+  --finn: #06befb;          /* FINN.no sin merkevarefarge (badge) */
+  --map-building: #6f7c74; --map-label: #556063; --map-mountain: #7d8a58;   /* kartet på om-oss (SVG) */
   --line: rgba(4,49,58,.14);
   /* Skriftskala. Brødtekst-/UI-trinn i rem (følger brukerens nettleser-innstilling). */
   --fs-xs: .75rem;      /* 12px – eyebrow, pills, labels, meta */
@@ -124,9 +131,9 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   display: inline-block; text-align: center;
 }
 .btn:hover { transform: translateY(-2px); }
-.btn-ember { background: var(--ember); color: #fff; }
+.btn-ember { background: var(--ember); color: var(--white); }
 .btn-ember:hover { background: var(--ember-text); }
-.btn-fjord { background: var(--fjord); color: #fff; }
+.btn-fjord { background: var(--fjord); color: var(--white); }
 .btn-fjord:hover { background: var(--fjord-deep); }
 .btn-ghost { background: transparent; border-color: rgba(244,241,233,.45); color: var(--paper); }
 .btn-ghost:hover { background: rgba(244,241,233,.12); }
@@ -143,11 +150,11 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   display: inline-block; font-size: var(--fs-xs); font-weight: 600; letter-spacing: .08em;
   text-transform: uppercase; padding: var(--sp-1) var(--sp-3); border-radius: 100px;
 }
-.pill-ledig { background: #e8f5e9; color: #2e7d32; }
-.pill-venteliste { background: #fff3e0; color: #b34100; }
+.pill-ledig { background: var(--success-bg); color: var(--success-text); }
+.pill-venteliste { background: var(--warn-bg); color: var(--warn-text); }
 .pill-utvikling { background: var(--mist); color: var(--fjord-deep); }
 .pill-planlegging { background: var(--sand); color: var(--ink-soft); }
-.pill-ferdig { background: #e8f5e9; color: #2e7d32; }
+.pill-ferdig { background: var(--success-bg); color: var(--success-text); }
 
 /* ===== Logo / merke ===== */
 .hut-brand { display: flex; align-items: center; gap: var(--sp-3); }
@@ -227,7 +234,7 @@ main:focus { outline: none; }
 .footer-col h4 { font-size: var(--fs-xs); font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: var(--sp-4); }
 .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: var(--sp-3); }
 .footer-col a { font-size: var(--fs-sm); color: var(--ink-soft); transition: color .2s; }
-.footer-col a:hover { color: var(--fjord); }
+.footer-col a:hover { color: var(--fjord-deep); }
 .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-3); padding-top: var(--sp-7); border-top: 1px solid var(--line); }
 .footer-bottom small { font-size: var(--fs-sm); color: var(--ink-soft); }
 
@@ -317,7 +324,7 @@ main:focus { outline: none; }
 .webcam-fab {
   position: fixed; bottom: 28px; right: 28px; z-index: 200;
   display: flex; align-items: center; gap: var(--sp-3);
-  background: var(--fjord); color: #fff;
+  background: var(--fjord); color: var(--white);
   border: none; border-radius: 100px; cursor: pointer;
   padding: var(--sp-4) var(--sp-5) var(--sp-4) var(--sp-4);
   font-family: var(--sans); font-size: var(--fs-sm); font-weight: 600;
@@ -362,7 +369,7 @@ main:focus { outline: none; }
 }
 .webcam-zoom:hover, .webcam-refresh:hover, .webcam-close:hover { background: var(--sand); color: var(--ink); }
 .webcam-zoom { font-size: var(--fs-xs); font-weight: 700; }
-.webcam-zoom[aria-pressed="true"] { background: var(--fjord); color: #fff; border-color: var(--fjord); }
+.webcam-zoom[aria-pressed="true"] { background: var(--fjord); color: var(--white); border-color: var(--fjord); }
 .webcam-refresh svg { width: 16px; height: 16px; }
 .webcam-close { font-size: var(--fs-sm); }
 
@@ -454,7 +461,7 @@ main:focus { outline: none; }
 }
 /* Lys tekst + myk mørk skygge: lesbar mot alle 8 bildene, også de lyse partiene. */
 .hero .eyebrow { color: var(--paper); text-shadow: 0 1px 12px rgba(4,49,58,.85), 0 0 3px rgba(4,49,58,.5); }
-.hero .eyebrow::before { background: #aeb87b; box-shadow: 0 0 6px rgba(4,49,58,.6); }
+.hero .eyebrow::before { background: var(--lys-lyng); box-shadow: 0 0 6px rgba(4,49,58,.6); }
 .hero h1 {
   font-family: var(--serif); font-weight: 400;
   font-size: var(--fs-hero); line-height: .98; letter-spacing: -.025em;
@@ -503,7 +510,7 @@ main:focus { outline: none; }
 
 /* Quick cards */
 /* Hvit stripe i full bredde; selve kortene ligger i samme kolonne som resten av siden (.wrap). */
-.quick-band { background: #fff; border-bottom: 1px solid var(--line); }
+.quick-band { background: var(--white); border-bottom: 1px solid var(--line); }
 .quick-cards { max-width: 1180px; margin: 0 auto; padding: 0 var(--sp-8); display: grid; grid-template-columns: repeat(3, 1fr); }
 .qcard { padding: var(--sp-10) var(--sp-8); display: flex; flex-direction: column; border-left: 1px solid var(--line); }
 .qcard:first-child { border-left: none; padding-left: 0; }
@@ -515,18 +522,18 @@ main:focus { outline: none; }
 .qcard .arrow { margin-top: var(--sp-6); font-size: var(--fs-sm); font-weight: 600; color: var(--ember-text); display: inline-flex; align-items: center; gap: var(--sp-2); transition: gap .2s; }
 .qcard:hover .arrow { gap: var(--sp-3); }
 .finn-badge {
-  background: #06BEFB; color: #fff;
+  background: var(--finn); color: var(--white);
   font-size: var(--fs-xs); font-weight: 800; letter-spacing: .03em;
   padding: 3px var(--sp-2); border-radius: 4px; line-height: 1;
 }
 
 /* Prosjekter */
 .prosjekt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-6); }
-.pcard { background: #fff; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; transition: transform .3s, box-shadow .3s; display: flex; flex-direction: column; }
+.pcard { background: var(--white); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; transition: transform .3s, box-shadow .3s; display: flex; flex-direction: column; }
 .pcard:hover { transform: translateY(-4px); box-shadow: 0 24px 48px -16px rgba(4,49,58,.18); }
 .pcard-img {
   height: 200px; position: relative; overflow: hidden;
-  background: linear-gradient(135deg, #003a49, #007898);
+  background: linear-gradient(135deg, var(--ink-deep), var(--fjord));
   flex-shrink: 0;
 }
 .pcard-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
@@ -547,7 +554,7 @@ main:focus { outline: none; }
 
 /* Lokaler list */
 .lokale-list { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
-.lokale-row { background: #fff; padding: var(--sp-6) var(--sp-7); display: flex; align-items: center; gap: var(--sp-5); transition: background .2s; }
+.lokale-row { background: var(--white); padding: var(--sp-6) var(--sp-7); display: flex; align-items: center; gap: var(--sp-5); transition: background .2s; }
 .lokale-row:hover { background: var(--paper); }
 .lokale-thumb {
   width: 60px; height: 60px; border-radius: 12px; flex-shrink: 0;
@@ -591,14 +598,14 @@ main:focus { outline: none; }
   border: none; background: transparent; color: var(--ink-soft);
   cursor: pointer; transition: background .2s, color .2s, box-shadow .2s;
 }
-.leie-tab.active { background: #fff; color: var(--ink); box-shadow: 0 1px 4px rgba(4,49,58,.12); }
+.leie-tab.active { background: var(--white); color: var(--ink); box-shadow: 0 1px 4px rgba(4,49,58,.12); }
 
 /* FINN-seksjon */
 .finn-panel { display: none; }
 .finn-panel.active { display: block; }
 
 .finn-card {
-  background: #fff; border: 1px solid var(--line); border-radius: 20px;
+  background: var(--white); border: 1px solid var(--line); border-radius: 20px;
   overflow: hidden;
 }
 
@@ -610,7 +617,7 @@ main:focus { outline: none; }
 }
 .finn-header-left { display: flex; align-items: center; gap: var(--sp-3); }
 .finn-logo-badge {
-  background: #06BEFB; color: #fff;
+  background: var(--finn); color: var(--white);
   font-size: var(--fs-sm); font-weight: 800; letter-spacing: .02em;
   padding: var(--sp-1) var(--sp-3); border-radius: 6px; line-height: 1;
 }
@@ -621,7 +628,7 @@ main:focus { outline: none; }
   padding: var(--sp-2) var(--sp-5); border-radius: 100px; border: 1px solid var(--fjord);
   transition: background .2s, color .2s; white-space: nowrap;
 }
-.finn-ext-link:hover { background: var(--fjord); color: #fff; }
+.finn-ext-link:hover { background: var(--fjord); color: var(--white); }
 .finn-ext-link svg { width: 14px; height: 14px; flex-shrink: 0; }
 
 /* Kort-innhold: lenke ut til FINN */
@@ -651,14 +658,14 @@ main:focus { outline: none; }
 .prosjekt-list { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
 
 .prow {
-  background: #fff; display: grid; grid-template-columns: 320px 1fr; min-height: 240px;
+  background: var(--white); display: grid; grid-template-columns: 320px 1fr; min-height: 240px;
   transition: background .25s; text-decoration: none; color: inherit;
 }
 .prow:hover { background: var(--paper); }
 
 .prow-img {
   position: relative; overflow: hidden;
-  background: linear-gradient(160deg, #003a49, #007898);
+  background: linear-gradient(160deg, var(--ink-deep), var(--fjord));
 }
 .prow-img img {
   width: 100%; height: 100%; object-fit: cover; display: block;
@@ -700,7 +707,7 @@ main:focus { outline: none; }
 }
 .intro-grid .lead-block p:last-child { margin-bottom: 0; }
 .intro-aside {
-  background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: var(--sp-9);
+  background: var(--white); border: 1px solid var(--line); border-radius: 20px; padding: var(--sp-9);
   position: sticky; top: 104px;
 }
 .intro-aside h3 { font-family: var(--serif); font-weight: 500; font-size: var(--fs-xl); margin-bottom: var(--sp-5); }
@@ -736,11 +743,11 @@ main:focus { outline: none; }
   padding-top: var(--sp-1);
   padding-right: var(--sp-4);          /* luft mellom tekst og prikk */
   font-family: var(--serif); font-style: italic;
-  font-size: var(--fs-lg); color: var(--fjord); font-weight: 400;
+  font-size: var(--fs-lg); color: var(--fjord-deep); font-weight: 400;
   text-align: right; white-space: nowrap;
 }
 .tl-body {
-  background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: var(--sp-6) var(--sp-7);
+  background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: var(--sp-6) var(--sp-7);
   margin-bottom: var(--sp-8);
 }
 .tl-body h3 { font-family: var(--serif); font-weight: 500; font-size: var(--fs-lg); margin-bottom: var(--sp-2); }
@@ -768,14 +775,14 @@ main:focus { outline: none; }
 /* Prosjektkort-rad (3 stk) */
 .prosjekt-rad { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-5); }
 .mini-card {
-  background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+  background: var(--white); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
   transition: transform .3s, box-shadow .3s; text-decoration: none; color: inherit;
   display: flex; flex-direction: column;
 }
 .mini-card:hover { transform: translateY(-3px); box-shadow: 0 16px 36px -12px rgba(4,49,58,.16); }
 .mini-card-img {
   height: 140px; overflow: hidden;
-  background: linear-gradient(135deg, #003a49, #007898);
+  background: linear-gradient(135deg, var(--ink-deep), var(--fjord));
 }
 .mini-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
 .mini-card:hover .mini-card-img img { transform: scale(1.05); }
@@ -817,7 +824,7 @@ main:focus { outline: none; }
 }
 
 .ncard {
-  background: #fff; border: 1px solid var(--line); border-radius: 18px;
+  background: var(--white); border: 1px solid var(--line); border-radius: 18px;
   overflow: hidden; display: flex; flex-direction: column;
   transition: transform .3s, box-shadow .3s; text-decoration: none; color: inherit;
 }
@@ -886,7 +893,7 @@ main:focus { outline: none; }
   font-size: var(--fs-sm); font-weight: 600; color: var(--ink-soft);
   margin-bottom: var(--sp-9); transition: color .2s;
 }
-.back-link:hover { color: var(--fjord); }
+.back-link:hover { color: var(--fjord-deep); }
 .back-link svg { width: 16px; height: 16px; }
 
 /* Metadata-linje */
@@ -937,7 +944,7 @@ main:focus { outline: none; }
 
 /* Ekstern lenke-boks */
 .art-kilde-boks {
-  background: #fff; border: 1px solid var(--line); border-radius: 16px;
+  background: var(--white); border: 1px solid var(--line); border-radius: 16px;
   padding: var(--sp-7) var(--sp-8); display: flex; align-items: center;
   justify-content: space-between; gap: var(--sp-6); flex-wrap: wrap;
   margin-top: var(--sp-2);
@@ -972,17 +979,17 @@ main:focus { outline: none; }
 /* Eiendomsporteføljen – kart + tegnforklaring */
 .portefolje-kart { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 16px; margin: 0 0 var(--sp-7); overflow: hidden; background: var(--paper); }
 .portefolje-kart text { font-family: var(--sans); }
-.kart-bygg polygon { fill: #6f7c74; opacity: .1; }
+.kart-bygg polygon { fill: var(--map-building); opacity: .1; }
 .kart-gater .gate-kant { fill: none; stroke: rgba(4,49,58,.26); stroke-linecap: round; stroke-linejoin: round; }
 .kart-gater path:not(.gate-kant) { fill: none; stroke: var(--paper); stroke-linecap: round; stroke-linejoin: round; }
-.kart-gatenavn { font-size: 12px; font-weight: 600; letter-spacing: .02em; fill: #556063; paint-order: stroke; stroke: var(--paper); stroke-width: 3.6px; }
-.kart-gatenavn--hoved { font-size: 16px; letter-spacing: .2em; fill: #3f4f4d; }
-.kart-fjell { font-family: var(--serif); font-style: italic; font-size: 12px; fill: #7d8a58; }
+.kart-gatenavn { font-size: 12px; font-weight: 600; letter-spacing: .02em; fill: var(--map-label); paint-order: stroke; stroke: var(--paper); stroke-width: 3.6px; }
+.kart-gatenavn--hoved { font-size: 16px; letter-spacing: .2em; fill: var(--ink-soft); }
+.kart-fjell { font-family: var(--serif); font-style: italic; font-size: 12px; fill: var(--map-mountain); }
 .kart-vann { font-family: var(--serif); font-style: italic; font-size: 13px; fill: var(--sea); text-anchor: end; }
 .kart-poi { font-size: 11.5px; font-weight: 500; fill: var(--ink-soft); paint-order: stroke; stroke: var(--paper); stroke-width: 3.6px; }
 .kart-punkt { fill: var(--ink-soft); }
-.kart-nr { font-size: 11px; font-weight: 700; fill: #fff; }
-.hut-fp { stroke: #fff; stroke-width: .6; transition: filter .15s; }
+.kart-nr { font-size: 11px; font-weight: 700; fill: var(--white); }
+.hut-fp { stroke: var(--white); stroke-width: .6; transition: filter .15s; }
 .hut-nr-bg { fill: var(--ink); transition: fill .15s; }
 .kg-halo { fill: var(--fjord); opacity: 0; }
 .kart-gaard { cursor: pointer; }
@@ -994,13 +1001,13 @@ main:focus { outline: none; }
 
 .kart-legende { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--sp-2) var(--sp-7); }
 .kart-legende li { display: flex; gap: var(--sp-3); align-items: baseline; font-size: var(--fs-sm); color: var(--ink-soft); padding: 3px 0; transition: color .15s; }
-.kart-legende li b { color: var(--fjord); font-weight: 700; font-variant-numeric: tabular-nums; flex-shrink: 0; width: 1.5em; text-align: right; }
+.kart-legende li b { color: var(--fjord-deep); font-weight: 700; font-variant-numeric: tabular-nums; flex-shrink: 0; width: 1.5em; text-align: right; }
 .kart-legende li .g-navn { font-weight: 600; color: var(--ink); }
 .kart-legende li.hl { color: var(--ink); }
 
 /* Selskapsstruktur */
 .struktur-topp { display: inline-block; font-size: var(--fs-xs); font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--paper); background: var(--ink); padding: var(--sp-3) var(--sp-6); border-radius: 10px; }
-.struktur-liste { list-style: none; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin-top: var(--sp-5); background: #fff; }
+.struktur-liste { list-style: none; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin-top: var(--sp-5); background: var(--white); }
 .struktur-liste li { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-7); padding: var(--sp-4) var(--sp-6); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
 .struktur-liste li:last-child { border-bottom: none; }
 .struktur-liste li:first-child { background: var(--sand); border-bottom-color: var(--sand-deep); }
@@ -1009,7 +1016,7 @@ main:focus { outline: none; }
 .struktur-liste li:first-child .sel-bygg { color: var(--ink); }
 
 .eiere-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-6); }
-.eier-gruppe { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.eier-gruppe { background: var(--white); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
 .eier-gruppenavn { font-size: var(--fs-xs); font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--paper); background: var(--ink); padding: var(--sp-4) var(--sp-6); }
 .eier-rad { display: flex; align-items: center; gap: var(--sp-4); padding: var(--sp-4) var(--sp-6); border-bottom: 1px solid var(--line); }
 .eier-rad:last-child { border-bottom: none; }
@@ -1022,7 +1029,7 @@ main:focus { outline: none; }
 .eier-kontakt { display: flex; align-items: center; gap: var(--sp-4); flex-wrap: wrap; margin-top: var(--sp-1); }
 .eier-kontakt a { font-size: var(--fs-sm); color: var(--fjord); font-weight: 500; }
 .eier-kontakt .btn-sm { font-weight: 600; }
-.eier-kontakt .btn-ember { color: #fff; }
+.eier-kontakt .btn-ember { color: var(--white); }
 
 @media (max-width: 860px) {
   .om-full-section { grid-template-columns: 1fr; gap: var(--sp-8); }
@@ -1042,7 +1049,7 @@ main:focus { outline: none; }
 .kontakt-grid { display: grid; grid-template-columns: 1fr 420px; gap: var(--sp-16); align-items: start; }
 
 /* Mail-kort */
-.mail-card { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: var(--sp-10); }
+.mail-card { background: var(--white); border: 1px solid var(--line); border-radius: 20px; padding: var(--sp-10); }
 .mail-card h2 { font-family: var(--serif); font-weight: 500; font-size: var(--fs-h3); margin-bottom: var(--sp-3); }
 .mail-card > p { font-size: var(--fs-md); color: var(--ink-soft); line-height: 1.6; margin-bottom: var(--sp-7); }
 .mail-btns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
@@ -1052,7 +1059,7 @@ main:focus { outline: none; }
 
 /* Side info */
 .kontakt-info { display: flex; flex-direction: column; gap: var(--sp-5); }
-.kinfo-box { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: var(--sp-7); }
+.kinfo-box { background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: var(--sp-7); }
 .kinfo-box h4 { font-size: var(--fs-xs); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: var(--sp-4); }
 .kinfo-row { display: flex; align-items: flex-start; gap: var(--sp-3); margin-bottom: var(--sp-3); }
 .kinfo-row:last-child { margin-bottom: 0; }
@@ -1064,7 +1071,7 @@ main:focus { outline: none; }
 
 /* Kontaktpersoner */
 .personer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-6); }
-.person { display: flex; gap: var(--sp-5); background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: var(--sp-6); align-items: flex-start; }
+.person { display: flex; gap: var(--sp-5); background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: var(--sp-6); align-items: flex-start; }
 .person-foto { width: 72px; height: 72px; border-radius: 50%; background: var(--sand); flex-shrink: 0; overflow: hidden; }
 .person-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .person-navn { font-family: var(--serif); font-weight: 500; font-size: var(--fs-lg); }
@@ -1072,10 +1079,10 @@ main:focus { outline: none; }
 .person-kontakt { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
 .person-kontakt a { font-size: var(--fs-sm); color: var(--fjord); font-weight: 500; }
 .person-kontakt .btn-sm { font-weight: 600; }
-.person-kontakt .btn-ember { color: #fff; }
+.person-kontakt .btn-ember { color: var(--white); }
 
 /* Selskapsinformasjon */
-.selskapsinfo { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: #fff; }
+.selskapsinfo { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--white); }
 .sinfo-rad { display: flex; gap: var(--sp-6); padding: var(--sp-4) var(--sp-6); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
 .sinfo-rad:last-child { border-bottom: none; }
 .sinfo-k { font-size: var(--fs-xs); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); flex: 0 0 160px; }
