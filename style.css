@@ -2,6 +2,7 @@
   --ink: #04313a;
   --ink-soft: #3f4f4d;
   --fjord: #007898;
+  --fjord-deep: #00566f;    /* mørk fjord: hover under hvit tekst + liten tekst på --mist (AA) */
   --sea: #1f93ad;
   --mist: #bdd9e0;
   --sand: #e7e1d2;
@@ -9,7 +10,6 @@
   --clay: #cdb896;          /* varm tan – aktiv nav-lenke */
   --paper: #f4f1e9;
   --ember: #687830;
-  --ember-soft: #7f9040;
   --ember-text: #556325;   /* mørkere mosegrønt for liten tekst – AA mot --paper/--sand/#fff */
   --line: rgba(4,49,58,.14);
   --serif: "Fraunces", Georgia, serif;
@@ -101,9 +101,9 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
 }
 .btn:hover { transform: translateY(-2px); }
 .btn-ember { background: var(--ember); color: #fff; }
-.btn-ember:hover { background: var(--ember-soft); }
+.btn-ember:hover { background: var(--ember-text); }
 .btn-fjord { background: var(--fjord); color: #fff; }
-.btn-fjord:hover { background: var(--sea); }
+.btn-fjord:hover { background: var(--fjord-deep); }
 .btn-ghost { background: transparent; border-color: rgba(244,241,233,.45); color: var(--paper); }
 .btn-ghost:hover { background: rgba(244,241,233,.12); }
 .btn-outline { background: transparent; border-color: var(--line); color: var(--ink); }
@@ -115,8 +115,8 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   text-transform: uppercase; padding: 4px 12px; border-radius: 100px;
 }
 .pill-ledig { background: #e8f5e9; color: #2e7d32; }
-.pill-venteliste { background: #fff3e0; color: #e65100; }
-.pill-utvikling { background: var(--mist); color: var(--fjord); }
+.pill-venteliste { background: #fff3e0; color: #b34100; }
+.pill-utvikling { background: var(--mist); color: var(--fjord-deep); }
 .pill-planlegging { background: var(--sand); color: var(--ink-soft); }
 .pill-ferdig { background: #e8f5e9; color: #2e7d32; }
 
@@ -287,7 +287,7 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
   box-shadow: 0 8px 24px rgba(0,120,152,.35);
   transition: background .25s, transform .25s, box-shadow .25s;
 }
-.webcam-fab:hover { background: var(--sea); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,120,152,.45); }
+.webcam-fab:hover { background: var(--fjord-deep); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,120,152,.45); }
 .webcam-fab svg { width: 20px; height: 20px; flex-shrink: 0; }
 
 /* ===== Webcam overlay ===== */
