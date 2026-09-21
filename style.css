@@ -591,51 +591,21 @@ main:focus { outline: none; }
 /* ==========================================================
    Side: Til leie (til-leie.html)
    ========================================================== */
-/* Fane-velger */
-.leie-tabs { display: flex; gap: var(--sp-1); background: var(--sand); border-radius: 100px; padding: var(--sp-1); width: fit-content; margin-bottom: var(--sp-10); }
-.leie-tab {
-  font-size: var(--fs-sm); font-weight: 600; padding: var(--sp-3) var(--sp-6); border-radius: 100px;
-  border: none; background: transparent; color: var(--ink-soft);
-  cursor: pointer; transition: background .2s, color .2s, box-shadow .2s;
-}
-.leie-tab.active { background: var(--white); color: var(--ink); box-shadow: 0 1px 4px rgba(4,49,58,.12); }
-
-/* FINN-seksjon */
-.finn-panel { display: none; }
-.finn-panel.active { display: block; }
-
-.finn-card {
+/* Kort: lenke ut til FINN */
+.leie-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-6); }
+.leie-card {
   background: var(--white); border: 1px solid var(--line); border-radius: 20px;
-  overflow: hidden;
+  padding: var(--sp-10) var(--sp-9); display: flex; flex-direction: column; align-items: flex-start;
 }
-
-/* Header med FINN-lenke */
-.finn-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: var(--sp-5) var(--sp-7); border-bottom: 1px solid var(--line);
-  gap: var(--sp-4); flex-wrap: wrap;
-}
-.finn-header-left { display: flex; align-items: center; gap: var(--sp-3); }
+.leie-card.reveal-d1 { transition-delay: .1s; }
+.leie-card h2 { font-family: var(--serif); font-weight: 500; font-size: var(--fs-h3); margin: var(--sp-5) 0 var(--sp-3); }
+.leie-card p { font-size: var(--fs-sm); color: var(--ink-soft); line-height: 1.7; max-width: 44ch; margin-bottom: var(--sp-8); }
+.leie-card .btn { margin-top: auto; display: inline-flex; align-items: center; gap: var(--sp-2); }
 .finn-logo-badge {
   background: var(--finn); color: var(--white);
   font-size: var(--fs-sm); font-weight: 800; letter-spacing: .02em;
   padding: var(--sp-1) var(--sp-3); border-radius: 6px; line-height: 1;
 }
-.finn-header-left span { font-size: var(--fs-sm); color: var(--ink-soft); }
-.finn-ext-link {
-  font-size: var(--fs-sm); font-weight: 600; color: var(--fjord);
-  display: inline-flex; align-items: center; gap: var(--sp-2);
-  padding: var(--sp-2) var(--sp-5); border-radius: 100px; border: 1px solid var(--fjord);
-  transition: background .2s, color .2s; white-space: nowrap;
-}
-.finn-ext-link:hover { background: var(--fjord); color: var(--white); }
-.finn-ext-link svg { width: 14px; height: 14px; flex-shrink: 0; }
-
-/* Kort-innhold: lenke ut til FINN */
-.finn-body { padding: var(--sp-14) var(--sp-8); text-align: center; }
-.finn-body p { font-size: var(--fs-sm); color: var(--ink-soft); margin-bottom: var(--sp-6); max-width: 44ch; margin-left: auto; margin-right: auto; }
-.finn-body .btn { display: inline-flex; align-items: center; gap: var(--sp-2); }
-.finn-body .btn svg { width: 16px; height: 16px; }
 
 /* Kontaktbanner */
 .kontakt-banner {
@@ -646,9 +616,12 @@ main:focus { outline: none; }
 .kontakt-banner h3 { font-family: var(--serif); font-weight: 400; font-size: var(--fs-h3); max-width: 28ch; }
 .kontakt-banner h3 em { font-style: italic; color: var(--mist); }
 
+@media (max-width: 720px) {
+  .leie-grid { grid-template-columns: 1fr; }
+  .leie-card { padding: var(--sp-8) var(--sp-7); }
+}
+
 @media (max-width: 600px) {
-  .leie-tabs { width: 100%; }
-  .leie-tab { flex: 1; text-align: center; padding: var(--sp-3) var(--sp-3); font-size: var(--fs-sm); }
   .kontakt-banner { padding: var(--sp-9) var(--sp-7); }
 }
 

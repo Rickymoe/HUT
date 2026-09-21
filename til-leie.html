@@ -30,59 +30,25 @@
 
 <section class="section section-flush wrap">
 
-  <div class="leie-tabs reveal" role="tablist">
-    <button class="leie-tab active" role="tab" aria-selected="true"  aria-controls="panel-naering" id="tab-naering">Næringseiendom</button>
-    <button class="leie-tab"        role="tab" aria-selected="false" aria-controls="panel-bolig"   id="tab-bolig">Bolig og boder</button>
-  </div>
-
-  <!-- Næringseiendom -->
-  <div class="finn-panel active reveal" id="panel-naering" role="tabpanel" aria-labelledby="tab-naering">
-    <div class="finn-card">
-      <div class="finn-header">
-        <div class="finn-header-left">
-          <span class="finn-logo-badge">FINN</span>
-          <span>Næringseiendom til leie – Holmestrand Utvikling AS</span>
-        </div>
-        <a href="https://www.finn.no/realestate/businessrent/search.html?orgId=707555245"
-           target="_blank" rel="noopener" class="finn-ext-link">
-          Åpne på FINN
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </a>
-      </div>
-      <div class="finn-body">
-        <p>Alle ledige næringslokaler fra Holmestrand Utvikling AS ligger på FINN.no – alltid oppdatert.</p>
-        <a href="https://www.finn.no/realestate/businessrent/search.html?orgId=707555245"
-           target="_blank" rel="noopener" class="btn btn-fjord">
-          Se ledige lokaler på FINN
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bolig og boder -->
-  <div class="finn-panel" id="panel-bolig" role="tabpanel" aria-labelledby="tab-bolig">
-    <div class="finn-card">
-      <div class="finn-header">
-        <div class="finn-header-left">
-          <span class="finn-logo-badge">FINN</span>
-          <span>Bolig og boder til leie – Holmestrand Utvikling AS</span>
-        </div>
-        <a href="https://www.finn.no/realestate/lettings/search.html?orgId=707555245"
-           target="_blank" rel="noopener" class="finn-ext-link">
-          Åpne på FINN
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </a>
-      </div>
-      <div class="finn-body">
-        <p>Alle ledige boliger og boder fra Holmestrand Utvikling AS ligger på FINN.no – alltid oppdatert.</p>
-        <a href="https://www.finn.no/realestate/lettings/search.html?orgId=707555245"
-           target="_blank" rel="noopener" class="btn btn-fjord">
-          Se ledige boliger på FINN
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </a>
-      </div>
-    </div>
+  <div class="leie-grid">
+    <article class="leie-card reveal" id="naering">
+      <span class="finn-logo-badge">FINN</span>
+      <h2>Næringseiendom</h2>
+      <p>Kontor, butikk og kontorhotell. Alle ledige lokaler ligger på FINN.no og er alltid oppdatert.</p>
+      <a href="https://www.finn.no/realestate/businessrent/search.html?orgId=707555245" target="_blank" rel="noopener" class="btn btn-fjord">
+        Se ledige lokaler på FINN
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </article>
+    <article class="leie-card reveal reveal-d1" id="bolig">
+      <span class="finn-logo-badge">FINN</span>
+      <h2>Bolig og boder</h2>
+      <p>Leiligheter og boder i sentrum. Alle ledige boliger ligger på FINN.no og er alltid oppdatert.</p>
+      <a href="https://www.finn.no/realestate/lettings/search.html?orgId=707555245" target="_blank" rel="noopener" class="btn btn-fjord">
+        Se ledige boliger på FINN
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </article>
   </div>
 
   <div class="kontakt-banner reveal">
@@ -97,23 +63,6 @@
 <div id="site-footer"></div>
 
 <script src="main.js"></script>
-<script>
-  // Tab-bytte
-  document.querySelectorAll('.leie-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.leie-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-      document.querySelectorAll('.finn-panel').forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      tab.setAttribute('aria-selected', 'true');
-      document.getElementById(tab.getAttribute('aria-controls')).classList.add('active');
-    });
-  });
-
-  // Aktiver riktig fane fra URL-hash (f.eks. #bolig)
-  if (location.hash === '#bolig') {
-    document.getElementById('tab-bolig').click();
-  }
-</script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3b2830d8c1b74ed68dee031783103adc"}'></script><!-- End Cloudflare Web Analytics -->
 <script data-goatcounter="https://rickymoe.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
